@@ -1,0 +1,4 @@
+com\siemens\springbootlearn\conf\WebMvcConfig.class
+com\siemens\springbootlearn\Application.class
+com\siemens\springbootlearn\mapper\UserMapper.class
+com\siemens\springbootlearn\model\User.class

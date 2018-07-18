@@ -1,0 +1,12 @@
+com\siemens\eshub\promotiontool\model\User.class
+com\siemens\eshub\promotiontool\conf\WebConfig.class
+com\siemens\eshub\promotiontool\service\LoginService.class
+com\siemens\eshub\promotiontool\singleton\LogParameter.class
+com\siemens\eshub\promotiontool\controller\JsonpAdvice.class
+com\siemens\eshub\promotiontool\singleton\CommonModelMapParms.class
+com\siemens\eshub\promotiontool\conf\SpringConf.class
+com\siemens\eshub\promotiontool\conf\MybatisConf.class
+com\siemens\eshub\promotiontool\conf\WebAppInitializer.class
+com\siemens\eshub\promotiontool\mapper\UserMapper.class
+com\siemens\eshub\promotiontool\conf\RootConfig.class
+com\siemens\eshub\promotiontool\controller\LoginController.class
