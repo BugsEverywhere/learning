@@ -28,13 +28,11 @@ public class WordCount {
         String filePath = "hdfs://master:9000/test/README.txt";
         JavaRDD<String> lines = ctx.textFile(filePath);
 
-        JavaRDD<String> words = lines.flatMap((FlatMapFunction<String, String>) s ->
-                Arrays.asList(s.split(" ")).iterator());
+        JavaRDD<String> words = lines.flatMap(s -> Arrays.asList(s.split(" ")).iterator());
 
-        JavaPairRDD<String, Integer> ones = words.mapToPair((PairFunction<String, String, Integer>) s ->
-                new Tuple2<>(s, 1));
+        JavaPairRDD<String, Integer> ones = words.mapToPair(s -> new Tuple2<>(s, 1));
 
-        JavaPairRDD<String, Integer> counts = ones.reduceByKey((Function2<Integer, Integer, Integer>) (i1, i2) -> i1 + i2);
+        JavaPairRDD<String, Integer> counts = ones.reduceByKey((i1, i2) -> i1 + i2);
 
         List<Tuple2<String, Integer>> output = counts.collect();
 
