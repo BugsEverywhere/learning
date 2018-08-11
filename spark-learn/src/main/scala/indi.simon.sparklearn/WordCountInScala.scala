@@ -20,7 +20,7 @@ object WordCountInScala {
 
     val rowRdd = sc.textFile("C:\\Users\\SimonsDesk\\Desktop\\test\\好看的博客.txt");
 
-    val resultRdd = rowRdd.flatMap(rows=>rows.split("\\s+")).map(word=>(word,1)).reduceByKey(_+_)
+    val resultRdd = rowRdd.flatMap(rows=>rows.split("\\s+")).map{word=>(word,1)}.reduceByKey(_+_)
 
     resultRdd.saveAsTextFile("C:\\Users\\SimonsDesk\\Desktop\\test\\result")
 
