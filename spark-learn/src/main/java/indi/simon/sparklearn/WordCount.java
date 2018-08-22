@@ -22,13 +22,17 @@ public class WordCount {
 
     public static void main(String[] args) {
 
-        //SparkConf sparkConf = new SparkConf().setMaster("local").setAppName("JavaWordCount");
-        SparkConf sparkConf = new SparkConf().setAppName("JavaWordCount");
-        //System.setProperty("hadoop.home.dir", "D:\\development\\hadoop-common-2.2.0-bin-master");
+        SparkConf sparkConf = new SparkConf().setMaster("local").setAppName("JavaWordCount");
+        //SparkConf sparkConf = new SparkConf().setAppName("JavaWordCount");
+
         JavaSparkContext ctx = new JavaSparkContext(sparkConf);
 
-        String filePath = "hdfs://master:9000/test/README.txt";
+        //System.setProperty("hadoop.home.dir", "D:\\development\\hadoop-common-2.2.0-bin-master");
         //String filePath = "C:\\Users\\SimonsDesk\\Desktop\\test\\好看的博客.txt";
+
+        String filePath = "/Users/nali/development/data/audio-dispatch.log.2018-08-10";
+        //String filePath = "hdfs://master:9000/test/README.txt";
+
         JavaRDD<String> lines = ctx.textFile(filePath);
 
         JavaRDD<String> words = lines.flatMap(s -> Arrays.asList(s.split(" ")).iterator());
