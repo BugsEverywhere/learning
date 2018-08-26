@@ -25,6 +25,10 @@
             <map>
                 <entry key="bootstrap.servers" value="${kafka_server}" />
                 <entry key="retries" value="1" />
+                <entry key="key.serializer"
+                       value="org.apache.kafka.common.serialization.StringSerializer" />
+                <entry key="value.serializer"
+                       value="org.apache.kafka.common.serialization.StringSerializer" />
             </map>
         </constructor-arg>
     </bean>

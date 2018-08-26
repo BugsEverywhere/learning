@@ -2,6 +2,8 @@ package indi.simon.kafkalearn.listener;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.annotation.PartitionOffset;
+import org.springframework.kafka.annotation.TopicPartition;
 import org.springframework.kafka.listener.MessageListener;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +16,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class KafkaConsumerListener {
 
-    @KafkaListener(id = "foo", topics = "annotated1")
-    public void listen(ConsumerRecord<String, String> record) {
+    @KafkaListener(topics = "orderTopic")
+    void listen(ConsumerRecord<String, String> record) {
 
         String topic = record.topic();
         String key = record.key();
