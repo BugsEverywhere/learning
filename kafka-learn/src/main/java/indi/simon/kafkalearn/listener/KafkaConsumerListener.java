@@ -1,7 +1,9 @@
 package indi.simon.kafkalearn.listener;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.listener.MessageListener;
+import org.springframework.stereotype.Component;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,9 +11,11 @@ import org.springframework.kafka.listener.MessageListener;
  * Date:
  * Time:
  */
-public class KafkaConsumerListener implements MessageListener<String, String> {
-    @Override
-    public void onMessage(ConsumerRecord<String, String> record) {
+@Component
+public class KafkaConsumerListener {
+
+    @KafkaListener(id = "foo", topics = "annotated1")
+    public void listen(ConsumerRecord<String, String> record) {
 
         String topic = record.topic();
         String key = record.key();

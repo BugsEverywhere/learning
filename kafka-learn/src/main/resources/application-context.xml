@@ -8,21 +8,23 @@
 
     <context:component-scan base-package="indi.simon.kafkalearn"/>
 
+    <bean id="prop"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:url.properties</value>
+                <value>classpath:kafka.properties</value>
+            </list>
+        </property>
+    </bean>
+
 
     <!--kafka producer-->
     <bean id="producerProperties" class="java.util.HashMap">
         <constructor-arg>
             <map>
-                <entry key="bootstrap.servers" value="master:9092" />
-                <entry key="group.id" value="0" />
+                <entry key="bootstrap.servers" value="${kafka_server}" />
                 <entry key="retries" value="1" />
-                <entry key="batch.size" value="16384" />
-                <entry key="linger.ms" value="1" />
-                <entry key="buffer.memory" value="33554432" />
-                <entry key="key.serializer"
-                       value="org.apache.kafka.common.serialization.StringSerializer" />
-                <entry key="value.serializer"
-                       value="org.apache.kafka.common.serialization.StringSerializer" />
             </map>
         </constructor-arg>
     </bean>
@@ -46,7 +48,7 @@
     <bean id="consumerProperties" class="java.util.HashMap">
         <constructor-arg>
             <map>
-                <entry key="bootstrap.servers" value="master:9092"/>
+                <entry key="bootstrap.servers" value="${kafka_server}"/>
                 <entry key="group.id" value="0"/>
                 <entry key="enable.auto.commit" value="false"/>
                 <entry key="auto.commit.interval.ms" value="1000"/>
@@ -60,16 +62,6 @@
         <constructor-arg>
             <ref bean="consumerProperties"/>
         </constructor-arg>
-    </bean>
-    <bean id="consumerMessageListerner" class="indi.simon.kafkalearn.listener.KafkaConsumerListener"/>
-    <bean id="containerProperties_trade" class="org.springframework.kafka.listener.config.ContainerProperties">
-        <constructor-arg value="order_test_topic"/>
-        <property name="messageListener" ref="consumerMessageListerner"/>
-    </bean>
-    <bean id="messageListenerContainer" class="org.springframework.kafka.listener.KafkaMessageListenerContainer"
-          init-method="doStart">
-        <constructor-arg ref="consumerFactory"/>
-        <constructor-arg ref="containerProperties_trade"/>
     </bean>
 
 </beans>
