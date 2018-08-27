@@ -21,8 +21,7 @@ public class KafkaSpringConf {
     private DefaultKafkaConsumerFactory consumerFactory;
 
     @Bean
-    ConcurrentKafkaListenerContainerFactory<Integer, String>
-    kafkaListenerContainerFactory() {
+    ConcurrentKafkaListenerContainerFactory<Integer, String> kafkaListenerContainerFactory() {
         ConcurrentKafkaListenerContainerFactory<Integer, String> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(consumerFactory);
