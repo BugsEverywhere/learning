@@ -8,6 +8,7 @@
           http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!--此处仅仅扫描controller，其他的不需要管，由application-context.xml接管-->
+    <!--必须仅仅扫描controller，不然会导致项目context加载混乱报错-->
     <context:component-scan base-package="indi.simon.kafkalearn.controller"/>
 
 </beans>

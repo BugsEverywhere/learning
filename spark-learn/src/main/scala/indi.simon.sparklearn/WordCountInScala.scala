@@ -24,6 +24,19 @@ object WordCountInScala {
 
     resultRdd.saveAsTextFile("C:\\Users\\SimonsDesk\\Desktop\\test\\result")
 
+    //=====================================
+
+    def m1(f:(Int,Int) => Int) : Int = {
+      f(2,6)
+    }
+
+    val f1 = (x:Int,y:Int) => x + y
+
+    val m2 = (m:Int,n:Int) => {
+      m+n
+    }
+
+
 
 
   }
