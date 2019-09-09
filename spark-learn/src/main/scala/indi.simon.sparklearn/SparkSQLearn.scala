@@ -2,6 +2,8 @@ package indi.simon.sparklearn
 
 import org.apache.spark.sql.SparkSession
 
+import scala.runtime.Nothing$
+
 /**
   * Created with IntelliJ IDEA.
   * User: Simon
@@ -23,6 +25,11 @@ object SparkSQLearn {
     val propJson = spark.sql("select props from data limit 100")
 
     propJson.write.format("text").save("hdfs://localhost:9000/output/")
+
+
+    val x : Option[Int] = None
+
+    val myList:List[Int] = List()
 
 
 

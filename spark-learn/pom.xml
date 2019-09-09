@@ -15,6 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <scala.version>2.11</scala.version>
     </properties>
 
     <dependencies>
@@ -26,17 +27,17 @@
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-core_2.11</artifactId>
+            <artifactId>spark-core_${scala.version}</artifactId>
             <version>2.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-sql_2.11</artifactId>
+            <artifactId>spark-sql_${scala.version}</artifactId>
             <version>2.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.spark</groupId>
-            <artifactId>spark-streaming_2.11</artifactId>
+            <artifactId>spark-streaming_${scala.version}</artifactId>
             <version>2.3.1</version>
         </dependency>
         <dependency>
@@ -54,8 +55,36 @@
             <artifactId>scala-reflect</artifactId>
             <version>2.11.7</version>
         </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scalap</artifactId>
+            <version>2.11.7</version>
+        </dependency>
 
-
+        <dependency>
+            <groupId>org.apache.spark</groupId>
+            <artifactId>spark-streaming-kafka-0-8_${scala.version}</artifactId>
+            <version>2.3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ximalaya.data</groupId>
+            <artifactId>data-xlog-spark</artifactId>
+            <version>5.2.35</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>mermaid-data-sdk</artifactId>
+                    <groupId>com.ximalaya.mermaid</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>mermaid-serializer</artifactId>
+                    <groupId>com.ximalaya.mermaid</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>data-kafka-client</artifactId>
+                    <groupId>com.ximalaya.data</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <build>
