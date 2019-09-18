@@ -6,7 +6,7 @@ package main.java.indi.simon.leetcode;
  * Date:
  * Time:
  */
-public class TwoNumSumRevertList {
+public class TwoNumSumRevertList2 {
 
     public static void main(String[] args) {
 
@@ -63,3 +63,6 @@ public class TwoNumSumRevertList {
 
 
 }
+
+
+//todo:教训是，像这样处理多个链表的时候，递归的参数尽量就是各个链表同一级的节点，不要有的参数是上一级有的是下一级。
