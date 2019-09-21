@@ -1,4 +1,4 @@
-package main.java.indi.simon.leetcode;
+package indi.simon.leetcode;
 
 /**
  * Created with IntelliJ IDEA.
@@ -6,7 +6,7 @@ package main.java.indi.simon.leetcode;
  * Date:
  * Time:
  */
-public class AtoiFunc8_Stupid_Problem {
+public class P8AtoiFunc_Stupid_Problem {
 
     public static void main(String[] args) {
         int result = myAtoi("   +0 123");
@@ -84,3 +84,5 @@ public class AtoiFunc8_Stupid_Problem {
 
 
 }
+
+//todo: 没啥好说的，他妈的这种题如果哪家公司面试的时候让做就可以直接走人了，浪费时间

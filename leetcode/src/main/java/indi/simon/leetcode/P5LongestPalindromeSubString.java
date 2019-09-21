@@ -1,4 +1,4 @@
-package main.java.indi.simon.leetcode;
+package indi.simon.leetcode;
 
 /**
  * Created with IntelliJ IDEA.
@@ -6,7 +6,7 @@ package main.java.indi.simon.leetcode;
  * Date:
  * Time:
  */
-public class LongestPalindromeSubString5 {
+public class P5LongestPalindromeSubString {
 
     public static void main(String[] args) {
 
@@ -52,3 +52,6 @@ public class LongestPalindromeSubString5 {
         return longestSubString;
     }
 }
+
+//TODO: 思路是分两种情况来遍历整个字符串，当前字符是回文串正中心，以及当前字符和下一个字符加一起是回文串
+// 正中心，需要注意的就是边界条件，处理好下标不要数组越界

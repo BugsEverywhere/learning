@@ -1,4 +1,4 @@
-package main.java.indi.simon.leetcode;
+package indi.simon.leetcode;
 
 import java.util.Stack;
 
@@ -8,7 +8,7 @@ import java.util.Stack;
  * Date:
  * Time:
  */
-public class CorrectBucket20 {
+public class P20CorrectBucket {
 
     public static void main(String[] args) {
         String test = "{([[]])}";
@@ -55,5 +55,6 @@ public class CorrectBucket20 {
 
 }
 
-//todo: 注意一开始就是] ) }的情况，需要判断stack在pop的时候是否有值，最终返回的时候需要判断一下stack的size，如果stack
+//todo: 注意一开始就是] ) }的情况，需要判断stack在pop的时候是否有值，
+// 最终返回的时候需要判断一下stack的size，如果stack
 // 中间还有没pop的( [ { 说明也是坏字符串

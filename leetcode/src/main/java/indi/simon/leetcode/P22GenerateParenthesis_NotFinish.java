@@ -1,4 +1,4 @@
-package main.java.indi.simon.leetcode;
+package indi.simon.leetcode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * Date:
  * Time:
  */
-public class GenerateParenthesis22_NotFinish {
+public class P22GenerateParenthesis_NotFinish {
 
     public static void main(String[] args) {
 

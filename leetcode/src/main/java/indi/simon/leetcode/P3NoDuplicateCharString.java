@@ -1,4 +1,4 @@
-package main.java.indi.simon.leetcode;
+package indi.simon.leetcode;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,7 +9,7 @@ import java.util.Set;
  * Date:
  * Time:
  */
-public class NoDuplicateCharString3 {
+public class P3NoDuplicateCharString {
 
     public static void main(String[] args) {
 
@@ -36,3 +36,6 @@ public class NoDuplicateCharString3 {
         return maxCount;
     }
 }
+
+
+//todo: 万能的双指针法！屡试不爽

@@ -1,6 +1,7 @@
 package indi.simon.leetcode;
 
-import main.java.indi.simon.leetcode.TwoNumSumRevertList2;
+
+import indi.simon.leetcode.commonmodel.ListNode;
 
 /**
  * Created with IntelliJ IDEA.
@@ -8,13 +9,13 @@ import main.java.indi.simon.leetcode.TwoNumSumRevertList2;
  * Date:
  * Time:
  */
-public class MergeKLists23 {
+public class P23MergeKLists_NotFinish {
 
     public static void main(String[] args) {
 
     }
 
-    public static TwoNumSumRevertList2.ListNode mergeKLists(TwoNumSumRevertList2.ListNode[] lists) {
+    public static ListNode mergeKLists(ListNode[] lists) {
 
 
         return null;

@@ -1,4 +1,4 @@
-package main.java.indi.simon.leetcode;
+package indi.simon.leetcode;
 
 /**
  * Created with IntelliJ IDEA.
@@ -6,7 +6,7 @@ package main.java.indi.simon.leetcode;
  * Date:
  * Time:
  */
-public class PalindromeJudge9 {
+public class P9PalindromeJudge_NotFinish {
 
     public static void main(String[] args) {
 

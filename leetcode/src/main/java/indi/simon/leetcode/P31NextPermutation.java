@@ -11,7 +11,7 @@ import java.util.List;
  * Date:
  * Time:
  */
-public class NextPermutation31 {
+public class P31NextPermutation {
 
     public static void main(String[] args) {
 
@@ -49,18 +49,6 @@ public class NextPermutation31 {
                 }
             } else {
                 //倒排降序
-//                if (nums[j] >= nums[j - 1]) {
-//                    //下一个小于等于当前的
-//                    continue;
-//                } else {
-//                    //下一个大于当前的，说明当前值是极小值
-//                    if (nums[j] == nums[j + 1]) {
-//                        swap(nums, j, j + 2);
-//                    } else {
-//                        swap(nums, j, j + 1);
-//                    }
-//                    break;
-//                }
                 swap(nums, nums.length - 1, nums.length - 2);
                 return;
             }
@@ -108,8 +96,12 @@ public class NextPermutation31 {
 }
 
 
-//todo: 思路，从后往前遍历，如果从后往前一开始是升序，则在遇到第一个极大值时，将极大值与极大值的前一位交换，极大值
-// 后面的所有数字按升序排序，比如 1,3,4,6,8,9,7,5,2     将9与8交换，然后将8,7,5,2按升序排序得到2，5，7，8，得到
+//todo: 思路，从后往前遍历，如果从后往前一开始是升序(倒排升序)，则在遇到第一个极大值时，将极大值的前一位与已经遍历过的
+// 数字中刚刚比极大值前一位大的数交换，再把极大值
+// 后面的所有数字按升序排序，比如 1,3,4,6,8,9,7,5,2，将9与8交换，然后将8,7,5,2按升序排序得到2，5，7，8，得到
 // 结果：1，3，4，6，9，2，5，7，8
 // 如果从后往前遍历一开始是降序，则在遇到第一个极小值时，将极小值与极小值后一位交换即可，比如1,3,4,6,8,7,2,5,9，
 // 2为从后往前遍历的第一个极小值，则将2与5交换即可。
+
+
+//todo: 注意的地方：一是循环内部注意是否该在正确的地方跳出循环。

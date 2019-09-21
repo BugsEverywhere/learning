@@ -1,4 +1,4 @@
-package main.java.indi.simon.leetcode;
+package indi.simon.leetcode;
 
 import java.util.*;
 
@@ -8,7 +8,7 @@ import java.util.*;
  * Date:
  * Time:
  */
-public class PhoneNumCharCombination17 {
+public class P17PhoneNumCharCombination {
 
     public static void main(String[] args) {
 
@@ -81,4 +81,6 @@ public class PhoneNumCharCombination17 {
 
 }
 
-//todo: 注意递归函数里面如果有循环，基本上在循环体里面是不需要使用return语句的
+//todo: 这里本人使用了前缀树，空间复杂度会很高，但是都这样了空间复杂度还击败了80%的人。。。
+// 注意点是，递归函数里面如果有循环，基本上在循环体里面是不需要使用return语句的，因为一般这种情形是需要
+// 对循环的每一个元素都进行递归的，有点类似于回溯

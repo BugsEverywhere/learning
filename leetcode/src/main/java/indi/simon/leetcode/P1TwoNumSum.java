@@ -1,4 +1,4 @@
-package main.java.indi.simon.leetcode;
+package indi.simon.leetcode;
 
 /**
  * Created with IntelliJ IDEA.
@@ -6,7 +6,7 @@ package main.java.indi.simon.leetcode;
  * Date:
  * Time:
  */
-public class TwoNumSum1 {
+public class P1TwoNumSum {
 
     public static void main(String[] args) {
         int[] result = twoSum(new int[]{2, 7, 11, 15}, 9);

@@ -1,4 +1,6 @@
-package main.java.indi.simon.leetcode;
+package indi.simon.leetcode;
+
+import indi.simon.leetcode.commonmodel.ListNode;
 
 /**
  * Created with IntelliJ IDEA.
@@ -6,7 +8,7 @@ package main.java.indi.simon.leetcode;
  * Date:
  * Time:
  */
-public class TwoNumSumRevertList2 {
+public class P2TwoNumSumRevertList {
 
     public static void main(String[] args) {
 
@@ -20,16 +22,6 @@ public class TwoNumSumRevertList2 {
 
         ListNode l3 = addTwoNumbers(l1, l2);
         System.out.println(l3);
-    }
-
-
-    public static class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
     }
 
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
@@ -66,3 +58,5 @@ public class TwoNumSumRevertList2 {
 
 
 //todo:教训是，像这样处理多个链表的时候，递归的参数尽量就是各个链表同一级的节点，不要有的参数是上一级有的是下一级。
+// 也就是说，处理多个链表，不论是合并，求和，还是咋地，递归的参数都一定是链表的当前节点，不要搞next或者prev。
+// 当不太好掌握节省空间的技巧的时候，还是老老实实提高一下空间复杂度。

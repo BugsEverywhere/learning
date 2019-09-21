@@ -1,4 +1,6 @@
-package main.java.indi.simon.leetcode;
+package indi.simon.leetcode;
+
+import indi.simon.leetcode.commonmodel.ListNode;
 
 import java.util.ArrayList;
 
@@ -8,7 +10,7 @@ import java.util.ArrayList;
  * Date:
  * Time:
  */
-public class ListNodeDelete19 {
+public class P19ListNodeDelete {
 
     public static void main(String[] args) {
 
@@ -41,14 +43,7 @@ public class ListNodeDelete19 {
 
 }
 
-
-class ListNode {
-    int val;
-    ListNode next;
-
-    ListNode(int x) {
-        val = x;
-    }
-}
-
-//todo: 注意到了n有可能是链表长度-1的情况很不错，但是忽视了n有可能是1的情况，这种时候是没有arrList.size() - n + 1节点的
+//todo: 此处我的做法用了另一个ArrayList来存链表，然后去对数组做随机访问，这样空间复杂度会高。
+// 标准的解法是使用双指针！！又是双指针！！两个指针相差为n，这样当后面那个指针遍历到结尾的时候，
+// 前面的指针指向的就是需要删除的节点了！
+// 注意到了n有可能是链表长度-1的情况很不错，但是忽视了n有可能是1的情况，这种时候是没有arrList.size() - n + 1节点的

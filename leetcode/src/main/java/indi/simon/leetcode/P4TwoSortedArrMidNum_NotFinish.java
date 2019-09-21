@@ -1,4 +1,4 @@
-package main.java.indi.simon.leetcode;
+package indi.simon.leetcode;
 
 import java.util.Stack;
 
@@ -8,7 +8,7 @@ import java.util.Stack;
  * Date:
  * Time:
  */
-public class TwoSortedArrMidNum4_NotFinish {
+public class P4TwoSortedArrMidNum_NotFinish {
 
     public static void main(String[] args) {
         int[] arr1 = new int[]{1, 2};
