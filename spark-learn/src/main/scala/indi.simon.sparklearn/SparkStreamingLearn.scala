@@ -1,8 +1,5 @@
 package indi.simon.sparklearn
 
-
-import com.ximalaya.data.kafka.serializer.auto.mermaid.MermaidProtobufManager
-import com.ximalaya.data.kafka.serializer.auto.mermaid.model.MermaidEventValue
 import kafka.serializer.StringDecoder
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.dstream.DStream
@@ -49,25 +46,11 @@ object SparkStreamingLearn {
     //      "serializer.class" -> "kafka.serializer.StringDecoder")
 
     val topicsSet = Set("test")
-    val brokers = "localhost:9092"
+    val brokers = "simonMac:9092"
     val kafkaParams = Map[String, String]("metadata.broker.list" -> brokers,
       "serializer.class" -> "kafka.serializer.StringDecoder")
 
-    //val kafkaInputStream = KafkaUtils.createDirectStream[String, String](ssc,PreferConsistent,)
     val inputStream: DStream[(String, String)] = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](ssc, kafkaParams, topicsSet)
-    //    val serializedDStream = inputStream
-    //      .map({
-    //        case (_, v) =>
-    //          val typeName = v.typeName
-    //          val subTypeName = v.subTypeName
-    //          try {
-    //            (typeName, subTypeName, MermaidProtobufManager.getRow(typeName, subTypeName, v.event))
-    //          } catch {
-    //            case e: Exception =>
-    //              print("Bytes deserialize error", e)
-    //              (typeName, subTypeName, null)
-    //          }
-    //      })
 
     inputStream.foreachRDD(rdd => {
       rdd.foreach(s =>
