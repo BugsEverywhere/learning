@@ -44,5 +44,6 @@ public class P22GenerateParenthesis {
 
     }
 
-
 }
+
+//todo: 其实已经有动态规划的思想了
