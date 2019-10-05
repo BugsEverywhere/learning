@@ -16,6 +16,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <scala.version>2.11</scala.version>
+        <maven-dependency-plugin.version>2.10</maven-dependency-plugin.version>
     </properties>
 
     <dependencies>
@@ -66,65 +67,38 @@
             <artifactId>spark-streaming-kafka-0-8_${scala.version}</artifactId>
             <version>2.3.1</version>
         </dependency>
-        <dependency>
-            <groupId>com.ximalaya.data</groupId>
-            <artifactId>data-xlog-spark</artifactId>
-            <version>5.2.35</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>mermaid-data-sdk</artifactId>
-                    <groupId>com.ximalaya.mermaid</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>mermaid-serializer</artifactId>
-                    <groupId>com.ximalaya.mermaid</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>data-kafka-client</artifactId>
-                    <groupId>com.ximalaya.data</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
     </dependencies>
 
     <build>
         <finalName>spark-learn</finalName>
-        <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
-            <plugins>
-                <plugin>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.0.0</version>
-                </plugin>
-                <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
-                <plugin>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.0.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.7.0</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.20.1</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>3.2.0</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>2.5.2</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>2.8.2</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-
         <plugins>
-            <!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>compile-scala</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>test-compile-scala</id>
+                        <phase>test-compile</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <scalaVersion>${scala.version}</scalaVersion>
+                </configuration>
+            </plugin>
+            <!--&lt;!&ndash; 打包jar文件时，配置manifest文件，加入lib包的jar依赖 &ndash;&gt;-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -133,7 +107,7 @@
                     <archive>
                         <manifest>
                             <!-- 主函数的入口 -->
-                            <mainClass>indi.simon.sparklearn.WordCount</mainClass>
+                            <mainClass>indi.simon.sparklearn.SparkStreamingLearn</mainClass>
                             <!-- 打包时 MANIFEST.MF文件不记录的时间戳版本 -->
                             <useUniqueVersions>false</useUniqueVersions>
                             <addClasspath>true</addClasspath>
@@ -145,6 +119,38 @@
                     </archive>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.4</version>
+                <configuration>
+                    <finalName>spark-learn</finalName>
+                    <descriptorRefs>
+                        <!-- 将依赖的jar包中的class文件打进生成的jar包-->
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <!-- 有Main函数的类-->
+                            <mainClass>indi.simon.sparklearn.SparkStreamingLearn</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <!-- <goal>single</goal>-->
+                            <goal>assembly</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+
         </plugins>
     </build>
 </project>

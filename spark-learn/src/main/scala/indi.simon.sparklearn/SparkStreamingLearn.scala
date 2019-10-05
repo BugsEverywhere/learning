@@ -18,9 +18,10 @@ object SparkStreamingLearn {
   def main(args: Array[String]) {
 
     //setStreamingLogLevels()
-    val sparkConf = new SparkConf().setMaster("local").setAppName("QueueStream")
+    val sparkConf = new SparkConf().setAppName("QueueStream")
     // Create the context
     val ssc = new StreamingContext(sparkConf, Seconds(1))
+    println("checkpoint0")
 
     // Create the queue through which RDDs can be pushed to
     // a QueueInputDStream
@@ -49,12 +50,17 @@ object SparkStreamingLearn {
     val brokers = "simonMac:9092"
     val kafkaParams = Map[String, String]("metadata.broker.list" -> brokers,
       "serializer.class" -> "kafka.serializer.StringDecoder")
+    println("checkpoint1")
 
     val inputStream: DStream[(String, String)] = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](ssc, kafkaParams, topicsSet)
 
     inputStream.foreachRDD(rdd => {
-      rdd.foreach(s =>
-        print("k:" + s._1 + ", v:" + s._2))
+      println("checkpoint2")
+      rdd.foreach(s => {
+        println("checkpoint3")
+        print("k:" + s._1 + ", v:" + s._2)
+      }
+      )
     })
 
     ssc.start()
