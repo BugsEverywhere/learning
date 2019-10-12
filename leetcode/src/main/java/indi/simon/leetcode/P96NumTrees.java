@@ -13,12 +13,15 @@ public class P96NumTrees {
 
     public static void main(String[] args) {
 
-        int result = numTrees(3);
+        int result = numTrees(4);
         System.out.println(result);
     }
 
+    private static int[][][] mem;
+
 
     public static int numTrees(int n) {
+        mem = new int[n+1][n+1][n+1];
         Set<Integer> fathers = new HashSet<>();
         int totalCount = 0;
         for (int i = 1; i <= n; i++) {
@@ -30,6 +33,9 @@ public class P96NumTrees {
     }
 
     private static int sumInternal(int lLimit, int x, int hLimit, Set<Integer> fathers) {
+        if (mem[lLimit][x][hLimit] != 0) {
+            return mem[lLimit][x][hLimit];
+        }
         int leftCount = 0;
         int rightCount = 0;
         //左子树个数
@@ -52,12 +58,15 @@ public class P96NumTrees {
             }
         }
 
-        if (leftCount == 0) {
-            return rightCount;
-        } else if (rightCount == 0) {
-            return leftCount;
+        if (x == lLimit) {
+            leftCount = 1;
         }
-        return leftCount * rightCount;
+        if (x == hLimit) {
+            rightCount = 1;
+        }
+        int result = leftCount * rightCount;
+        mem[lLimit][x][hLimit] = result;
+        return result;
     }
 
 
