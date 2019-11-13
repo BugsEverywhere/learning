@@ -1,4 +1,4 @@
-package indi.simon.leetcode.bytedance;
+package indi.simon.leetcode.bytedance.string;
 
 /**
  * Created with IntelliJ IDEA.
@@ -7,4 +7,9 @@ package indi.simon.leetcode.bytedance;
  * Time:
  */
 public class LengthOfLongestSubstring {
+
+
+
+
+
 }
