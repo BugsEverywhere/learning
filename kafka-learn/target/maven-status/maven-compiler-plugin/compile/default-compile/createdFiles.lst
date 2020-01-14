@@ -2,6 +2,7 @@ indi/simon/kafkalearn/KafkaProducerServer.class
 indi/simon/kafkalearn/conf/KafkaSpringConf.class
 indi/simon/kafkalearn/controller/TestController.class
 indi/simon/kafkalearn/service/KafkaSerice.class
+indi/simon/kafkalearn/service/KafkaSerice$1.class
 indi/simon/kafkalearn/listener/KafkaConsumerListener.class
 indi/simon/kafkalearn/constants/KafkaMesConstant.class
 indi/simon/kafkalearn/listener/KafkaProducerListener.class

@@ -1,5 +1,5 @@
-indi\simons\simpleserver\services\IHelloService.class
-indi\simons\simpleserver\services\impl\HelloServiceImpl.class
-indi\simons\simpleserver\services\impl\RMIServiceImpl.class
-indi\simons\simpleserver\services\IRMIService.class
-indi\simons\simpleserver\Provider.class
+indi/simons/simpleserver/services/IRMIService.class
+indi/simons/simpleserver/services/impl/RMIServiceImpl.class
+indi/simons/simpleserver/Provider.class
+indi/simons/simpleserver/services/IHelloService.class
+indi/simons/simpleserver/services/impl/HelloServiceImpl.class

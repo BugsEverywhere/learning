@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: com.siemens.springbootlearn.AppTest
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 sec - in com.siemens.springbootlearn.AppTest
