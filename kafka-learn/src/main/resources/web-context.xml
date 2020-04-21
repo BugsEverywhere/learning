@@ -9,7 +9,7 @@
 
     <!--此处仅仅扫描controller，其他的不需要管，由application-context.xml接管-->
     <!--必须仅仅扫描controller，不然会导致项目context加载混乱报错-->
-    <context:component-scan base-package="indi.simon.kafkalearn.controller"/>
+    <context:component-scan base-package="indi.simon.learning.kafkalearn.controller"/>
 
     <!--如果需要使用@ResponseBody注解返回实体model，必须加这个，原因有空研究下-->
     <mvc:annotation-driven/>

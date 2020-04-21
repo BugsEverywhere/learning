@@ -4,7 +4,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>indi.simon.sparklearn</groupId>
     <artifactId>spark-learn</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
@@ -20,7 +19,7 @@
     </properties>
 
     <parent>
-        <groupId>indi.simon</groupId>
+        <groupId>indi.simon.learning</groupId>
         <artifactId>learning</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -113,7 +112,7 @@
                     <archive>
                         <manifest>
                             <!-- 主函数的入口 -->
-                            <mainClass>indi.simon.sparklearn.SparkStreamingLearn</mainClass>
+                            <mainClass>indi.simon.learning.sparklearn.SparkStreamingLearn</mainClass>
                             <!-- 打包时 MANIFEST.MF文件不记录的时间戳版本 -->
                             <useUniqueVersions>false</useUniqueVersions>
                             <addClasspath>true</addClasspath>
@@ -140,7 +139,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <!-- 有Main函数的类-->
-                            <mainClass>indi.simon.sparklearn.SparkStreamingLearn</mainClass>
+                            <mainClass>indi.simon.learning.sparklearn.SparkStreamingLearn</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

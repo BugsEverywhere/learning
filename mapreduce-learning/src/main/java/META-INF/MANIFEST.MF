@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: indi.simon.mapreducelearning.WordCount
+Main-Class: indi.simon.learning.mapreducelearning.WordCount
 

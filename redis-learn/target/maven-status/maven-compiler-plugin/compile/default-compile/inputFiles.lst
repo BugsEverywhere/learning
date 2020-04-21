@@ -1,8 +1,8 @@
-/Users/bytedance/develoment/projects/learning/redis-learn/src/main/java/indi/simon/redislearn/basicoperation/RedisStringJava.java
-/Users/bytedance/develoment/projects/learning/redis-learn/src/main/java/indi/simon/redislearn/dao/impl/UserDao.java
-/Users/bytedance/develoment/projects/learning/redis-learn/src/main/java/indi/simon/redislearn/basicoperation/ConnectMain.java
-/Users/bytedance/develoment/projects/learning/redis-learn/src/main/java/indi/simon/redislearn/model/User.java
-/Users/bytedance/develoment/projects/learning/redis-learn/src/main/java/indi/simon/redislearn/dao/IUserDao.java
-/Users/bytedance/develoment/projects/learning/redis-learn/src/main/java/indi/simon/redislearn/basicoperation/RedisKeyJava.java
-/Users/bytedance/develoment/projects/learning/redis-learn/src/main/java/indi/simon/redislearn/dao/AbstractBaseRedisDao.java
-/Users/bytedance/develoment/projects/learning/redis-learn/src/main/java/indi/simon/redislearn/basicoperation/RedisListJava.java
+E:\development\my_project\learning\redis-learn\src\main\java\indi\simon\learning\redislearn\basicoperation\RedisKeyJava.java
+E:\development\my_project\learning\redis-learn\src\main\java\indi\simon\learning\redislearn\model\User.java
+E:\development\my_project\learning\redis-learn\src\main\java\indi\simon\learning\redislearn\basicoperation\RedisListJava.java
+E:\development\my_project\learning\redis-learn\src\main\java\indi\simon\learning\redislearn\dao\impl\UserDao.java
+E:\development\my_project\learning\redis-learn\src\main\java\indi\simon\learning\redislearn\dao\IUserDao.java
+E:\development\my_project\learning\redis-learn\src\main\java\indi\simon\learning\redislearn\basicoperation\RedisStringJava.java
+E:\development\my_project\learning\redis-learn\src\main\java\indi\simon\learning\redislearn\dao\AbstractBaseRedisDao.java
+E:\development\my_project\learning\redis-learn\src\main\java\indi\simon\learning\redislearn\basicoperation\ConnectMain.java

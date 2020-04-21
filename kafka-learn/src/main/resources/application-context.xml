@@ -6,7 +6,7 @@
           http://www.springframework.org/schema/context
           http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="indi.simon.kafkalearn"/>
+    <context:component-scan base-package="indi.simon.learning.kafkalearn"/>
 
     <bean id="prop"
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -44,7 +44,7 @@
         <property name="defaultTopic" value="defaultTopic" />
         <property name="producerListener" ref="producerListener"/>
     </bean>
-    <bean id="producerListener" class="indi.simon.kafkalearn.listener.KafkaProducerListener" />
+    <bean id="producerListener" class="indi.simon.learning.kafkalearn.listener.KafkaProducerListener" />
 
 
 

@@ -14,16 +14,16 @@
     <dubbo:protocol name="rmi" port="1099"/>
 
 
-    <dubbo:service interface="indi.simons.simpleserver.services.IHelloService" ref="helloService"
+    <dubbo:service interface="indi.simons.learning.simpleserver.services.IHelloService" ref="helloService"
                    protocol="dubbo"
                    loadbalance="roundrobin"
                    cluster="failover"/>
-    <dubbo:service interface="indi.simons.simpleserver.services.IRMIService" ref="rmiService"
+    <dubbo:service interface="indi.simons.learning.simpleserver.services.IRMIService" ref="rmiService"
                    protocol="rmi"
                    loadbalance="roundrobin"
                    cluster="failover"/>
 
-    <bean id="helloService" class="indi.simons.simpleserver.services.impl.HelloServiceImpl"/>
-    <bean id="rmiService" class="indi.simons.simpleserver.services.impl.RMIServiceImpl"/>
+    <bean id="helloService" class="indi.simons.learning.simpleserver.services.impl.HelloServiceImpl"/>
+    <bean id="rmiService" class="indi.simons.learning.simpleserver.services.impl.RMIServiceImpl"/>
 
 </beans>

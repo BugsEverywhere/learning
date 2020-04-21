@@ -24,6 +24,6 @@
         <property name="connectionFactory"   ref="connectionFactory" />
     </bean>
 
-    <bean id="userDao" class="indi.simon.redislearn.dao.impl.UserDao"/>
+    <bean id="userDao" class="indi.simon.learning.redislearn.dao.impl.UserDao"/>
 
 </beans>
