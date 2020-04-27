@@ -33,6 +33,7 @@ public class P200 {
     }
 
     private static void islandExplore(int i, int j, char[][] grid) {
+        //todo 递归的时候，永远在递归函数入口处就看一下备忘录
         if (mem[i][j]) {
             return;
         }
