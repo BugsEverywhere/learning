@@ -18,34 +18,11 @@ public class P139_not_finished {
 
     private static boolean wordBreakInternal(String s, List<String> wordDict, int index) {
 
-        String tmp = s.replaceAll(" ","");
-        if(tmp.equals("")){
-            return true;
-        }
-
-        if (index >= wordDict.size()) {
-            return false;
-        }
-
-        //如果s根本就没有该字符串，直接不考虑，往下递归
-        if (!s.contains(wordDict.get(index))) {
-            return wordBreakInternal(s, wordDict, index + 1);
-        }
-
-        //s中有该字符串
-        //采纳该字符串
-        String s1 = s.replaceAll(wordDict.get(index), " ");
-        boolean resConsiderThis = wordBreakInternal(s1, wordDict, index + 1);
-        if (resConsiderThis) {
-            return true;
-        }
-
-        //不采纳该字符串
-        boolean resultNotConsider = wordBreakInternal(s, wordDict, index + 1);
-        if (resultNotConsider) {
-            return true;
-        }
 
         return false;
     }
 }
+
+//todo 一开始基本的思路就是不对的，不应该在递归的时候去对字符串消除指定单词，因为字符串情况很复杂，在做消除的时候有可能意外生成或者破坏了其他单词的结构，比如：
+// 1. bcbba, [bb,b,ca]，消除的时候首先消除bb，变为了bca，此时ca把本不可以的变成可以的了。
+// 2. 为了杜绝1中的情况，在replace的时候就应该替换为空格，这时候暴露了第二种情况：ccaccc，字典是[cc,ac]，在消除cc的时候，就会是变成了" a c"，本来可以的变成不可以的了。
