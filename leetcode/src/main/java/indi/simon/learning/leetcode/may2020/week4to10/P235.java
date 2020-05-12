@@ -53,7 +53,7 @@ public class P235 {
             return null;
         }
 
-        //todo 路径都找出来了，但是在如何遍历的时候粗心大意，应该从前向后遍历两个list，并且要注意其中一个List先结束的情况
+        //todo 路径都找出来了，但是在如何遍历的时候粗心大意，应该从前向后遍历两个list，遇到不同的节点返回前一个相同的，并且要注意其中一个List先结束的情况
         for (int i = 0; i < Math.max(pPath.size(), qPath.size()); i++) {
             if (i >= pPath.size() || i >= qPath.size() || pPath.get(i) != qPath.get(i)) {
                 return pPath.get(i - 1);
