@@ -14,3 +14,5 @@ public class P238_fault_problem {
     }
 
 }
+
+//todo 不用除法没办法做到O(n)
