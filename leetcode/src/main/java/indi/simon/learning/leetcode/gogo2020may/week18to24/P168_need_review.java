@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.gogo2020may.week18to22;
+package indi.simon.learning.leetcode.gogo2020may.week18to24;
 
 import java.util.concurrent.LinkedBlockingDeque;
 

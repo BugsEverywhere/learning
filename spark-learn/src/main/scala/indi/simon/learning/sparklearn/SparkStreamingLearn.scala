@@ -54,13 +54,13 @@ object SparkStreamingLearn {
     val inputStream: DStream[(String, String)] = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](ssc, kafkaParams, topicsSet)
 
     inputStream.foreachRDD(rdd => {
-      println("checkpoint2")
       rdd.foreach(s => {
         println("checkpoint3")
         print("k:" + s._1 + ", v:" + s._2)
-      }
-      )
+      })
     })
+    //inputStream.join()
+
 
     ssc.start()
     ssc.awaitTermination()
