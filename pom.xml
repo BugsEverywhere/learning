@@ -17,6 +17,9 @@
         <module>rabbitmq-learn</module>
         <module>redis-learn</module>
         <module>spark-learn</module>
+        <module>kafka-pure-learn</module>
+        <module>data-producer</module>
+        <module>spark-streaming-flink-learn</module>
     </modules>
 
     <properties>
