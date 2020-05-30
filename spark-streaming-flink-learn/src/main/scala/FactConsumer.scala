@@ -1,9 +1,11 @@
-import org.apache.commons.codec.StringDecoder
+
 import org.apache.kafka.clients.consumer.ConsumerRecord
-import org.apache.spark.SparkConf
 import org.apache.spark.streaming.dstream.{DStream, InputDStream}
-import org.apache.spark.streaming.kafka010.{ConsumerStrategies, KafkaUtils, LocationStrategies}
 import org.apache.spark.streaming.{Seconds, StreamingContext}
+import com.alibaba.fastjson.{JSON, JSONException, JSONObject}
+import org.apache.spark.{SparkConf, SparkContext}
+import org.apache.spark.streaming.kafka010.{ConsumerStrategies, KafkaUtils, LocationStrategies}
+import org.apache.spark.streaming.{Durations, StreamingContext}
 
 object FactConsumer {
 
@@ -14,7 +16,9 @@ object FactConsumer {
     // Create the context
     val ssc = new StreamingContext(sparkConf, Seconds(1))
 
-    val topicsSet = Set("fact-topic")
+    val factTopicsSet = Set("fact-topic")
+    val airPortTopicSet = Set("airport-topic")
+
     val brokers = "localhost:9092"
     val kafkaParams = Map[String, String](
       "bootstrap.servers" -> brokers,
@@ -24,18 +28,62 @@ object FactConsumer {
       "key.deserializer" -> "org.apache.kafka.common.serialization.StringDeserializer",
       "value.deserializer" -> "org.apache.kafka.common.serialization.StringDeserializer")
 
-    val inputStream: DStream[ConsumerRecord[String, String]] = KafkaUtils.createDirectStream[String, String](ssc, LocationStrategies.PreferConsistent, ConsumerStrategies.Subscribe[String, String](topicsSet, kafkaParams))
+    val factInputStream: DStream[ConsumerRecord[String, String]] = KafkaUtils.createDirectStream[String, String](ssc, LocationStrategies.PreferConsistent, ConsumerStrategies.Subscribe[String, String](factTopicsSet, kafkaParams))
+    val airportTopicStream: DStream[ConsumerRecord[String, String]] = KafkaUtils.createDirectStream[String, String](ssc, LocationStrategies.PreferConsistent, ConsumerStrategies.Subscribe[String, String](airPortTopicSet, kafkaParams))
 
-    inputStream.foreachRDD(rdd => {
-      rdd.foreach(s => {
-        print("yes here I am!" + "k:" + s.key() + ", v:" + s.value())
+    val factTransferredStream = factInputStream
+      .map(item => parseJson(item.value()))
+      .map(item => {
+        val sourceAirportMark = item.getString("sourceAirportMark")
+        val airlineCompanyShortName = item.getString("airlineCompanyShortName")
+        val startTime = item.getString("startTime")
+        (sourceAirportMark, (sourceAirportMark, airlineCompanyShortName, startTime))
       })
-    })
+
+    factInputStream.foreachRDD(_.foreach(s =>
+      println("fact stream!!!" + s)))
+
+
+    val airportTransferredStream = airportTopicStream
+      .map(item => parseJson(item.value()))
+      .map(item => {
+        val airportMark = item.getString("airportMark")
+        val airportName = item.getString("airportName")
+        val location = item.getString("location")
+        (airportMark, (airportMark, airportName, location))
+      })
+
+    airportTopicStream.foreachRDD(_.foreach(s =>
+      println("airport stream!!!" + s)))
+
+
+    val joinedStream = factTransferredStream.join(airportTransferredStream)
+
+    joinedStream.foreachRDD(_.foreach(s =>
+      println("yes here I am!" + s)
+    ))
+
+    //    factInputStream.foreachRDD(rdd => {
+    //      rdd.foreach(s => {
+    //        print("yes here I am!" + "k:" + s.key() + ", v:" + s.value())
+    //      })
+    //    })
 
 
     ssc.start()
     ssc.awaitTermination()
 
+  }
+
+  def parseJson(log: String): JSONObject = {
+    var ret: JSONObject = null
+    try {
+      ret = JSON.parseObject(log)
+    } catch {
+      //异常json数据处理
+      case e: JSONException => println(log)
+    }
+    ret
   }
 
 }
