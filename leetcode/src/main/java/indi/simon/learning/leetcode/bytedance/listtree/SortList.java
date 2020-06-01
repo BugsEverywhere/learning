@@ -49,6 +49,8 @@ public class SortList {
             //提前将currentNode节点的next指针保存好，并清除
             ListNode next = currentNode.next;
             currentNode.next = null;
+            //快排
+            //取头结点作为快排的区分节点，比头结点小，则放在左链，比头结点大，则放在右链
             if (currentNode.val <= head.val) {
                 if (leftHeadNode == null) {
                     leftHeadNode = currentNode;
@@ -57,6 +59,7 @@ public class SortList {
                     leftCurrentNode.next = currentNode;
                     leftCurrentNode = currentNode;
                 }
+                //因为需要获取左链的尾结点，亦即最大节点，因此遍历的时候需要记一下这个
                 if (leftMaxNode != null && currentNode.val > leftMaxNode.val) {
                     leftMaxNode = currentNode;
                 } else if (leftMaxNode == null) {
@@ -77,7 +80,7 @@ public class SortList {
         leftHeadNode = sortList(leftHeadNode);
         rightHeadNode = sortList(rightHeadNode);
 
-        //leftMaxNode有可能为空，这表示head已经是这条子链中的最小节点了，所以需要判断
+        //leftMaxNode有可能为空，这表示head已经是这条子链中的最小节点了，左链全为空，所以需要判断
         if (leftMaxNode != null) {
             leftMaxNode.next = head;
         }
