@@ -61,3 +61,6 @@ public class P4TwoSortedArrMidNum_NotFinish {
     }
 
 }
+
+
+//此解法仍然是O(M+N)复杂度的，因为是O((M+N)/2)，不过要达到log(M+N)的太难了，基本上不会考

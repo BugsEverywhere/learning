@@ -1,5 +1,7 @@
 package indi.simon.learning.leetcode.bytedance.dpgreed;
 
+import java.util.Arrays;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Simon
@@ -22,9 +24,7 @@ public class MaxProfitll {
 
     public static int maxProfit(int[] prices) {
         buyInMem = new int[prices.length];
-        for (int index = 0; index < buyInMem.length; index++) {
-            buyInMem[index] = -1;
-        }
+        Arrays.fill(buyInMem, -1);
         for (int i = 0; i < prices.length; i++) {
             if (minPrice != null && prices[i] >= minPrice) {
                 continue;

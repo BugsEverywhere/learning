@@ -25,32 +25,45 @@ public class P2TwoNumSumRevertList {
     }
 
     public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        int carry;
-        int singleNodeSum = (l1 == null ? 0 : l1.val) + (l2 == null ? 0 : l2.val);
-        carry = singleNodeSum / 10;
-        ListNode l3 = new ListNode(singleNodeSum % 10);
-        addInternal(l1, l2, l3, carry);
-        return l3;
-    }
+        //捏住头
+        ListNode head = new ListNode((l1.val + l2.val) % 10);
+        int carry = (l1.val + l2.val) / 10;
+        l1 = l1.next;
+        l2 = l2.next;
+        //定义当前指针
+        ListNode current = head;
 
-    public static void addInternal(ListNode l1, ListNode l2, ListNode l3, int carry) {
-        if (l1.next == null && l2.next != null) {
-            l1.next = new ListNode(0);
+        //循环开始
+        while (l1 != null && l2 != null) {
+            current.next = new ListNode((l1.val + l2.val + carry) % 10);
+            carry = (l1.val + l2.val + carry) / 10;
+            l1 = l1.next;
+            l2 = l2.next;
+            current = current.next;
         }
-        if (l2.next == null && l1.next != null) {
-            l2.next = new ListNode(0);
-        }
-        if (l2.next == null && l1.next == null) {
-            if (carry > 0) {
-                l3.next = new ListNode(carry);
-                return;
+
+        //处理较长的链表
+        if (l1 == null && l2 != null) {
+            while (l2 != null) {
+                current.next = new ListNode((l2.val + carry) % 10);
+                carry = (l2.val + carry) / 10;
+                l2 = l2.next;
+                current = current.next;
             }
-            l3.next = null;
-            return;
+        } else if (l1 != null) {
+            while (l1 != null) {
+                current.next = new ListNode((l1.val + carry) % 10);
+                carry = (l1.val + carry) / 10;
+                l1 = l1.next;
+                current = current.next;
+            }
         }
-        l3.next = new ListNode((l1.next.val + l2.next.val + carry) % 10);
-        carry = (l1.next.val + l2.next.val + carry) / 10;
-        addInternal(l1.next, l2.next, l3.next, carry);
+
+        //最后不要忘了处理进位
+        if (carry > 0) {
+            current.next = new ListNode(carry);
+        }
+        return head;
     }
 
 
