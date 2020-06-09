@@ -12,7 +12,7 @@ public class P39SumCombination {
 
     public static void main(String[] args) {
 
-        int[] test = new int[]{2,3,5};
+        int[] test = new int[]{2, 3, 5};
         List<List<Integer>> result = combinationSum(test, 8);
         System.out.println(result);
 
@@ -29,18 +29,18 @@ public class P39SumCombination {
 
     private static void combinationSumInternal(ArrayList<Integer> sofarWhatWeGet, int[] candidates, int target, TrieNode root) {
 
-        for (int i = 0; i < candidates.length; i++) {
-            if (target - candidates[i] < 0) {
+        for (int candidate : candidates) {
+            if (target - candidate < 0) {
                 continue;
-            } else if (target - candidates[i] == 0) {
+            } else if (target - candidate == 0) {
                 ArrayList<Integer> myList = new ArrayList<>(sofarWhatWeGet);
-                myList.add(candidates[i]);
+                myList.add(candidate);
                 myList.sort(Comparator.naturalOrder());
                 TrieNode.put(myList, root);
-            } else if (target - candidates[i] > 0) {
+            } else if (target - candidate > 0) {
                 ArrayList<Integer> myList = new ArrayList<>(sofarWhatWeGet);
-                myList.add(candidates[i]);
-                combinationSumInternal(myList, candidates, target - candidates[i], root);
+                myList.add(candidate);
+                combinationSumInternal(myList, candidates, target - candidate, root);
             }
         }
     }
@@ -110,7 +110,60 @@ public class P39SumCombination {
             }
         }
     }
-}
 
 
 //todo: 思路，target减去candidates每一个数，然后回溯遍历所有可能，使用前缀树作为去重结果集，
+
+
+//============================================================================================================another
+
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        int len = candidates.length;
+
+        // 排序是为了提前终止搜索
+        Arrays.sort(candidates);
+
+        dfs(candidates, len, target, 0, new ArrayDeque<>(), res);
+        return res;
+    }
+
+
+    /**
+     * @param candidates 数组输入
+     * @param len        输入数组的长度，冗余变量
+     * @param residue    剩余数值
+     * @param begin      本轮搜索的起点下标
+     * @param path       从根结点到任意结点的路径
+     * @param res        结果集变量
+     */
+    private void dfs(int[] candidates,
+                     int len,
+                     int residue,
+                     int begin,
+                     Deque<Integer> path,
+                     List<List<Integer>> res) {
+        if (residue == 0) {
+            // 由于 path 全局只使用一份，到叶子结点的时候需要做一个拷贝
+            res.add(new ArrayList<>(path));
+            return;
+        }
+
+        for (int i = begin; i < len; i++) {
+
+            // 在数组有序的前提下，剪枝
+            if (residue - candidates[i] < 0) {
+                break;
+            }
+
+            path.addLast(candidates[i]);
+            dfs(candidates, len, residue - candidates[i], i, path, res);
+            path.removeLast();
+
+        }
+    }
+
+    //todo 根本不需要前缀树这样复杂的数据结构嘛。回溯递归出来的每一条path，本来就都是独一无二的。。。。
+
+
+}

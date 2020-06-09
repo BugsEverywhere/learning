@@ -28,11 +28,9 @@ public class P31NextPermutation {
             return;
         }
         boolean backwardsBiggerOrSmaller;
-        if (nums[nums.length - 1] > nums[nums.length - 2]) {
-            backwardsBiggerOrSmaller = false;
-        } else {
-            backwardsBiggerOrSmaller = true;
-        }
+        //backwardsBiggerOrSmaller为false代表倒排降序
+        //backwardsBiggerOrSmaller为true倒排升序
+        backwardsBiggerOrSmaller = nums[nums.length - 1] <= nums[nums.length - 2];
         int j;
         for (j = nums.length - 1; j >= 1; --j) {
             if (backwardsBiggerOrSmaller) {
@@ -53,7 +51,9 @@ public class P31NextPermutation {
                 return;
             }
         }
-        if (j == 0 && backwardsBiggerOrSmaller) {
+
+        if (j == 0) {
+            //当前已经是最大组合的情况，即之前j一直遍历到0才找到极大值
             List<Integer> list = new ArrayList<>();
             for (int num : nums) {
                 list.add(num);
@@ -62,8 +62,6 @@ public class P31NextPermutation {
             for (int i = 0; i < nums.length; i++) {
                 nums[i] = list.get(i);
             }
-        } else if (j == 0 && !backwardsBiggerOrSmaller) {
-            swap(nums, nums.length - 1, nums.length - 2);
         }
     }
 
@@ -99,9 +97,9 @@ public class P31NextPermutation {
 //todo: 思路，从后往前遍历，如果从后往前一开始是升序(倒排升序)，则在遇到第一个极大值时，将极大值的前一位与已经遍历过的
 // 数字中刚刚比极大值前一位大的数交换，再把极大值
 // 后面的所有数字按升序排序，比如 1,3,4,6,8,9,7,5,2，将9与8交换，然后将8,7,5,2按升序排序得到2，5，7，8，得到
-// 结果：1，3，4，6，9，2，5，7，8
-// 如果从后往前遍历一开始是降序，则在遇到第一个极小值时，将极小值与极小值后一位交换即可，比如1,3,4,6,8,7,2,5,9，
-// 2为从后往前遍历的第一个极小值，则将2与5交换即可。
+// 结果：1，3，4，6，9，2，5，7，8。如果是 1,3,4,6,7,9,8,5,2,则交换7和8得到 1,3,4,6,8,9,7,5,2,再将8后面的升序排列得到 1,3,4,6,8,2,5,7,9。
+// 如果从后往前遍历一开始是降序，则交换后两位即可，比如1,3,4,6,8,7,2,5,9，
+// 交换5和9变成1,3,4,6,8,7,2,9,5，
 
 
 //todo: 注意的地方：一是循环内部注意是否该在正确的地方跳出循环。

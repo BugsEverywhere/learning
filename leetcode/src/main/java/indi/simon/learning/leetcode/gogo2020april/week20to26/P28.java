@@ -9,7 +9,7 @@ public class P28 {
 
     public static void main(String[] args) {
 
-        System.out.println(strStr("babbbbbabb" ,"bbab"));
+        System.out.println(strStr("babbbbbabb", "bbab"));
 
     }
 
@@ -72,7 +72,7 @@ public class P28 {
             } else {
                 //todo:在这里栽了跟头，因为这里是要做模糊左查询，也就是找比目标刚好小的那一个，因此在mid的右侧递归的时候，要判断结果是否为-1，因为此时代表num比mid右侧所有的都小，这样就直接返回Mid的元素即可
                 int resultOnRight = binaryBlurSearch(arr.subList(midIndex + 1, arr.size()), num);
-                if(resultOnRight == -1){
+                if (resultOnRight == -1) {
                     return arr.get(midIndex);
                 } else {
                     return resultOnRight;
@@ -89,4 +89,42 @@ public class P28 {
             }
         }
     }
+
+
+//====================================================================================== another
+
+
+    public int strStrOfficial(String haystack, String needle) {
+        int needleLength = needle.length(), n = haystack.length();
+        if (needleLength == 0) {
+            return 0;
+        }
+
+        int pn = 0;
+        while (pn < n - needleLength + 1) {
+            //寻找首字母和模式串相等的子串
+            while (pn < n - needleLength + 1 && haystack.charAt(pn) != needle.charAt(0)) {
+                ++pn;
+            }
+
+            //开始在子串中一个个字符和模式串匹配，pL指针代表在模式串中行进的位置，currLen表示目前已经匹配上的长度。其实这俩完全可以合并，分开只是显得清晰一些
+            int currLen = 0, pL = 0;
+            while (pL < needleLength && pn < n && haystack.charAt(pn) == needle.charAt(pL)) {
+                ++pn;
+                ++pL;
+                ++currLen;
+            }
+
+            //如果currLen与模式串长度相等，则找到了这个子串，直接返回
+            if (currLen == needleLength) {
+                return pn - needleLength;
+            }
+
+            //否则，pn指针回撤到这一轮匹配开始字符的下一位，继续查找
+            pn = pn - currLen + 1;
+        }
+        return -1;
+    }
+
+
 }

@@ -62,7 +62,7 @@ public class P17PhoneNumCharCombination {
                 //todo: 注意递归函数里面如果有循环，基本上在循环体里面是不需要使用return语句的
                 str.add(string + singleChild.data);
             } else {
-                loadStringInternal(str, singleChild, new String(string + singleChild.data));
+                loadStringInternal(str, singleChild, string + singleChild.data);
             }
         }
     }
