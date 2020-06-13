@@ -86,3 +86,5 @@ public class P98 {
     }
 
 }
+
+//todo 此法是一个N方的算法，还不如中序遍历之后检查array是否有序，这样是O(n)
