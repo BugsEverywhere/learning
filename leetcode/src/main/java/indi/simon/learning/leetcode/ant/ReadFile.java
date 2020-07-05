@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 public class ReadFile {
 
-    private static List<File> fileList;
     private static List<FileWriter> writerList;
     private static Map<Character, ComparableChar> characterLongMap;
 
@@ -21,7 +20,7 @@ public class ReadFile {
         int splitFileCount = 50;
 
         //新建50个文件用于存储所有的单词
-        fileList = new ArrayList<>();
+        List<File> fileList = new ArrayList<>();
         for (int i = 0; i < splitFileCount; i++) {
             fileList.add(new File("C:\\Users\\zhuoc\\Desktop\\test\\file_" + i));
         }
