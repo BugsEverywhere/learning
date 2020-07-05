@@ -1,13 +1,16 @@
 package indi.simon.learning.leetcode.gogo2020june;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class P93 {
 
     public static void main(String[] args) {
 
         List<String> res = restoreIpAddresses("25525511135");
+        Map<String,Integer> map = new HashMap<>();
 
         System.out.println(res);
 

@@ -2,7 +2,6 @@ package indi.simon.learning;
 
 /**
  * Hello world!
- *
  */
 public class App 
 {
