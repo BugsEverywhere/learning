@@ -1,13 +1,15 @@
 package indi.simon.learning.leetcode.ant;
 
+import indi.simon.learning.test.WordCount;
+
 //小顶堆
 class MinHeap {
-    private ReadFile.ComparableWord[] a;
+    private WordCount.ComparableWord[] a;
     private int size;
     private int count;
 
     public MinHeap(int capacity) {
-        a = new ReadFile.ComparableWord[capacity + 1];
+        a = new WordCount.ComparableWord[capacity + 1];
         size = capacity;
         count = 0;
     }
@@ -23,7 +25,7 @@ class MinHeap {
         return a[1].count;
     }
 
-    public void insert(ReadFile.ComparableWord data) {
+    public void insert(WordCount.ComparableWord data) {
         if (count >= size) {
             //堆满了
             return;
@@ -48,12 +50,12 @@ class MinHeap {
         heapify(a, count, 1);
     }
 
-    public ReadFile.ComparableWord[] getHeap() {
+    public WordCount.ComparableWord[] getHeap() {
         return a;
     }
 
     //自上往下堆化
-    private void heapify(ReadFile.ComparableWord[] a, int heapSize, int startIndex) {
+    private void heapify(WordCount.ComparableWord[] a, int heapSize, int startIndex) {
         while (true) {
             int minPos = startIndex;
             if (startIndex * 2 <= heapSize && a[startIndex].count > a[startIndex * 2].count) {
@@ -71,8 +73,8 @@ class MinHeap {
         }
     }
 
-    private void swap(ReadFile.ComparableWord[] a, int i, int j) {
-        ReadFile.ComparableWord tmp = a[i];
+    private void swap(WordCount.ComparableWord[] a, int i, int j) {
+        WordCount.ComparableWord tmp = a[i];
         a[i] = a[j];
         a[j] = tmp;
     }

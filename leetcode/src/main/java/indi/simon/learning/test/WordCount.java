@@ -1,11 +1,11 @@
-package indi.simon.learning.leetcode.ant;
+package indi.simon.learning.test;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ReadFile {
+public class WordCount {
 
     private static List<FileWriter> writerList;
     private static Map<Character, ComparableChar> characterLongMap;
