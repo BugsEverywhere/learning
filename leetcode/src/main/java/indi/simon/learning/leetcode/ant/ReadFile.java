@@ -10,11 +10,30 @@ public class ReadFile {
     private static List<FileWriter> writerList;
     private static Map<Character, ComparableChar> characterLongMap;
 
-    private static final int TOP_N = 10;
+    private static final int TOP_N = 100;
 
-    public static void main(String[] args) throws IOException {
+    //============================================保存结果的变量
+    private static List<ComparableWord> topWordList;
+    private static List<ComparableChar> topCharList;
+    private static long lineCount;
+    //============================================
 
-        File inputFile = new File("C:\\Users\\zhuoc\\Desktop\\test\\testSourceFile.txt");
+    public static void main(String[] args) {
+
+        handle(args[0], args[1]);
+        //打印结果
+        System.out.println("occurrence count top word:");
+        printComparableWordRes(topWordList);
+
+        System.out.println("occurrence count top char:");
+        printComparableCharRes(topCharList);
+
+        System.out.println("total line count: " + lineCount);
+
+    }
+
+    private static void handle(String inputFilePath, String workspacePath) {
+        File inputFile = new File(inputFilePath);
 
         characterLongMap = new HashMap<>();
         int splitFileCount = 50;
@@ -22,30 +41,38 @@ public class ReadFile {
         //新建50个文件用于存储所有的单词
         List<File> fileList = new ArrayList<>();
         for (int i = 0; i < splitFileCount; i++) {
-            fileList.add(new File("C:\\Users\\zhuoc\\Desktop\\test\\file_" + i));
+            fileList.add(new File(workspacePath + "/file_" + i));
         }
 
         //新建同样数量的IO FileWriter，缓存起来，用于在统计词频时不需要重复创建writer，节省时间
         writerList = new ArrayList<>();
         for (File file : fileList) {
-            writerList.add(new FileWriter(file, true));
+            try {
+                writerList.add(new FileWriter(file, true));
+            } catch (IOException e) {
+                //记日志
+            }
         }
 
         //此方法执行完，返回的是行数，并且已经将所有单词hash到对应的文件，将所有的字符计数完毕存入了map
-        int lineCountRes = splitLine(inputFile);
+        lineCount = splitLine(inputFile);
 
         //将一步创建的writer关闭掉
         for (FileWriter writer : writerList) {
             if (writer != null) {
-                writer.flush();
-                writer.close();
+                try {
+                    writer.flush();
+                    writer.close();
+                } catch (IOException e) {
+                    //记日志
+                }
             }
         }
 
         //对字符map排序得到字符的前十，entryList的前十位即为出现次数排名前十的字符
         List<Map.Entry<Character, ComparableChar>> entryList = new ArrayList<>(characterLongMap.entrySet());
         List<ComparableChar> charList = entryList.stream().map(Map.Entry::getValue).sorted((o1, o2) -> Integer.compare(o2.count, o1.count)).collect(Collectors.toList());
-        charList = charList.subList(0, 10);
+        topCharList = charList.subList(0, 10);
 
         //下面对50个文件里面的单词开始计数，计数结果取top N个单词及其出现频次，直接回写覆盖文件
         for (File singleFile : fileList) {
@@ -58,13 +85,12 @@ public class ReadFile {
         }
 
         //文件中的即为频次top N的单词
-        List<ComparableWord> topList = parseFile(fileList.get(0));
-
+        topWordList = parseFile(fileList.get(0));
     }
 
-    private static int splitLine(File file) {
+    private static long splitLine(File file) {
         FileInputStream in = null;
-        int lineCount = 0;
+        long lineCount = 0;
         try {
             in = new FileInputStream(file);
             byte[] tmpArr = new byte[50];
@@ -277,6 +303,18 @@ public class ReadFile {
             }
         }
         return list;
+    }
+
+    private static void printComparableWordRes(List<ComparableWord> list) {
+        for (ComparableWord singleElement : list) {
+            System.out.println("element: " + singleElement.word + ", occurrence: " + singleElement.count);
+        }
+    }
+
+    private static void printComparableCharRes(List<ComparableChar> list) {
+        for (ComparableChar singleElement : list) {
+            System.out.println("element: " + singleElement.element + ", occurrence: " + singleElement.count);
+        }
     }
 
     static class Comparable {
