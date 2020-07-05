@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 public class ReadFile {
 
     private static List<File> fileList;
+    private static List<FileWriter> writerList;
     private static Map<Character, ComparableChar> characterLongMap;
 
     private static final int TOP_N = 10;
@@ -25,8 +26,22 @@ public class ReadFile {
             fileList.add(new File("C:\\Users\\zhuoc\\Desktop\\test\\file_" + i));
         }
 
+        //新建同样数量的IO FileWriter，缓存起来，用于在统计词频时不需要重复创建writer，节省时间
+        writerList = new ArrayList<>();
+        for (File file : fileList) {
+            writerList.add(new FileWriter(file, true));
+        }
+
         //此方法执行完，返回的是行数，并且已经将所有单词hash到对应的文件，将所有的字符计数完毕存入了map
         int lineCountRes = splitLine(inputFile);
+
+        //将一步创建的writer关闭掉
+        for (FileWriter writer : writerList) {
+            if (writer != null) {
+                writer.flush();
+                writer.close();
+            }
+        }
 
         //对字符map排序得到字符的前十，entryList的前十位即为出现次数排名前十的字符
         List<Map.Entry<Character, ComparableChar>> entryList = new ArrayList<>(characterLongMap.entrySet());
@@ -124,28 +139,20 @@ public class ReadFile {
         singleLine = singleLine.replaceAll(",", "");
         String[] words = singleLine.split(" ");
 
+
         //将每个单词hash之后，根据自己的归属写入对应文件，以换行符分隔
         for (String singleWord : words) {
-            if("".equals(singleWord)){
+            if ("".equals(singleWord)) {
                 continue;
             }
             int hash = Math.abs(singleWord.hashCode());
             int fileIndex = hash % 50;
             FileWriter writer = null;
             try {
-                writer = new FileWriter(fileList.get(fileIndex), true);
+                writer = writerList.get(fileIndex);
                 writer.write((singleWord + "\n"));
-                writer.flush();
             } catch (IOException e) {
                 //记日志
-            } finally {
-                if (writer != null) {
-                    try {
-                        writer.close();
-                    } catch (IOException e) {
-                        //记日志
-                    }
-                }
             }
             //数单词中的字符
             countChar(singleWord);
