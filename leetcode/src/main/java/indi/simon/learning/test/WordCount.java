@@ -317,11 +317,11 @@ public class WordCount {
         }
     }
 
-    static class Comparable {
-        int count;
+    public static class Comparable {
+        public int count;
     }
 
-    static class ComparableWord extends Comparable {
+    public static class ComparableWord extends Comparable {
 
         public ComparableWord(String word) {
             this.word = word;
@@ -331,7 +331,7 @@ public class WordCount {
         public String word;
     }
 
-    static class ComparableChar extends Comparable {
+    public static class ComparableChar extends Comparable {
 
         public ComparableChar(char element) {
             this.element = element;
