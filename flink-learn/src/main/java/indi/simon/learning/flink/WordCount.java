@@ -22,7 +22,7 @@ public class WordCount {
         env.getConfig().setGlobalJobParameters(params);
 
         // set global parallelism
-        env.setParallelism(2);
+        env.setParallelism(1);
 
         // get input data
         DataStream<String> text = null;
