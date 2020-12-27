@@ -13,12 +13,12 @@
 
 
     <dubbo:reference id="helloService"
-                     interface="indi.simons.learning.simpleserver.services.IHelloService"
+                     interface="indi.simon.learning.simpleserver.services.IHelloService"
                      cache="lru"
                      loadbalance="roundrobin"
                      retries="2" timeout="2000"/>
     <dubbo:reference id="rmiService"
-                     interface="indi.simons.learning.simpleserver.services.IRMIService"
+                     interface="indi.simon.learning.simpleserver.services.IRMIService"
                      cache="lru"
                      loadbalance="roundrobin"
                      retries="2" timeout="2000"/>
