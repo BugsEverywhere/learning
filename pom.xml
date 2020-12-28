@@ -20,6 +20,7 @@
         <module>kafka-pure-learn</module>
         <module>data-producer</module>
         <module>spark-streaming-flink-learn</module>
+        <module>spring-aop-learn</module>
     </modules>
 
     <properties>

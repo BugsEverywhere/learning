@@ -11,6 +11,6 @@ public class ServiceInterfaceImpl implements IServiceInterface{
 
     @Override
     public String sayHelloAgain() {
-        return null;
+        return "hello world!";
     }
 }
