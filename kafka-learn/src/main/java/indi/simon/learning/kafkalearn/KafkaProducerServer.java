@@ -34,8 +34,7 @@ public class KafkaProducerServer {
         String valueString = JSON.toJSONString(value);
         //表示使用分区
         ListenableFuture<SendResult<String, String>> result = kafkaTemplate.send(topic, 0, key, valueString);
-        Map<String, Object> res = checkProRecord(result);
-        return res;
+        return checkProRecord(result);
     }
 
 
@@ -43,10 +42,10 @@ public class KafkaProducerServer {
         Map<String, Object> m = new HashMap<String, Object>();
         if (res != null) {
             try {
-                SendResult r = res.get();//检查result结果集
+                SendResult<String, String> r = res.get();//检查result结果集
                 /*检查recordMetadata的offset数据，不检查producerRecord*/
-                Long offsetIndex = r.getRecordMetadata().offset();
-                if (offsetIndex != null && offsetIndex >= 0) {
+                long offsetIndex = r.getRecordMetadata().offset();
+                if (offsetIndex >= 0) {
                     m.put("code", KafkaMesConstant.SUCCESS_CODE);
                     m.put("message", KafkaMesConstant.SUCCESS_MES);
                     return m;
@@ -55,12 +54,7 @@ public class KafkaProducerServer {
                     m.put("message", KafkaMesConstant.KAFKA_NO_OFFSET_MES);
                     return m;
                 }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-                m.put("code", KafkaMesConstant.KAFKA_SEND_ERROR_CODE);
-                m.put("message", KafkaMesConstant.KAFKA_SEND_ERROR_MES);
-                return m;
-            } catch (ExecutionException e) {
+            } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
                 m.put("code", KafkaMesConstant.KAFKA_SEND_ERROR_CODE);
                 m.put("message", KafkaMesConstant.KAFKA_SEND_ERROR_MES);
