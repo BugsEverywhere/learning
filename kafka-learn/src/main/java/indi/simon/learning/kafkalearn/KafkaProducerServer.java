@@ -2,6 +2,7 @@ package indi.simon.learning.kafkalearn;
 
 import com.alibaba.fastjson.JSON;
 import indi.simon.learning.kafkalearn.constants.KafkaMesConstant;
+import org.apache.kafka.common.PartitionInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.concurrent.ListenableFuture;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -27,16 +29,20 @@ public class KafkaProducerServer {
     /**
      * kafka发送消息模板
      *
-     * @param topic 主题
-     * @param value messageValue
+     * @param topic       主题
+     * @param value       messageValue
+     * @param partitionId
      */
-    public Map<String, Object> sndMesForTemplate(String topic, String key, String value) {
-        String valueString = JSON.toJSONString(value);
+    public Map<String, Object> sndMesForTemplate(String topic, String key, String value, int partitionId) {
+        //String valueString = JSON.toJSONString(value);
         //表示使用分区
-        ListenableFuture<SendResult<String, String>> result = kafkaTemplate.send(topic, 0, key, valueString);
+        ListenableFuture<SendResult<String, String>> result = kafkaTemplate.send(topic, partitionId, key, value);
         return checkProRecord(result);
     }
 
+    public List<PartitionInfo> getPartitionsFromKafka(String topic) {
+        return kafkaTemplate.partitionsFor(topic);
+    }
 
     private Map<String, Object> checkProRecord(ListenableFuture<SendResult<String, String>> res) {
         Map<String, Object> m = new HashMap<String, Object>();

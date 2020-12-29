@@ -7,4 +7,6 @@ public interface IServiceInterface {
 
     String sayHelloAgain();
 
+    void startProduce(String topic);
+
 }

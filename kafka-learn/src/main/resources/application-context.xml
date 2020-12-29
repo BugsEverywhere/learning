@@ -18,6 +18,13 @@
         </property>
     </bean>
 
+    <bean id="KafkaTemplate" class="org.springframework.kafka.core.KafkaTemplate">
+        <constructor-arg ref="producerFactory" />
+        <constructor-arg name="autoFlush" value="true" />
+        <property name="defaultTopic" value="defaultTopic" />
+        <property name="producerListener" ref="producerListener"/>
+    </bean>
+
 
     <!--kafka producer-->
     <bean id="producerProperties" class="java.util.HashMap">
@@ -38,14 +45,7 @@
             <ref bean="producerProperties" />
         </constructor-arg>
     </bean>
-    <bean id="KafkaTemplate" class="org.springframework.kafka.core.KafkaTemplate">
-        <constructor-arg ref="producerFactory" />
-        <constructor-arg name="autoFlush" value="true" />
-        <property name="defaultTopic" value="defaultTopic" />
-        <property name="producerListener" ref="producerListener"/>
-    </bean>
     <bean id="producerListener" class="indi.simon.learning.kafkalearn.listener.KafkaProducerListener" />
-
 
 
     <!--kafka consumer-->

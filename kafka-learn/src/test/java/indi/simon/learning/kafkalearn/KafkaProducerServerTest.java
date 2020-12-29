@@ -25,7 +25,7 @@ public class KafkaProducerServerTest {
     public void sndMesForTemplate() {
 
         String topic = "orderTopic";
-        Map<String,Object> res = kafkaProducerServer.sndMesForTemplate(topic, "testKey","testValue");
+        Map<String,Object> res = kafkaProducerServer.sndMesForTemplate(topic, "testKey","testValue", 0);
 
         System.out.println("测试结果如下：===============");
         String message = (String)res.get("message");
