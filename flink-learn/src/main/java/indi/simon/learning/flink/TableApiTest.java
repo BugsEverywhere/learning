@@ -15,7 +15,7 @@ public class TableApiTest {
         EnvironmentSettings settings = EnvironmentSettings
                 .newInstance()
                 .inStreamingMode()
-                //.inBatchMode()
+//                .inBatchMode()
                 .build();
 
         TableEnvironment tableEnv = TableEnvironment.create(settings);
@@ -43,6 +43,7 @@ public class TableApiTest {
                 .createTemporaryTable("CsvSinkTable");
 
         //结果写目标表
+        //executeInsert就触发执行了
         TableResult apiResult = tableApiResult.executeInsert("CsvSinkTable");
 
 
@@ -54,7 +55,7 @@ public class TableApiTest {
         //注册目标表，connect TABLE表
         tableEnv.executeSql("CREATE TEMPORARY TABLE sqlApiSinkTable ... WITH ( 'connector' = ... )");
 
-        //计算结果并写目标表，方式一
+        //计算结果并写目标表，方式一，executeSql就触发执行了
         tableEnv.executeSql(
                 "INSERT INTO sqlApiSinkTable " +
                         "SELECT cID, cName, SUM(revenue) AS revSum " +
