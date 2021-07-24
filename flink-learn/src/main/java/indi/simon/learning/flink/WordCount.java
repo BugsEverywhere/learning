@@ -69,6 +69,9 @@ public class WordCount {
             // normalize and split the line
             String[] tokens = value.toLowerCase().split("\\W+");
 
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
+
             // emit the pairs
             for (String token : tokens) {
                 if (token.length() > 0) {
