@@ -24,6 +24,7 @@ public class PlainNioEchoServer {
         ss.bind(address);
         serverChannel.configureBlocking(false);
         Selector selector = Selector.open();
+        //ServerSocketChannel 只负责监听OP_ACCEPT事件，当触发了OP_ACCEPT事件之后，由所建立的连接channel监听读写事件
         serverChannel.register(selector, SelectionKey.OP_ACCEPT);
         while (true) {
             try {
@@ -39,6 +40,7 @@ public class PlainNioEchoServer {
                 iterator.remove();
                 try {
                     if (key.isAcceptable()) {
+                        //ServerSocketChannel 的第一个事件肯定走到这里，然后由 SocketChannel 往selector里面注册监听读写事件
                         ServerSocketChannel server = (ServerSocketChannel) key.channel();
                         SocketChannel client = server.accept();
                         System.out.println("Accepted connection from " + client);
@@ -46,11 +48,13 @@ public class PlainNioEchoServer {
                         client.register(selector, SelectionKey.OP_WRITE | SelectionKey.OP_READ, ByteBuffer.allocate(100));
                     }
                     if (key.isReadable()) {
+                        //只可能是 SocketChannel 所监听的读事件走到这里
                         SocketChannel client = (SocketChannel) key.channel();
                         ByteBuffer output = (ByteBuffer) key.attachment();
                         client.read(output);
                     }
                     if (key.isWritable()) {
+                        //只可能是 SocketChannel 所监听的写事件走到这里
                         SocketChannel client = (SocketChannel) key.channel();
                         ByteBuffer output = (ByteBuffer) key.attachment();
                         output.flip();
