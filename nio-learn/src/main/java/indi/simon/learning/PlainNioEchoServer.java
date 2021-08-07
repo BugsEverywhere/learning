@@ -12,6 +12,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
+ * 本类使用的是从java 1.4即支持的nio 1
  * Hello world!
  */
 public class PlainNioEchoServer {

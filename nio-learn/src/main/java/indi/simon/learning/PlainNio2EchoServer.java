@@ -9,6 +9,7 @@ import java.nio.channels.CompletionHandler;
 import java.util.concurrent.CountDownLatch;
 
 /**
+ * 本类使用的是从1.7开始java nio 2
  * @author chenzhuo(zhiyue)
  */
 public class PlainNio2EchoServer {
