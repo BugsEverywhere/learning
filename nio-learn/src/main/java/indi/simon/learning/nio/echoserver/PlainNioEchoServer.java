@@ -12,7 +12,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 /**
- * 本类使用的是从java 1.4即支持的nio 1
+ * 本类使用的是从java 1.4即支持的nio 1，特点是使用Selector
  * Hello world!
  */
 public class PlainNioEchoServer {
@@ -41,7 +41,7 @@ public class PlainNioEchoServer {
                 iterator.remove();
                 try {
                     if (key.isAcceptable()) {
-                        //ServerSocketChannel 的第一个事件肯定走到这里，然后由 SocketChannel 往selector里面注册监听读写事件
+                        //ServerSocketChannel 每来一个新的连接，该连接的第一个事件肯定走到这里，然后由 SocketChannel 往selector里面注册监听读写事件
                         ServerSocketChannel server = (ServerSocketChannel) key.channel();
                         SocketChannel client = server.accept();
                         System.out.println("Accepted connection from " + client);

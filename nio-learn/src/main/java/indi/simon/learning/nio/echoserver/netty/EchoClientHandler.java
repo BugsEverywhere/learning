@@ -18,15 +18,12 @@ public class EchoClientHandler extends ChannelInboundHandlerAdapter {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx,
-                            Object in) {
-        System.out.println("Client received: " + ByteBufUtil
-                .hexDump(((ByteBuf) in).readBytes(((ByteBuf) in).readableBytes())));
+    public void channelRead(ChannelHandlerContext ctx, Object in) {
+        System.out.println("Client received: " + ByteBufUtil.hexDump(((ByteBuf) in).readBytes(((ByteBuf) in).readableBytes())));
     }
 
     @Override
-    public void exceptionCaught(ChannelHandlerContext ctx,
-                                Throwable cause) {
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         ctx.close();
     }
 }

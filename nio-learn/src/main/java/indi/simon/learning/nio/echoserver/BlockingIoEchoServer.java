@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 /**
- * 使用纯同步阻塞IO的echo server
+ * 使用纯同步阻塞IO的echo server，也就是纯Socket编程，一个连接一个线程
  * @author chenzhuo(zhiyue)
  */
 public class BlockingIoEchoServer {
@@ -18,15 +18,11 @@ public class BlockingIoEchoServer {
         try {
             while (true) {
                 final Socket clientSocket = socket.accept();
-                System.out.println("Accepted connection from " +
-                        clientSocket);
+                System.out.println("Accepted connection from " + clientSocket);
                 new Thread(() -> {
                     try {
-                        BufferedReader reader = new BufferedReader(
-                                new
-                                        InputStreamReader(clientSocket.getInputStream()));
-                        PrintWriter writer = new PrintWriter(clientSocket
-                                .getOutputStream(), true);
+                        BufferedReader reader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                        PrintWriter writer = new PrintWriter(clientSocket.getOutputStream(), true);
                         while (true) {
                             writer.println(reader.readLine());
                             writer.flush();
