@@ -1,4 +1,4 @@
-package indi.simon.learning.netty;
+package indi.simon.learning.nio.echoserver.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;

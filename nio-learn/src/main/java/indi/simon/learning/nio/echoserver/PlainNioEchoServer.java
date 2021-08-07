@@ -1,4 +1,4 @@
-package indi.simon.learning;
+package indi.simon.learning.nio.echoserver;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
