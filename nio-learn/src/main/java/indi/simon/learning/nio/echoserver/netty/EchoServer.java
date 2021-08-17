@@ -35,10 +35,10 @@ public class EchoServer {
                             new ChannelInitializer<SocketChannel>() {
                                 @Override
                                 public void initChannel(SocketChannel socketChannel) {
-                                    socketChannel.pipeline().addLast(
-                                            new EchoServerHandler());
+                                    socketChannel.pipeline().addLast(new EchoServerHandler());
                                 }
-                            });
+                            }
+                    );
             //开始bind，同步阻塞在此，直至bind成功
             ChannelFuture channelFuture = serverBootstrap.bind().sync();
             System.out.println(EchoServer.class.getName() + "started and listen on " + channelFuture.channel().localAddress());
