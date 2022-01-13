@@ -23,6 +23,7 @@
         <module>spark-streaming-learn</module>
         <module>flink-learn</module>
         <module>nio-learn</module>
+        <module>my-flink-connector</module>
     </modules>
 
     <properties>
@@ -39,5 +40,25 @@
             </snapshots>
         </repository>
     </repositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-core</artifactId>
+                <version>1.13.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-connector-base</artifactId>
+                <version>1.13.0</version>
+            </dependency>
+            <dependency>
+                <groupId>indi.simon.learning</groupId>
+                <artifactId>my-flink-connector</artifactId>
+                <version>1.0-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 </project>
