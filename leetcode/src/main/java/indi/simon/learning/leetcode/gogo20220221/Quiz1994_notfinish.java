@@ -6,10 +6,10 @@ import java.util.*;
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz1994 {
+public class Quiz1994_notfinish {
 
     public static void main(String[] args) {
-        Quiz1994 quiz1994 = new Quiz1994();
+        Quiz1994_notfinish quiz1994 = new Quiz1994_notfinish();
         int[] arr = new int[]{18, 28, 2, 17, 29, 30, 15, 9, 12};
         int res = quiz1994.numberOfGoodSubsets(arr);
         System.out.println(res);
