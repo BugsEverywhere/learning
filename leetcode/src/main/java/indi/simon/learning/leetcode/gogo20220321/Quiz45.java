@@ -37,6 +37,7 @@ public class Quiz45 {
             return totalSteps + mem.get(currentPos);
         }
 
+        //此处备忘录记录一下跳到每一个位置，再往后跳，最快多少步能跳到尾部，这个值每个位置只需要递归一次就能获取到
         int minStepsFromNow = Integer.MAX_VALUE;
         for (int i = nums[currentPos]; i > 0; i--) {
             int jumpRes = jumpInternal(nums, currentPos + i, totalSteps + 1);
