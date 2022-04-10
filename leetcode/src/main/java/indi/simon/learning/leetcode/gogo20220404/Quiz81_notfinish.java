@@ -6,9 +6,9 @@ package indi.simon.learning.leetcode.gogo20220404;
 public class Quiz81_notfinish {
 
     public static void main(String[] args) {
-        int[] arr = new int[]{3, 1};
+        int[] arr = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
         Quiz81_notfinish quiz81 = new Quiz81_notfinish();
-        boolean res = quiz81.search(arr, 0);
+        boolean res = quiz81.searchV2(arr, 13);
         System.out.println(res);
     }
 
@@ -128,7 +128,9 @@ public class Quiz81_notfinish {
                 return true;
             }
             if (nums[left] == nums[mid] && nums[mid] == nums[right]) {
-                //这就是我上面那种最复杂的情况，[3,5,1,3,3,3,3]，left为0，right为6的情况，此时只能缩小一点left和right窗口
+                //这就是我上面那种最复杂的情况，以[3,5,1,3,3,3,3]为例，有可能的情况是：
+                // 1. left为0，right为6的情况，此时[left, right]不是单调区间
+                // 2. left为3，right为6的情况，那么此时[left,right]就是一个连续相等的区间
                 ++left;
                 --right;
             } else if (nums[left] <= nums[mid]) {
@@ -157,5 +159,12 @@ public class Quiz81_notfinish {
     //todo: 在排除了left==mid==right的特殊情况之后，
     // 通过判断mid和left的大小来判断mid的位置，mid比left大和小两种情况，都能将[left,right]用mid分为一个单调区间和一个不知道是否单调的区间，
     // 如果target落在单调区间内，则事情就好办了，缩小窗口继续递归找。如果target不在单调区间内，那就到另一个区间去找，每次如此循环，最终能确定是否能找到target
+
+
+    //=====================================================================================依葫芦画瓢
+
+    public boolean searchV2(int[] nums, int target) {
+
+    }
 
 }

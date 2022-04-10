@@ -5,13 +5,14 @@ import java.util.*;
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz310_notfinish {
+public class Quiz310_reviewed {
 
     public static void main(String[] args) {
-        Quiz310_notfinish quiz310 = new Quiz310_notfinish();
-        int[][] edges = new int[][]{{3, 0}, {3, 1}, {3, 2}, {3, 4}, {5, 4}};
-
-        List<Integer> res = quiz310.findMinHeightTreesDfs(6, edges);
+        Quiz310_reviewed quiz310 = new Quiz310_reviewed();
+//        int[][] edges = new int[][]{{3, 0}, {3, 1}, {3, 2}, {3, 4}, {5, 4}};
+//        int[][] edges = new int[][]{{1, 0}, {1, 2}, {1, 3}};
+        int[][] edges = new int[0][];
+        List<Integer> res = quiz310.findMinHeightTrees(1, edges);
         System.out.println(res);
 
     }
@@ -21,7 +22,7 @@ public class Quiz310_notfinish {
     //todo: 思路就是，找出相隔最远的两个节点，然后找出他俩之间的路径，路径的中间一个或者两个（取决于路径是奇数还是偶数）节点即为根节点
     // 这个思路是想到了，但是如何找出距离最远的两个节点没想到好办法。官方题解的思路是，先随便从一个节点触发，找出距离他最远的一个节点x，
     // 再从这个x节点出发找距离他最远的节点y，x和y就肯定是距离最远的俩节点了
-    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+    public List<Integer> findMinHeightTreesOfficial(int n, int[][] edges) {
         List<Integer> ans = new ArrayList<>();
         if (n == 1) {
             ans.add(0);
@@ -82,7 +83,7 @@ public class Quiz310_notfinish {
 
     //=============================================================================DFS，深度有限搜索
 
-    public List<Integer> findMinHeightTreesDfs(int n, int[][] edges) {
+    public List<Integer> findMinHeightTreesDfsOfficial(int n, int[][] edges) {
         List<Integer> ans = new ArrayList<Integer>();
         if (n == 1) {
             ans.add(0);
@@ -146,6 +147,87 @@ public class Quiz310_notfinish {
                 dfs(connectedNode, distance, parent, nodeConnectList);
             }
         }
+    }
+
+    //=================================================================
+    // todo: BFS自己依葫芦画瓢，技能点：在BFS和DFS中使用数组（下标+值）的方式记录到达图中不同节点
+    //  的路径（数组值记录上一个节点）或者距离（数组值记录距离某个点的距离）
+
+    public List<Integer> findMinHeightTrees(int n, int[][] edges) {
+        Map<Integer, Set<Integer>> connectMap = new HashMap<>();
+        for (int[] edge : edges) {
+            Set<Integer> connect0 = connectMap.get(edge[0]);
+            Set<Integer> connect1 = connectMap.get(edge[1]);
+
+            if (connect0 == null) {
+                connect0 = new HashSet<>();
+                connectMap.put(edge[0], connect0);
+            }
+
+            if (connect1 == null) {
+                connect1 = new HashSet<>();
+                connectMap.put(edge[1], connect1);
+            }
+
+            connect0.add(edge[1]);
+            connect1.add(edge[0]);
+        }
+
+        //找到距离0最远的一个点x
+        int[] path = new int[n];
+        Arrays.fill(path, -1);
+        int x = findFarestNode(0, path, connectMap);
+        //找到距离x最远的一个点y
+        Arrays.fill(path, -1);
+        //todo: 这里要记住每次path数组要重置
+        int y = findFarestNode(x, path, connectMap);
+        //计算x到y的距离
+        path[x] = -1;
+        List<Integer> realPath = new ArrayList<>();
+        realPath.add(y);
+        for (int i = y; path[i] != -1; ) {
+            realPath.add(path[i]);
+            i = path[i];
+        }
+
+        List<Integer> res = new ArrayList<>();
+        if (realPath.size() % 2 == 0) {
+            //路径长度是偶数
+            res.add(realPath.get(realPath.size() / 2));
+            res.add(realPath.get(realPath.size() / 2 - 1));
+        } else {
+            //路径长度是奇数
+            res.add(realPath.get(realPath.size() / 2));
+        }
+
+        return res;
+    }
+
+    //todo: 使用path数组来记录路径
+    private int findFarestNode(int node, int[] path, Map<Integer, Set<Integer>> connectMap) {
+        Set<Integer> connects = connectMap.get(node);
+        if (connects == null || connects.size() == 0) {
+            return node;
+        }
+
+        Queue<Integer> nodeQueue = new ArrayDeque<>();
+        nodeQueue.offer(node);
+        int curr = -1;
+        while (nodeQueue.size() != 0) {
+            curr = nodeQueue.poll();
+            Set<Integer> connectOfCurr = connectMap.get(curr);
+            if (connectOfCurr.size() == 0) {
+                continue;
+            }
+            for (Integer connect : connectOfCurr) {
+                if (path[connect] != -1 || connect == node) {
+                    continue;
+                }
+                path[connect] = curr;
+                nodeQueue.offer(connect);
+            }
+        }
+        return curr;
     }
 
 }
