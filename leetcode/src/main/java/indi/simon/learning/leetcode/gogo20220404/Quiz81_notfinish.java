@@ -8,7 +8,7 @@ public class Quiz81_notfinish {
     public static void main(String[] args) {
         int[] arr = new int[]{1, 1, 1, 1, 1, 1, 1, 1, 1, 13, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
         Quiz81_notfinish quiz81 = new Quiz81_notfinish();
-        boolean res = quiz81.searchV2(arr, 13);
+        boolean res = quiz81.search(arr, 13);
         System.out.println(res);
     }
 
@@ -163,8 +163,8 @@ public class Quiz81_notfinish {
 
     //=====================================================================================依葫芦画瓢
 
-    public boolean searchV2(int[] nums, int target) {
-
-    }
+//    public boolean searchV2(int[] nums, int target) {
+//
+//    }
 
 }

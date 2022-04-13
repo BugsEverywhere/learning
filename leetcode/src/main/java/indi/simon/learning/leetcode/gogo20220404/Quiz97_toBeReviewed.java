@@ -3,10 +3,10 @@ package indi.simon.learning.leetcode.gogo20220404;
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz97 {
+public class Quiz97_toBeReviewed {
 
     public static void main(String[] args) {
-        Quiz97 quiz97 = new Quiz97();
+        Quiz97_toBeReviewed quiz97 = new Quiz97_toBeReviewed();
         boolean res = quiz97.isInterleave("aabcc", "dbbca", "aadbbcbcac");
         System.out.println(res);
     }
