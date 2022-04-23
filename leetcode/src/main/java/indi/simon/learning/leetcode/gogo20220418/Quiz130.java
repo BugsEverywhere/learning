@@ -3,7 +3,8 @@ package indi.simon.learning.leetcode.gogo20220418;
 /**
  * @author chenzhuo(zhiyue)
  */
-//TODO: 需要注意，这种二维表格的深度优先搜索，脚印的处理，使用boolean[][]比较正确，如果单纯判断上一步是否走过，容易stackoverFlow，比如下面全O的场景
+//TODO: 需要注意，这种二维表格的深度优先搜索，脚印的处理，使用boolean[][]比较正确，如果单纯判断上一步是否走过，容易stackoverFlow，比如下面全O的场景。另外，我的解法的改进点也是显而易见的，脚印
+// boolean[][]其实完全可以省掉，使用原数组原地修改O变为另外的字符即可起到脚印的作用。
 // 官方解答给出一种比较简便的思路，那就是在边界上的所有O，以及他们所相连的O都不符合，找出他们，打上标记，然后遍历整个board，除了刚刚标记的O其他全置为X
 public class Quiz130 {
 
