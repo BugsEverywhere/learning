@@ -6,8 +6,9 @@ import java.util.List;
 /**
  * @author chenzhuo(zhiyue)
  */
-//todo: 这个题还不能用备忘录，回头看一下
-
+//todo: 此题注意备忘录的更新必须放在DFS方法之外，不能在DFS方法里面就更新备忘录，因为DFS的结果并不代表对该区块的完整结果，例如考虑两个相同值的相邻区块a和b，假设a->b的探索不可以流向大海，
+// 但是b-a的探索可以流向大海，这样其实两个区块都能流向大海，但是我们假如先进行的是a->b的探索，因为有脚印的存在，会先入为主的判断这种方式到不了大海，如果这个时候更新备忘录，那么这个结果就是
+// 不全面的
 public class Quiz417_needReview {
 
     public static void main(String[] args) {
@@ -17,15 +18,15 @@ public class Quiz417_needReview {
         System.out.println(res);
     }
 
-//    Boolean[][] pacificMem;
-//    Boolean[][] atlanticMem;
+    Boolean[][] pacificMem;
+    Boolean[][] atlanticMem;
 
     public List<List<Integer>> pacificAtlantic(int[][] heights) {
         if (heights.length == 0) {
             return null;
         }
-//        pacificMem = new Boolean[heights.length][heights[0].length];
-//        atlanticMem = new Boolean[heights.length][heights[0].length];
+        pacificMem = new Boolean[heights.length][heights[0].length];
+        atlanticMem = new Boolean[heights.length][heights[0].length];
         List<List<Integer>> res = new ArrayList<>();
         for (int i = 0; i < heights.length; i++) {
             for (int j = 0; j < heights[0].length; j++) {
@@ -41,18 +42,20 @@ public class Quiz417_needReview {
         }
 
         boolean pacificRes;
-//        if (pacificMem[i][j] != null) {
-//            pacificRes = pacificMem[i][j];
-//        } else {
+        if (pacificMem[i][j] != null) {
+            pacificRes = pacificMem[i][j];
+        } else {
             pacificRes = findCoast(heights, i, j, true, new boolean[heights.length][heights[0].length]);
-//        }
+            pacificMem[i][j] = pacificRes;
+        }
 
         boolean atlanticRes;
-//        if (atlanticMem[i][j] != null) {
-//            atlanticRes = atlanticMem[i][j];
-//        } else {
+        if (atlanticMem[i][j] != null) {
+            atlanticRes = atlanticMem[i][j];
+        } else {
             atlanticRes = findCoast(heights, i, j, false, new boolean[heights.length][heights[0].length]);
-//        }
+            atlanticMem[i][j] = atlanticRes;
+        }
 
         //整理结果
         if (pacificRes && atlanticRes) {
@@ -75,9 +78,9 @@ public class Quiz417_needReview {
         }
 
         if (pacificWards) {
-//            if (pacificMem[i][j] != null) {
-//                return pacificMem[i][j];
-//            }
+            if (pacificMem[i][j] != null) {
+                return pacificMem[i][j];
+            }
             boolean pacificRes = false;
             if (heights[i - 1][j] <= heights[i][j] && !footPrint[i - 1][j]) {
                 pacificRes = findCoast(heights, i - 1, j, pacificWards, footPrint);
@@ -91,12 +94,11 @@ public class Quiz417_needReview {
             if (j + 1 < heights[0].length && heights[i][j + 1] <= heights[i][j] && !footPrint[i][j + 1]) {
                 pacificRes = pacificRes | findCoast(heights, i, j + 1, pacificWards, footPrint);
             }
-//            pacificMem[i][j] = pacificRes;
             return pacificRes;
         } else {
-//            if (atlanticMem[i][j] != null) {
-//                return atlanticMem[i][j];
-//            }
+            if (atlanticMem[i][j] != null) {
+                return atlanticMem[i][j];
+            }
             boolean atlanticRes = false;
             if (heights[i][j + 1] <= heights[i][j] && !footPrint[i][j + 1]) {
                 atlanticRes = findCoast(heights, i, j + 1, pacificWards, footPrint);
@@ -110,7 +112,6 @@ public class Quiz417_needReview {
             if (i - 1 >= 0 && heights[i - 1][j] <= heights[i][j] && !footPrint[i - 1][j]) {
                 atlanticRes = atlanticRes | findCoast(heights, i - 1, j, pacificWards, footPrint);
             }
-//            atlanticMem[i][j] = atlanticRes;
             return atlanticRes;
         }
     }

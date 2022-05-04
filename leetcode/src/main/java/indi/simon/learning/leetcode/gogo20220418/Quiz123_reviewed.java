@@ -3,11 +3,11 @@ package indi.simon.learning.leetcode.gogo20220418;
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz123_timeExceed {
+public class Quiz123_reviewed {
 
     public static void main(String[] args) {
-        Quiz123_timeExceed quiz123 = new Quiz123_timeExceed();
-        int[] prices = new int[]{3,3,5,0,0,3,1,4};
+        Quiz123_reviewed quiz123 = new Quiz123_reviewed();
+        int[] prices = new int[]{3, 3, 5, 0, 0, 3, 1, 4};
         int res = quiz123.maxProfit(prices);
         System.out.println(res);
     }
@@ -52,6 +52,26 @@ public class Quiz123_timeExceed {
     }
 
     //todo: 以上是我的解答，内存超限了
+
+    //以下官方DP解法
+
+    //状态转移表：
+    //天数的下标\状态  |买入0次 |买入1次 |卖出1次 |再次买入1次|再次卖出1次
+    //      0       |-------|-------|-------|---------|-----------
+    //      1       |-------|-------|-------|---------|-----------
+
+    public int maxProfitOfficial(int[] prices) {
+        int n = prices.length;
+        int buy1 = -prices[0], sell1 = 0;
+        int buy2 = -prices[0], sell2 = 0;
+        for (int i = 1; i < n; ++i) {
+            buy1 = Math.max(buy1, -prices[i]);
+            sell1 = Math.max(sell1, buy1 + prices[i]);
+            buy2 = Math.max(buy2, sell1 - prices[i]);
+            sell2 = Math.max(sell2, buy2 + prices[i]);
+        }
+        return sell2;
+    }
 
 
 }
