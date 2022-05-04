@@ -9,11 +9,11 @@ import java.util.List;
 //todo: 此题注意备忘录的更新必须放在DFS方法之外，不能在DFS方法里面就更新备忘录，因为DFS的结果并不代表对该区块的完整结果，例如考虑两个相同值的相邻区块a和b，假设a->b的探索不可以流向大海，
 // 但是b-a的探索可以流向大海，这样其实两个区块都能流向大海，但是我们假如先进行的是a->b的探索，因为有脚印的存在，会先入为主的判断这种方式到不了大海，如果这个时候更新备忘录，那么这个结果就是
 // 不全面的
-public class Quiz417_needReview {
+public class Quiz417_reviewed {
 
     public static void main(String[] args) {
         int[][] heights = new int[][]{{1, 2, 2, 3, 5}, {3, 2, 3, 4, 4}, {2, 4, 5, 3, 1}, {6, 7, 1, 4, 5}, {5, 1, 1, 2, 4}};
-        Quiz417_needReview quiz417 = new Quiz417_needReview();
+        Quiz417_reviewed quiz417 = new Quiz417_reviewed();
         List<List<Integer>> res = quiz417.pacificAtlantic(heights);
         System.out.println(res);
     }
