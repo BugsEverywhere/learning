@@ -7,6 +7,7 @@ import java.util.Set;
 /**
  * @author chenzhuo(zhiyue)
  */
+//todo: 第一次提交忘了还有迂回达成的情况，想简单了，DFS记住，一定是可能有迂回到达终点的情况
 public class Quiz433 {
 
     public static void main(String[] args) {
