@@ -6,6 +6,8 @@ import java.util.List;
 /**
  * @author chenzhuo(zhiyue)
  */
+//todo: 官方解法不是临场能想出来的，关键知识点，2的n次幂在位运算里面就是1左移n位，任何比2的n次幂小的数，二进制位数都不及他，比如1000是8，有四位，比8小的都不及4位，那么2的3次幂-1，也就是7，
+// 二进制撑死也就是111。
 public class Quiz89_notfinish {
 
     public static void main(String[] args) {
@@ -14,79 +16,21 @@ public class Quiz89_notfinish {
         System.out.println(res);
     }
 
-    private List<Integer> res;
 
     public List<Integer> grayCode(int n) {
-        List<Integer> path = new ArrayList<>();
-        path.add(0);
-        grayCodeInternal(n, path, 1);
-        return res;
+        List<Integer> ret = new ArrayList<>();
+        ret.add(0);
+        for (int i = 1; i <= n; i++) {
+            int m = ret.size();
+            int leftMoveCount = i - 1;
+            int temp = (1 << leftMoveCount);
+            for (int j = m - 1; j >= 0; j--) {
+                int lastNum = ret.get(j);
+                int numToBeAdded = lastNum | temp;
+                ret.add(numToBeAdded);
+            }
+        }
+        return ret;
     }
 
-    private void grayCodeInternal(int n, List<Integer> path, int start) {
-        if (this.res != null) {
-            return;
-        }
-
-        if (path.size() >= Math.pow(2, n)) {
-            this.res = path;
-            return;
-        }
-
-        if (start > Math.pow(2, n) - 1) {
-            //不满足要求，不继续递归，返回
-            return;
-        }
-
-        int curr = start;
-        //分不同情况
-        if (path.size() == Math.pow(2, n) - 1) {
-            //找这最后一个数
-            while (curr <= Math.pow(2, n) - 1) {
-                //首先他的二进制表示只能有一个开头的1，其余全是0
-                boolean firstCondition = true;
-                String binStr = Integer.toBinaryString(curr);
-                firstCondition = curr == Math.pow(2, binStr.length() - 1);
-                //第二，他必须跟前一个的二进制表示只差一位
-                boolean secondCondition = true;
-                int backwardAnd = curr & path.get(path.size() - 1);
-                secondCondition = backwardAnd == curr || backwardAnd == path.get(path.size() - 1);
-                if (firstCondition && secondCondition && !path.contains(curr)) {
-                    break;
-                } else {
-                    curr = curr * 2;
-                }
-            }
-        } else {
-            //一般情况
-            while (curr <= Math.pow(2, n) - 1) {
-                //他必须跟前一个的二进制表示只差一位
-                boolean condition = true;
-                int backwardAnd = curr & path.get(path.size() - 1);
-                condition = backwardAnd == curr || backwardAnd == path.get(path.size() - 1);
-                if (condition && !path.contains(curr)) {
-                    break;
-                } else {
-                    curr++;
-                }
-            }
-        }
-        path.add(curr);
-        int nextInt = curr + 1;
-        while (true) {
-            if (nextInt > Math.pow(2, n) - 1) {
-                //到头了，往回找
-                nextInt = nextInt - 1;
-                while (nextInt >= 0 && path.contains(nextInt)) {
-                    nextInt--;
-                }
-                break;
-            } else if (path.contains(nextInt)) {
-                nextInt++;
-            } else {
-                break;
-            }
-        }
-        grayCodeInternal(n, path, nextInt);
-    }
 }
