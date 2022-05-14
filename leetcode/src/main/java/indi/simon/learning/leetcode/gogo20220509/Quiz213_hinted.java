@@ -3,6 +3,7 @@ package indi.simon.learning.leetcode.gogo20220509;
 /**
  * @author chenzhuo(zhiyue)
  */
+//todo: 198的变形，首尾相连的话，将dp分为两种情况，0~length-2以及1~length-1，分别运用dp
 public class Quiz213_hinted {
 
     public static void main(String[] args) {
