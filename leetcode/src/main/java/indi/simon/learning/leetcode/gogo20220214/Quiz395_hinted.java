@@ -5,11 +5,11 @@ import java.util.*;
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz395 {
+public class Quiz395_hinted {
 
     public static void main(String[] args) {
-        Quiz395 quiz395 = new Quiz395();
-        int res = quiz395.longestSubstring("zzzzzzzzzzaaaaaaaaabbbbbbbbhbhbhbhbhbhbhicbcbcibcbccccccccccbbbbbbbbaaaaaaaaafffaahhhhhiaahiiiiiiiiifeeeeeeeeee", 10);
+        Quiz395_hinted quiz395Hinted = new Quiz395_hinted();
+        int res = quiz395Hinted.longestSubstring("zzzzzzzzzzaaaaaaaaabbbbbbbbhbhbhbhbhbhbhicbcbcibcbccccccccccbbbbbbbbaaaaaaaaafffaahhhhhiaahiiiiiiiiifeeeeeeeeee", 10);
         System.out.println(res);
 
     }
