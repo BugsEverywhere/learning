@@ -5,11 +5,11 @@ package indi.simon.learning.leetcode.gogo20220523;
  */
 //todo: 感觉有点数论的意思，我的算法在1548这个神奇的数字上就不work了，因为计算出来的结果还有质因数31。。。他之前都work。但假使对所有数都work，我的复杂度也高了。
 // 官方的题解更加合理，定义三个指针p2, p3, p5，分别表示算到当前所使用的2的个数，3的个数，5的个数。每次迭代计算得到合理的dp[i]时，相应的指针往前移动一步。
-public class Quiz264 {
+public class Quiz264_notfinish {
 
     public static void main(String[] args) {
-        Quiz264 quiz264 = new Quiz264();
-        int res = quiz264.nthUglyNumberOfficial(1548);
+        Quiz264_notfinish quiz264Notfinish = new Quiz264_notfinish();
+        int res = quiz264Notfinish.nthUglyNumberOfficial(1548);
         System.out.println(res);
     }
 
