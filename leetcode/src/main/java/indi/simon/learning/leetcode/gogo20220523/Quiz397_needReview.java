@@ -7,6 +7,8 @@ import java.util.Map;
  * @author chenzhuo(zhiyue)
  */
 //todo: 可以作为记忆化回溯的经典案例，integerReplacementV1是带记忆化回溯，与官方的很像。V2是不带记忆化的回溯，可以改造成V1。V3是另一种不带记忆化的回溯，不能改造成V1
+// 一点感想，这种走到每一步，后面的迭代逻辑都是确定的情况是可以使用记忆化回溯的，还有另一种求最值回溯无法使用记忆化，因为每一步回溯面临多种情况，你必须穷举才能遍历所有可能
+// 从而求得最值，记忆化反而会限制你求最值
 public class Quiz397_needReview {
 
     public static void main(String[] args) {
