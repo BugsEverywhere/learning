@@ -14,12 +14,12 @@ package indi.simon.learning.leetcode.gogo20220530;
 //    对于问题b，则需要将dp数组定义为一个整数数组，其维度为元素维度1+限制维度个数。以本题为例，假如所需要求的不是最大子集个数，而是元素相加最大和，那么就同样需要定义
 //    一个三维整数数组，因为一个元素维度+两个限制维度。那么此时dp[i][j][k]就代表，当装入第i个元素，并且在j个限制1与k个限制2的情况时，所能达到的最大特性值
 // 综上，构造完dp数组后，再基于该数组做状态继承和状态转移即可
-public class Quiz474 {
+public class Quiz474_needReview {
 
     public static void main(String[] args) {
         String[] arr = new String[]{"10", "0", "1"};
-        Quiz474 quiz474 = new Quiz474();
-        int res = quiz474.findMaxForm(arr, 1, 1);
+        Quiz474_needReview quiz474NeedReview = new Quiz474_needReview();
+        int res = quiz474NeedReview.findMaxForm(arr, 1, 1);
         System.out.println(res);
     }
 
