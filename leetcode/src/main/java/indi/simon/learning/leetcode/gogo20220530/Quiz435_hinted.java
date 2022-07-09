@@ -6,6 +6,7 @@ import java.util.Comparator;
 /**
  * @author chenzhuo(zhiyue)
  */
+//todo: dp数组的dp[i]表示第i个区间
 public class Quiz435_hinted {
 
     public static void main(String[] args) {
@@ -26,17 +27,17 @@ public class Quiz435_hinted {
         dp[0] = 1;
 
         for (int i = 1; i < intervals.length; i++) {
-            int maxIntervalCount = 0;
+            int nonOverlapIntervalCount = 0;
             for (int j = 0; j < i; j++) {
                 if (!isOverlap(intervals[i], intervals[j])) {
                     //如果与之前某个区间没有重叠，则用该区间的状态加1之后与当前最值比较
-                    maxIntervalCount = Math.max(dp[j] + 1, maxIntervalCount);
+                    nonOverlapIntervalCount = Math.max(dp[j] + 1, nonOverlapIntervalCount);
                 } else {
                     //如果与之前某个区间重叠了，则继承该区间状态，与最值比较
-                    maxIntervalCount = Math.max(dp[j], maxIntervalCount);
+                    nonOverlapIntervalCount = Math.max(dp[j], nonOverlapIntervalCount);
                 }
             }
-            dp[i] = maxIntervalCount;
+            dp[i] = nonOverlapIntervalCount;
         }
 
         return intervals.length - dp[intervals.length - 1];
