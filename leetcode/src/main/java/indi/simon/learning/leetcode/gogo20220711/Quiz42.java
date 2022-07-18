@@ -3,6 +3,7 @@ package indi.simon.learning.leetcode.gogo20220711;
 /**
  * @author chenzhuo(zhiyue)
  */
+//todo: 牛逼啊，可以可以
 public class Quiz42 {
 
     public static void main(String[] args) {
