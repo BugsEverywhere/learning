@@ -19,11 +19,11 @@ public class Quiz698_needReview {
     //todo: 利用位运算状态压缩=============================================================================================================
     // 主要需要记住的有两点：
     // 1. 使用整数的位运算来标识集合中元素使用状态，这就是状态压缩。对于状态整数，如果集合数组nums中有n个数，那么就存在2的n次方种状态，从0到Math.pow(2,n)-1，也就是(1<<n)-1，对应从所有数都使用完，到所有数都未使用中间的所有状态
-    // 2. 使用dp[]来记录每一个状态的结果，去除重复计算
+    // 2. 使用mem[]来记录每一个状态是否已经到达过，dp[i]为true代表状态i曾经递归过，下一次就duck不必了
     // 3. 使用累计长度对单边长取余来记录当前长度累计是否符合要求，无论是记忆化回溯和DP中都是这么使用，这样很省事儿，不管是递归还是状态转移，都自动帮我做了更新边长的事情了
     int[] nums;
     int per, n;
-    boolean[] dp;
+    boolean[] mem;
 
     public boolean canPartitionKSubsetsStatusCompress(int[] nums, int k) {
         this.nums = nums;
@@ -33,7 +33,7 @@ public class Quiz698_needReview {
         }
         //边长
         per = all / k;
-        //有必要排序吗？
+        //排序是有必要的，因为在dfs的时候，对于每一个状态，在遍历该状态下sideSoFar与nums中的各数之和时，一旦出现大于per的情况就可以break，后面的不用考虑了
         Arrays.sort(nums);
         n = nums.length;
         //最大的数如果比单边还大，就直接没戏
@@ -41,8 +41,8 @@ public class Quiz698_needReview {
             return false;
         }
         //dp[i]表示不同nums可用数字状态下的结果，默认将所有的状态初始化为true，是一个备忘录，所以dp的长度会随nums的长度呈指数级上涨
-        dp = new boolean[1 << n];
-        Arrays.fill(dp, true);
+        mem = new boolean[1 << n];
+        Arrays.fill(mem, true);
         //传入初始的可用数字状态，也就是全部可用，usedNumStatus每一个二进制bit位都是1，
         // 如果nums中有n个数，那么就存在2的n次方种状态，从0到 Math.pow(2,n)-1，也就是(1<<n)-1，对应从所有数都使用完，到所有数都未使用中间的所有状态
         // 所以要根据
@@ -50,7 +50,7 @@ public class Quiz698_needReview {
     }
 
     /**
-     * @param usedNumStatus 用来记录当前哪些数字已经被使用，1<<i为1则表示nums中的下标为i的数字可以被使用，所以，usedNumStatus的第1位对应nums[0]，usedNumStatus的第二位对应
+     * @param usedNumStatus 用来记录当前哪些数字已经被使用，1<<i为1则表示nums中的下标为i的数字可以被使用，即1为未使用状态，所以，usedNumStatus的第1位对应nums[0]，usedNumStatus的第二位对应
      * @param sideSoFar 积累到目前为止的长度
      * @return
      */
@@ -59,12 +59,12 @@ public class Quiz698_needReview {
         if (usedNumStatus == 0) {
             return true;
         }
-        //如果该种状态之前递归过，且不可用，直接返回
-        if (!dp[usedNumStatus]) {
-            return dp[usedNumStatus];
+        //如果该种状态之前递归过，无论之前的结果是true还是false（其实能走到这里，说明之前那次递归到该状态肯定是返回的false），都不考虑了，直接返回
+        if (!mem[usedNumStatus]) {
+            return mem[usedNumStatus];
         }
-        //先置该状态下结果为false，后面递归看看是否能成true
-        dp[usedNumStatus] = false;
+        //先置该状态为已经递归过，以后就不必重复考虑该子问题
+        mem[usedNumStatus] = false;
         for (int i = 0; i < n; i++) {
             if (nums[i] + sideSoFar > per) {
                 break;
