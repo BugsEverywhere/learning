@@ -5,16 +5,18 @@ import java.util.Arrays;
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz473_needReview {
+public class Quiz473_reviewed {
 
     public static void main(String[] args) {
-        Quiz473_needReview quiz473NeedReview = new Quiz473_needReview();
+        Quiz473_reviewed quiz473NeedReview = new Quiz473_reviewed();
         boolean res = quiz473NeedReview.makesquare(new int[]{1, 5, 3, 3, 3, 3, 4, 2});
         System.out.println(res);
     }
 
     private Boolean[] statusMem;
     private int per;
+
+    //todo: 依葫芦画瓢写的状态压缩+记忆化dfs，标准解答参见Quiz698
 
     public boolean makesquare(int[] matchsticks) {
         int sum = 0;

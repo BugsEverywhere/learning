@@ -7,11 +7,11 @@ import java.util.Map;
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz698_needReview {
+public class Quiz698_reviewed {
 
     public static void main(String[] args) {
         int[] nums = {4, 3, 2, 3, 5, 2, 1};
-        Quiz698_needReview quiz698NeedReview = new Quiz698_needReview();
+        Quiz698_reviewed quiz698NeedReview = new Quiz698_reviewed();
         boolean res = quiz698NeedReview.canPartitionKSubsetsStatusCompress(nums, 4);
         System.out.println(res);
     }
