@@ -6,10 +6,10 @@ import java.util.Map;
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz777_timeExceed {
+public class Quiz777_reviewed {
 
     public static void main(String[] args) {
-        Quiz777_timeExceed quiz777TimeExceed = new Quiz777_timeExceed();
+        Quiz777_reviewed quiz777TimeExceed = new Quiz777_reviewed();
         boolean res = quiz777TimeExceed.canTransform("XLXXXXXRXXRXLXXXXXXRXRXXXRXXXLXLLXXLXXXR", "LXRXRXXLXXRXXXRXXXRXLXXXLXXXXXXXXLXXLXRX");
         System.out.println(res);
     }
@@ -17,7 +17,6 @@ public class Quiz777_timeExceed {
     public boolean canTransformV2(String start, String end) {
 
         char[] cArr = start.toCharArray();
-
 
 
         return false;
@@ -29,8 +28,46 @@ public class Quiz777_timeExceed {
         return false;
     }
 
+    //todo: 官方解法，双指针比较起始和结束字符串中的非X字符及其下标，简单明了
+    public boolean canTransformOfficial(String start, String end) {
+        int n = start.length();
+        int i = 0, j = 0;
+        while (i < n && j < n) {
+            while (i < n && start.charAt(i) == 'X') {
+                i++;
+            }
+            while (j < n && end.charAt(j) == 'X') {
+                j++;
+            }
+            if (i < n && j < n) {
+                if (start.charAt(i) != end.charAt(j)) {
+                    return false;
+                }
+                char c = start.charAt(i);
+                if ((c == 'L' && i < j) || (c == 'R' && i > j)) {
+                    return false;
+                }
+                i++;
+                j++;
+            }
+        }
+        while (i < n) {
+            if (start.charAt(i) != 'X') {
+                return false;
+            }
+            i++;
+        }
+        while (j < n) {
+            if (end.charAt(j) != 'X') {
+                return false;
+            }
+            j++;
+        }
+        return true;
+    }
 
-    //todo: 使用字符串替换，超时
+
+    //todo: 使用字符串替换，超时。因为题目虽然说是替换字符串，其实完全没必要使用替换这种做法，费时费力
     /**
      * val: 1==true, 2==false, 3==来过
      */
