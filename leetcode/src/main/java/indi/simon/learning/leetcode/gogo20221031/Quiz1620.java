@@ -28,9 +28,11 @@ public class Quiz1620 {
 
         //遍历所有的塔，算出所有的塔覆盖范围内的点的信号强度，单个点的强度累加，并记录最大信号强度
         int maxSignal = 0;
+        //todo: 存在边界情况，因此数组大小加一
         int[][] points = new int[maxI + 1][maxJ + 1];
         for (int i = 0; i < towers.length; i++) {
-            //单个塔只遍历一次
+            //单个塔只遍历一次，因此需要备忘录记录被该塔遍历过的点
+            //todo:
             boolean[][] mem = new boolean[2 * radius + 2][2 * radius + 2];
             //处理单个塔所覆盖的点
             Queue<int[]> towerPoints = new ArrayDeque<>();
@@ -49,6 +51,9 @@ public class Quiz1620 {
                     int pointY = currPoint[1] + yArr[k];
                     double distance1 = Math.sqrt(Math.pow(pointX - towers[i][0], 2) + Math.pow(pointY - towers[i][1], 2));
                     if (distance1 <= radius && pointX >= 0 && pointY >= 0 && !mem[pointX - towers[i][0] + radius][pointY - towers[i][1] + radius]) {
+                        //todo: 这里记住放入点的地方就要将该点加入备忘录，第一次提交失败就是此处没有及时加入，因为在之后加入会存在这样一种情况，(1,1)是(1,2)和(2,1)的邻接点，
+                        // 当currPoint是(2,2)的时候，当处理(1,2)的时候会把(1,1)加入队列，但是没有在此处登记备忘录，然鹅，在处理(2,1)又将(1,1)加入了队列，就导致重复计算了
+                        // (1,1)的信号强度。因此，所有的BFS都要谨记这一点
                         towerPoints.offer(new int[]{pointX, pointY});
                         mem[pointX - towers[i][0] + radius][pointY - towers[i][1] + radius] = true;
                     }
