@@ -19,6 +19,7 @@ public class Quiz1801 {
     }
 
     public int getNumberOfBacklogOrders(int[][] orders) {
+        //todo: 大顶堆小顶堆要构建正确，不能反了，优先级队列倒排是大顶堆，正排是小顶堆
         PriorityQueue<int[]> bigHeapBuy = new PriorityQueue<>((o1, o2) -> Integer.compare(o2[0], o1[0]));
         PriorityQueue<int[]> smallHeapSell = new PriorityQueue<>(Comparator.comparingInt(o -> o[0]));
 
