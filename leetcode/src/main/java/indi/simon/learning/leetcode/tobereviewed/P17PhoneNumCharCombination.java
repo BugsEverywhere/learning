@@ -1,5 +1,7 @@
 package indi.simon.learning.leetcode.tobereviewed;
 
+import indi.simon.learning.leetcode.commonmodel.TrieNode;
+
 import java.util.*;
 
 /**
@@ -64,17 +66,6 @@ public class P17PhoneNumCharCombination {
             } else {
                 loadStringInternal(str, singleChild, string + singleChild.data);
             }
-        }
-    }
-
-
-    public static class TrieNode {
-        public Character data;
-        public boolean isEndingChar;
-        public Map<Character, TrieNode> children = new HashMap<>();
-
-        public TrieNode(Character data) {
-            this.data = data;
         }
     }
 

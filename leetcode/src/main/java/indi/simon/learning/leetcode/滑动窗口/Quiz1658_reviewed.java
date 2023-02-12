@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.gogo20230109;
+package indi.simon.learning.leetcode.滑动窗口;
 
 import java.util.Arrays;
 
