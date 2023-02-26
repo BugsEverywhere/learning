@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.gogo20220718;
+package indi.simon.learning.leetcode.博弈;
 
 import java.util.HashMap;
 import java.util.Map;
