@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.gogo20220523;
+package indi.simon.learning.leetcode.动态规划;
 
 /**
  * @author chenzhuo(zhiyue)
