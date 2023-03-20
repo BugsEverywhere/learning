@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.gogo20230313;
+package indi.simon.learning.leetcode.字符串经典;
 
 /**
  * @author chenzhuo(zhiyue)
