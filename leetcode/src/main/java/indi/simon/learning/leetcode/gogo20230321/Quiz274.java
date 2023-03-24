@@ -34,7 +34,7 @@ public class Quiz274 {
     /**
      * @param possibleH
      * @param citations
-     * @return 返回一个下标i，排序好的citations中大于等于i的下标都至少被引用了possibleH次
+     * @return 返回的队列中的下标i，排序好的citations中大于等于i的下标都至少被引用了possibleH次，i从大往小排，方便上层遍历
      */
     private PriorityQueue<Integer> binarySearchCeiling(int possibleH, int[] citations) {
         PriorityQueue<Integer> res = new PriorityQueue<>((o1, o2) -> Integer.compare(o2, o1));
@@ -44,21 +44,24 @@ public class Quiz274 {
         while (left <= right) {
             int mid = (left + right) / 2;
             if (citations[mid] == possibleH) {
-                //在citations中找到了目标，返回所有
+                //在citations中找到了目标，返回所有被引用了正好possibleH次的下标，以及！！以及ceiling，因为下标大于等于ceiling的也至少被引用了possibleH次，
+                // 并且小于ceiling下标的也至多引用了possibleH次
                 res.add(mid);
                 int i = mid + 1;
                 int j = mid - 1;
                 while ((i < citations.length && citations[i] == possibleH) || (j >= 0 && citations[j] == possibleH)) {
+                    //todo: 在while内部的数组越界判断也不能省
                     if (i < citations.length && citations[i] == possibleH) {
                         res.add(i);
                         i++;
                     }
+                    //todo: 在while内部的数组越界判断也不能省
                     if (j >= 0 && citations[j] == possibleH) {
                         res.add(j);
                         j--;
                     }
                 }
-                //添加ceiling
+                //todo: 此种情况也要记得添加ceiling
                 res.add(i);
                 return res;
             } else if (citations[mid] < possibleH) {
