@@ -7,7 +7,7 @@ public class Quiz306 {
 
     public static void main(String[] args) {
         Quiz306 quiz306 = new Quiz306();
-        boolean res = quiz306.isAdditiveNumber("11111111111011111111111");
+        boolean res = quiz306.isAdditiveNumber("1023");
         System.out.println(res);
     }
 
@@ -45,10 +45,8 @@ public class Quiz306 {
                     //避免前导0
                     continue;
                 }
-                String num1Str = num.substring(num1Start, num1End);
-                String num2Str = num.substring(num2Start, num2End);
                 String num3Str = num.substring(num3Start, i + 1);
-                if (num3Str.equals()) {
+                if (num3Str.equals(stringAdd(num, num1Start, num1End - 1, num2Start, num2End - 1))) {
                     if (i == num.length() - 1) {
                         return true;
                     }
