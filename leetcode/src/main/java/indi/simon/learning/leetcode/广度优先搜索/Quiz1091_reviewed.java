@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.gogo20230522;
+package indi.simon.learning.leetcode.广度优先搜索;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
