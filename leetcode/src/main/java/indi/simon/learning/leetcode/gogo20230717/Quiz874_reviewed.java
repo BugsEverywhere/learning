@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz874 {
+public class Quiz874_reviewed {
 
     public static void main(String[] args) {
 

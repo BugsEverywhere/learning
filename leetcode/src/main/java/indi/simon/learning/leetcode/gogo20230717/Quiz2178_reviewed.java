@@ -6,11 +6,11 @@ import java.util.List;
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz2178 {
+public class Quiz2178_reviewed {
 
     public static void main(String[] args) {
-        Quiz2178 quiz2178 = new Quiz2178();
-        List<Long> res = quiz2178.maximumEvenSplitOfficial(28);
+        Quiz2178_reviewed quiz2178Reviewed = new Quiz2178_reviewed();
+        List<Long> res = quiz2178Reviewed.maximumEvenSplitOfficial(28);
         System.out.println(res);
     }
 
