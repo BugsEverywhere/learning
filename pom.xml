@@ -24,6 +24,7 @@
         <module>flink-learn</module>
         <module>nio-learn</module>
         <module>my-flink-connector</module>
+        <module>calcite-learn</module>
     </modules>
 
     <properties>
