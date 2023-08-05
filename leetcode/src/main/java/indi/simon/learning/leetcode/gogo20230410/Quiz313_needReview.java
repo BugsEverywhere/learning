@@ -9,9 +9,32 @@ public class Quiz313_needReview {
 
     public static void main(String[] args) {
         Quiz313_needReview quiz313NeedReview = new Quiz313_needReview();
-        int res = quiz313NeedReview.nthSuperUglyNumberGongshui(800, new int[]{37, 43, 59, 61, 67, 71, 79, 83, 89, 97, 101, 103, 113, 127, 131, 157, 163, 167, 173, 179, 191, 193, 197, 199, 211, 229, 233, 239, 251, 257});
+        int res = quiz313NeedReview.nthSuperUglyNumberDpAgain(800, new int[]{37, 43, 59, 61, 67, 71, 79, 83, 89, 97, 101, 103, 113, 127, 131, 157, 163, 167, 173, 179, 191, 193, 197, 199, 211, 229, 233, 239, 251, 257});
         System.out.println(res);
     }
+
+    public int nthSuperUglyNumberDpAgain(int n, int[] primes) {
+        //将primes排序确保从小到大
+        Arrays.sort(primes);
+        long[] dp = new long[n + 1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[1] = 1;
+
+        for (int i = 2; i <= n; i++) {
+            //遍历i之前的每一个超级丑数dp[j]，从dp[j]转移而来
+            for (int j = i - 1; j >= 1; j--) {
+                for (int prime : primes) {
+                    long m = dp[j] * prime;
+                    if (m > dp[i - 1]) {
+                        dp[i] = Math.min(m, dp[i]);
+                    }
+                }
+            }
+        }
+
+        return (int) dp[n];
+    }
+
 
     //todo: 宫酱的优先级队列
     public int nthSuperUglyNumberGongshui(int n, int[] primes) {
