@@ -14,6 +14,10 @@ public class Quiz313_needReview {
     }
 
     public int nthSuperUglyNumberDpAgain(int n, int[] primes) {
+
+
+
+
         //将primes排序确保从小到大
         Arrays.sort(primes);
         long[] dp = new long[n + 1];
