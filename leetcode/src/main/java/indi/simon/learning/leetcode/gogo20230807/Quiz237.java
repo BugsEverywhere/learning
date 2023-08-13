@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.gogo20230213;
+package indi.simon.learning.leetcode.gogo20230807;
 
 import indi.simon.learning.leetcode.commonmodel.ListNode;
 
@@ -12,10 +12,12 @@ public class Quiz237 {
     }
 
     public void deleteNode(ListNode node) {
-        
-
-
+        node.val = node.next.val;
+        if (node.next.next == null) {
+            node.next = null;
+        } else {
+            deleteNode(node.next);
+        }
     }
-
 
 }
