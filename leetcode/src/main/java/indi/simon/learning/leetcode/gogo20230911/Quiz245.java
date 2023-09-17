@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.gogo20230904;
+package indi.simon.learning.leetcode.gogo20230911;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,23 +6,36 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Chen Zhuo on 2023/9/10.
+ * Created by Chen Zhuo on 2023/9/16.
  */
-public class Quiz244 {
+public class Quiz245 {
 
     public static void main(String[] args) {
-        Quiz244 quiz244 = new Quiz244(new String[]{"trag", "milla"});
-        int res = quiz244.shortest("trag", "milla");
-        System.out.println(res);
+
     }
 
     private Map<String, List<Integer>> indexMap;
 
-    public Quiz244(String[] wordsDict) {
+    public int shortestWordDistance(String[] wordsDict, String word1, String word2) {
         indexMap = new HashMap<>();
         for (int i = 0; i < wordsDict.length; i++) {
             indexMap.putIfAbsent(wordsDict[i], new ArrayList<>());
             indexMap.get(wordsDict[i]).add(i);
+        }
+
+        if (!word1.equals(word2)) {
+            return shortest(word1, word2);
+        } else {
+            List<Integer> indexList = indexMap.get(word1);
+            int minGap = Integer.MAX_VALUE;
+            int i = 0;
+            int j = i + 1;
+            while (j < indexList.size()) {
+                minGap = Math.min(indexList.get(j) - indexList.get(i), minGap);
+                i++;
+                j++;
+            }
+            return minGap;
         }
     }
 
@@ -76,26 +89,6 @@ public class Quiz244 {
             }
         }
         return -1;
-    }
-
-
-    //todo: official solution, much better :
-    public int shortestDistance(String[] wordsDict, String word1, String word2) {
-        int length = wordsDict.length;
-        int ans = length;
-        int index1 = -1, index2 = -1;
-        for (int i = 0; i < length; i++) {
-            String word = wordsDict[i];
-            if (word.equals(word1)) {
-                index1 = i;
-            } else if (word.equals(word2)) {
-                index2 = i;
-            }
-            if (index1 >= 0 && index2 >= 0) {
-                ans = Math.min(ans, Math.abs(index1 - index2));
-            }
-        }
-        return ans;
     }
 
 }
