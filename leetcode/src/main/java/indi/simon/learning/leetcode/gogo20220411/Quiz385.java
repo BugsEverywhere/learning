@@ -89,7 +89,7 @@ public class Quiz385 {
     }
 
 
-    private class NestedInteger {
+    public class NestedInteger {
 
         public NestedInteger() {
         }
