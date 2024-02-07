@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.gogo20240129;
+package indi.simon.learning.leetcode.动态规划;
 
 /**
  * Created by Chen Zhuo on 2024/2/3.
