@@ -21,7 +21,7 @@ public class Quiz260_reviewed {
         //todo: 这里是得到xorsum中仅最后一位（假设是第l位）为1的这个整数（其实仅任何一位为1的整数都可以）作为分类器，在所有的nums中，该位为0的数是type1，该位为1的数是type2，
         // a和b肯定分属于type1和type2，这样最终的异或出来的结果才会使该位为1.
         // 这种技巧了解一下吧。。。我说的是与自己的相反数与一下得到最后一位为1的数这种操作。
-        // 而且当xorsum就等于Integer.MIN_VALUE得时候，也就是0x80000000，数字所有位一个1都没有（除了符号位），那么也不用做与运算了，不然会溢出
+        // 而且当xorsum就等于Integer.MIN_VALUE得时候，也就是0x80000000，相反数就是它自己，那么也不用取反做与运算了，与不与结果都一样，唯一的1就是最高位的符号位
         int lsb = (xorsum == Integer.MIN_VALUE ? xorsum : xorsum & (-xorsum));
         int type1 = 0, type2 = 0;
         for (int num : nums) {
