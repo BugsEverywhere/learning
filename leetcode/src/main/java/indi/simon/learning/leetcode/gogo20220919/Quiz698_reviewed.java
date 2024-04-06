@@ -19,7 +19,7 @@ public class Quiz698_reviewed {
     //todo: 利用位运算状态压缩=============================================================================================================
     // 主要需要记住的有两点：
     // 1. 使用整数的位运算来标识集合中元素使用状态，这就是状态压缩。对于状态整数，如果集合数组nums中有n个数，那么就存在2的n次方种状态，从0到Math.pow(2,n)-1，也就是(1<<n)-1，对应从所有数都使用完，到所有数都未使用中间的所有状态
-    // 2. 使用mem[]来记录每一个状态是否已经到达过，dp[i]为true代表状态i曾经递归过，下一次就duck不必了
+    // 2. 使用mem[]来记录每一个状态是否已经到达过，mem[i]为true代表状态i曾经递归过，下一次就duck不必了
     // 3. 使用累计长度对单边长取余来记录当前长度累计是否符合要求，无论是记忆化回溯和DP中都是这么使用，这样很省事儿，不管是递归还是状态转移，都自动帮我做了更新边长的事情了
     int[] nums;
     int per, n;
@@ -51,7 +51,7 @@ public class Quiz698_reviewed {
 
     /**
      * @param usedNumStatus 用来记录当前哪些数字已经被使用，1<<i为1则表示nums中的下标为i的数字可以被使用，即1为未使用状态，所以，usedNumStatus的第1位对应nums[0]，usedNumStatus的第二位对应
-     * @param sideSoFar 积累到目前为止的长度
+     * @param sideSoFar     积累到目前为止的长度
      * @return
      */
     public boolean dfs(int usedNumStatus, int sideSoFar) {
@@ -59,7 +59,7 @@ public class Quiz698_reviewed {
         if (usedNumStatus == 0) {
             return true;
         }
-        //如果该种状态之前递归过，无论之前的结果是true还是false（其实能走到这里，说明之前那次递归到该状态肯定是返回的false），都不考虑了，直接返回
+        //如果该种状态之前递归过（说明之前那次递归到该状态肯定是返回的false），都不考虑了，直接返回
         if (!mem[usedNumStatus]) {
             return mem[usedNumStatus];
         }
@@ -73,6 +73,7 @@ public class Quiz698_reviewed {
             if (((usedNumStatus >> i) & 1) != 0) {
                 //nums的第i个数之前没有使用过，用他，usedNumStatus把第i位bit置为0往下传，但是本层不动usedNumStatus，
                 // 因为还要循环递归后面的数，(sideSoFar + nums[i]) % per 来算实际达到的边长，记下了
+                //todo: 技巧，记录状态位，可以使用1右移之后与原状态亦或，得到新的状态
                 if (dfs(usedNumStatus ^ (1 << i), (sideSoFar + nums[i]) % per)) {
                     return true;
                 }

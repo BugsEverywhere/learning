@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.gogo20220905;
+package indi.simon.learning.leetcode.二叉树;
 
 import indi.simon.learning.leetcode.commonmodel.TreeNode;
 
@@ -7,6 +7,8 @@ import java.util.*;
 /**
  * @author chenzhuo(zhiyue)
  */
+//todo: 将每个节点及其子节点的值拼接成字符串，如果该字符串之前出现过，那么就将其加入答案。这样做比我那种逐个比对的方式好的地方在于，
+// 减少了时间复杂度，如果某个子树出现了多次，序列化成字符串可以很快知道这一点，而不用每一次都与之前的子树进行比对，这样很耗时
 public class Quiz652_needReview {
 
     public static void main(String[] args) {
@@ -38,6 +40,32 @@ public class Quiz652_needReview {
         List<TreeNode> res = quiz652NeedReview.findDuplicateSubtrees(node0);
         System.out.println(res);
     }
+
+    //todo: =================================================正确的做法
+    Map<String, Integer> cntMap = new HashMap<>();
+    List<TreeNode> ans = new ArrayList<>();
+
+    public List<TreeNode> findDuplicateSubtreesRight(TreeNode root) {
+        dfs(root);
+        return ans;
+    }
+
+    private String dfs(TreeNode root) {
+        if (root == null) {
+            return " ";
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(root.val).append("_");
+        sb.append(dfs(root.left)).append("#").append(dfs(root.right));
+        String key = sb.toString();
+        cntMap.put(key, cntMap.getOrDefault(key, 0) + 1);
+        if (cntMap.get(key) == 2) {
+            ans.add(root);
+        }
+        return key;
+    }
+
+    //===================================================我的傻逼做法，超时
 
     private Map<Integer, List<TreeNode>> map;
     private List<TreeNode> res;

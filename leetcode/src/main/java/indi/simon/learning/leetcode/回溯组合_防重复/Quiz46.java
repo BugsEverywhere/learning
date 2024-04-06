@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.tobereviewed;
+package indi.simon.learning.leetcode.回溯组合_防重复;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.List;
  * Date:
  * Time:
  */
-public class P46Permute {
+public class Quiz46 {
 
     public static void main(String[] args) {
         int[] test = new int[]{1, 2, 3};

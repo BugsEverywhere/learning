@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.tobereviewed;
+package indi.simon.learning.leetcode.回溯组合_防重复;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +11,7 @@ import java.util.List;
  * Date:
  * Time:
  */
-public class P31NextPermutation {
+public class Quiz31 {
 
     public static void main(String[] args) {
 
