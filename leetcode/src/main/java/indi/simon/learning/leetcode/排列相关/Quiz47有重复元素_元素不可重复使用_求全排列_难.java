@@ -9,6 +9,11 @@ import java.util.*;
 // 重复元素聚拢，这样在每一层递归的for循环中，重复元素都聚在一起。然后标记数组的作用是，每一轮使用该数未被访问过的第一个来填充，
 // 举例，某一轮递归中拿到的nums如下所示：1(使用过),1(使用过),1(未使用),2(使用过),2(未使用),2(未使用),2(未使用)，
 // 那么在本轮中，for循环到第3个1以及第2个2时，都可以将其纳入排列并往下递归，其余情况都直接continue
+// 记住：
+//  1. 使用标记数组记录递归过程中，nums元素是否被使用过
+//  2. nums排序，聚拢重复元素
+//  3. 每一层递归从0开始for
+//  4. for循环中仅将连续出现的重复元素中第一个未使用的（vis[i]==false 且 vis[i-1]==true）该元素往下递归，其他情况continue
 public class Quiz47有重复元素_元素不可重复使用_求全排列_难 {
 
     public static void main(String[] args) {
@@ -29,6 +34,7 @@ public class Quiz47有重复元素_元素不可重复使用_求全排列_难 {
 
     public List<List<Integer>> permuteUnique(int[] nums) {
         vis = new boolean[nums.length];
+        //todo: 排序治疗重复元素YYDS
         Arrays.sort(nums);
         this.nums = nums;
         dfs();
@@ -40,7 +46,9 @@ public class Quiz47有重复元素_元素不可重复使用_求全排列_难 {
             res.add(new ArrayList<>(path));
             return;
         }
+        //todo: 每一层递归从0开始for
         for (int i = 0; i < nums.length; ++i) {
+            //todo:
             if (vis[i] || (i > 0 && nums[i] == nums[i - 1] && !vis[i - 1])) {
                 continue;
             }
