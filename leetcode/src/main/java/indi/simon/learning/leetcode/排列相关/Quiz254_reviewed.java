@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.回溯组合_防重复;
+package indi.simon.learning.leetcode.排列相关;
 
 import java.util.*;
 

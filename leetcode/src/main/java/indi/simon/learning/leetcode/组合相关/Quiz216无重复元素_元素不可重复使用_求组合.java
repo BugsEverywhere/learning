@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.回溯组合_防重复;
+package indi.simon.learning.leetcode.组合相关;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by Chen Zhuo on 2024/4/6.
  */
-public class Quiz216组合元素不可重复使用_候选集本身无重复元素 {
+public class Quiz216无重复元素_元素不可重复使用_求组合 {
 
     public static void main(String[] args) {
 

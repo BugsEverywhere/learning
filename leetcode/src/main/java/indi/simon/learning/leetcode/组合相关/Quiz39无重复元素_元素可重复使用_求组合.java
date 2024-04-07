@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.回溯组合_防重复;
+package indi.simon.learning.leetcode.组合相关;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +9,10 @@ import java.util.List;
 //todo: 由于元素可重复使用，相当于数组中的每一个数都有无限个，因此一般这种题会强调数组中元素本来就不重复，
 // 不然也不用给出可重复使用的条件。如果没有强调这一点，也就是数组中可能有重复元素，或者面试的时候对方模棱两可，
 // 那么记得将数组处理成无重复元素的样子，再做后续的计算
-public class Quiz39组合元素可重复使用 {
+public class Quiz39无重复元素_元素可重复使用_求组合 {
 
     public static void main(String[] args) {
-        Quiz39组合元素可重复使用 quiz39组合元素可重复使用内容不可重复 = new Quiz39组合元素可重复使用();
+        Quiz39无重复元素_元素可重复使用_求组合 quiz39组合元素可重复使用内容不可重复 = new Quiz39无重复元素_元素可重复使用_求组合();
         List<List<Integer>> res = quiz39组合元素可重复使用内容不可重复.combinationSum(new int[]{1, 1, 2, 6}, 2);
         System.out.println(res);
     }
