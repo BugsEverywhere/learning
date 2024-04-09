@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.二分查找;
+package indi.simon.learning.复习.二分查找;
 
 
 /**
@@ -13,10 +13,10 @@ package indi.simon.learning.leetcode.二分查找;
 // 2. 计算二维行列有序数组中小于等于某个x的数的个数的方法是，逐行遍历，每遍历到一个数，如果其小于等于x，说明该列上行数小于它的数都满足条件，那么假设该数在第i行，
 //    则该列的前i+1个数都满足条件，结果加上i+1。如果碰到比x大的数，则行减1继续遍历，相当于描绘一副小于等于x的边界线，这样就充分利用了行列有序的特性
 // 3. 不要总是把二分法局限在使用数组下标来进行二分，使用数组值同样可以二分，关键就是这个check方法怎么写。
-public class Quiz378_reviewed {
+public class Quiz378二维行列有序数组查找第k大的数 {
 
     public static void main(String[] args) {
-        Quiz378_reviewed quiz378 = new Quiz378_reviewed();
+        Quiz378二维行列有序数组查找第k大的数 quiz378 = new Quiz378二维行列有序数组查找第k大的数();
         int[][] arr = new int[][]{
                 {1, 5, 9},
                 {10, 11, 13},

@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.单调栈;
+package indi.simon.learning.复习.单调栈;
 
 import java.util.Stack;
 
@@ -9,12 +9,12 @@ import java.util.Stack;
 // 2. 单调栈可以保证遍历完字符串之后，如果还没删除够，那么该栈肯定是一个单调递增的栈，这种情况如果需要继续删除的话，就从尾部从后往前删
 //    只有在一趟遍历之后删除了k个数的情况下，才可能使得栈不单调
 // 3. 最终拼成字符串的时候来保证去除前缀0的逻辑，可以不在前面单调栈的地方增加判断的复杂度
-public class Quiz402_reviewed {
+public class Quiz402移除k个数字使其最小 {
 
     public static void main(String[] args) {
         String num = "1432219";
         int k = 3;
-        Quiz402_reviewed quiz402Reviewed = new Quiz402_reviewed();
+        Quiz402移除k个数字使其最小 quiz402Reviewed = new Quiz402移除k个数字使其最小();
         String res = quiz402Reviewed.removeKdigits(num, k);
         System.out.println(res);
     }

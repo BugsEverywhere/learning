@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.排列相关;
+package indi.simon.learning.复习.排列相关;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,14 +1,14 @@
-package indi.simon.learning.leetcode.动态规划;
+package indi.simon.learning.复习.动态规划;
 
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz300 {
+public class Quiz300最长递增子序列 {
 
     public static void main(String[] args) {
-        Quiz300 quiz300 = new Quiz300();
+        Quiz300最长递增子序列 quiz300最长递增子序列 = new Quiz300最长递增子序列();
         int[] nums = new int[]{1, 3, 6, 7, 9, 4, 10, 5, 6};
-        int res = quiz300.lengthOfLIS(nums);
+        int res = quiz300最长递增子序列.lengthOfLIS(nums);
         System.out.println(res);
 
     }

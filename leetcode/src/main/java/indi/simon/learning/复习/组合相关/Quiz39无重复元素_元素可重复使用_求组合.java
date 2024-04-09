@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.组合相关;
+package indi.simon.learning.复习.组合相关;
 
 import java.util.ArrayList;
 import java.util.List;

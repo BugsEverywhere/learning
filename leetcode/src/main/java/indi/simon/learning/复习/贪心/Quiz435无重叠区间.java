@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.动态规划;
+package indi.simon.learning.复习.贪心;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -8,12 +8,12 @@ import java.util.function.ToIntFunction;
  * @author chenzhuo(zhiyue)
  */
 //todo: DP会超时，下方有贪心解法，不过不作要求，真实面试场景能写出DP应该就够了
-public class Quiz435_reviewed {
+public class Quiz435无重叠区间 {
 
     public static void main(String[] args) {
-        Quiz435_reviewed quiz435ReviewedHinted = new Quiz435_reviewed();
+        Quiz435无重叠区间 quiz435无重叠区间ReviewedHinted = new Quiz435无重叠区间();
         int[][] intervals = new int[][]{{1, 10}, {2, 4}, {3, 6}, {7, 8}};
-        int res = quiz435ReviewedHinted.eraseOverlapIntervals(intervals);
+        int res = quiz435无重叠区间ReviewedHinted.eraseOverlapIntervals(intervals);
         System.out.println(res);
     }
 

@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.贪心;
+package indi.simon.learning.复习.贪心;
 
 /**
  * Created by Chen Zhuo on 2024/4/5.
@@ -6,10 +6,10 @@ package indi.simon.learning.leetcode.贪心;
 //todo: 需要注意的技巧：
 // 1. 这种构造字符串的题，不要总是使用StringBuilder来顺序构造，这里就使用了char[]来排列，最终只需要String.valueOf一下即可
 // 2. 使用长度为26的整数数组来记录26个字母出现的频率，不要动不动使用map
-public class Quiz767_reviewed {
+public class Quiz767重新排列字符串使得相邻字符不一样 {
 
     public static void main(String[] args) {
-        Quiz767_reviewed quiz767Reviewed = new Quiz767_reviewed();
+        Quiz767重新排列字符串使得相邻字符不一样 quiz767Reviewed = new Quiz767重新排列字符串使得相邻字符不一样();
         String res = quiz767Reviewed.reorganizeString("vvvlo");
         System.out.println(res);
     }

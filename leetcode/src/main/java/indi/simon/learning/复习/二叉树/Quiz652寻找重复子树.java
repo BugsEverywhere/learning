@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.二叉树;
+package indi.simon.learning.复习.二叉树;
 
 import indi.simon.learning.leetcode.commonmodel.TreeNode;
 
@@ -9,7 +9,7 @@ import java.util.*;
  */
 //todo: 将每个节点及其子节点的值拼接成字符串，如果该字符串之前出现过，那么就将其加入答案。这样做比我那种逐个比对的方式好的地方在于，
 // 减少了时间复杂度，如果某个子树出现了多次，序列化成字符串可以很快知道这一点，而不用每一次都与之前的子树进行比对，这样很耗时
-public class Quiz652_needReview {
+public class Quiz652寻找重复子树 {
 
     public static void main(String[] args) {
         TreeNode node0 = new TreeNode(0);
@@ -36,7 +36,7 @@ public class Quiz652_needReview {
         node4.left = node7;
         node4.right = node8;
 
-        Quiz652_needReview quiz652NeedReview = new Quiz652_needReview();
+        Quiz652寻找重复子树 quiz652NeedReview = new Quiz652寻找重复子树();
         List<TreeNode> res = quiz652NeedReview.findDuplicateSubtrees(node0);
         System.out.println(res);
     }

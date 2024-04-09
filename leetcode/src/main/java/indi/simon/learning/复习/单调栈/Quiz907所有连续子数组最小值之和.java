@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.单调栈;
+package indi.simon.learning.复习.单调栈;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -6,10 +6,10 @@ import java.util.Deque;
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz907_reviewed {
+public class Quiz907所有连续子数组最小值之和 {
 
     public static void main(String[] args) {
-        Quiz907_reviewed quiz907NeedReview = new Quiz907_reviewed();
+        Quiz907所有连续子数组最小值之和 quiz907NeedReview = new Quiz907所有连续子数组最小值之和();
         int res = quiz907NeedReview.sumSubarrayMins(new int[]{11, 81, 94, 43, 3});
         System.out.println(res);
     }
