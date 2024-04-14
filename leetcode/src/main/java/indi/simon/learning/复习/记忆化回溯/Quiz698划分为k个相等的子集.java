@@ -1,26 +1,27 @@
-package indi.simon.learning.leetcode.gogo20220919;
+package indi.simon.learning.复习.记忆化回溯;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz698_reviewed {
+//todo: 
+// 技巧：
+// 0. 排序（方便后续剪枝） + 从0开始的for循环递归dfs，且由于题目是存在性问题，dfs返回值为boolean。
+// 1. 本题可用数组的长度为n，状态压缩时，那么就存在2的n次方种状态，从0到Math.pow(2,n)-1，也就是(1<<n)-1，对应从所有数都使用完，到所有数都未使用中间的所有状态
+// 2. 之所以本题可以使用1维mem数组来作为备忘录，是因为，一旦dfs到某个状态，那么所用到的nums中的哪些数肯定是唯一确定的，而这些数的和对边长取余（sideSoFar）也是唯一的，所以用到了这些数的情况下，所有状态都是唯一的，不存在额外的维度
+// 3. 使用累计长度对单边长取余来记录当前长度累计是否符合要求，无论是记忆化回溯和DP中都是这么使用，这样很省事儿，不管是递归还是状态转移，都自动帮我做了更新边长的事情了，所有多阶段可行性dfs都可以参考这种做法
+public class Quiz698划分为k个相等的子集 {
 
     public static void main(String[] args) {
         int[] nums = {4, 3, 2, 3, 5, 2, 1};
-        Quiz698_reviewed quiz698NeedReview = new Quiz698_reviewed();
+        Quiz698划分为k个相等的子集 quiz698NeedReview = new Quiz698划分为k个相等的子集();
         boolean res = quiz698NeedReview.canPartitionKSubsetsStatusCompress(nums, 4);
         System.out.println(res);
     }
 
-    //todo: 利用位运算状态压缩=============================================================================================================
-    // 主要需要记住的有两点：
-    // 1. 使用整数的位运算来标识集合中元素使用状态，这就是状态压缩。对于状态整数，如果集合数组nums中有n个数，那么就存在2的n次方种状态，从0到Math.pow(2,n)-1，也就是(1<<n)-1，对应从所有数都使用完，到所有数都未使用中间的所有状态
-    // 2. 使用mem[]来记录每一个状态是否已经到达过，mem[i]为true代表状态i曾经递归过，下一次就duck不必了
-    // 3. 使用累计长度对单边长取余来记录当前长度累计是否符合要求，无论是记忆化回溯和DP中都是这么使用，这样很省事儿，不管是递归还是状态转移，都自动帮我做了更新边长的事情了
+    //todo:利用位运算状态压缩
+    // =============================================================================================================
     int[] nums;
     int per, n;
     boolean[] mem;
@@ -40,7 +41,8 @@ public class Quiz698_reviewed {
         if (nums[n - 1] > per) {
             return false;
         }
-        //dp[i]表示不同nums可用数字状态下的结果，默认将所有的状态初始化为true，是一个备忘录，所以dp的长度会随nums的长度呈指数级上涨
+        //mem[i]表示不同nums可用数字状态下的结果，默认将所有的状态初始化为true，是一个备忘录
+        // mem[i]为true表示此状态可使用，在此题中，一旦某个状态在mem中为false，说明此种状态之前来过，后续无须
         mem = new boolean[1 << n];
         Arrays.fill(mem, true);
         //传入初始的可用数字状态，也就是全部可用，usedNumStatus每一个二进制bit位都是1，
@@ -63,17 +65,20 @@ public class Quiz698_reviewed {
         if (!mem[usedNumStatus]) {
             return mem[usedNumStatus];
         }
-        //先置该状态为已经递归过，以后就不必重复考虑该子问题
+        //todo: 先置该状态为已经递归过，无论在后面的for循环dfs中返回true还是false，以后都不必重复考虑该状态了
         mem[usedNumStatus] = false;
         for (int i = 0; i < n; i++) {
             if (nums[i] + sideSoFar > per) {
+                //因为排序了，所以如果此时nums[i]与sideSoFar之和如果大于边长，则可以直接break，后面的肯定更大
                 break;
             }
-            //确保一下usedNumStatus的第i位bit是1，也就是确保nums中的第i位数是没有被使用过的
+            //todo: 一定要有这一步校验，确保一下usedNumStatus的第i位bit是1，也就是确保nums中的第i位数是没有被使用过的，
+            // 如果先前就使用过则此处可以直接跳过，dfs下一个
             if (((usedNumStatus >> i) & 1) != 0) {
                 //nums的第i个数之前没有使用过，用他，usedNumStatus把第i位bit置为0往下传，但是本层不动usedNumStatus，
-                // 因为还要循环递归后面的数，(sideSoFar + nums[i]) % per 来算实际达到的边长，记下了
-                //todo: 技巧，记录状态位，可以使用1右移之后与原状态亦或，得到新的状态
+                // (sideSoFar + nums[i]) % per 一下就囊括了边长不足per，以及边长刚好等于per并且归零两个操作，妙~
+                //todo: 技巧：记录状态位，可以使用1左移之后与原状态异或，得到新的状态
+                //todo: 技巧：可以使用(sideSoFar + nums[i]) % per来递归，自动完成下一层的边长填充
                 if (dfs(usedNumStatus ^ (1 << i), (sideSoFar + nums[i]) % per)) {
                     return true;
                 }
@@ -91,6 +96,7 @@ public class Quiz698_reviewed {
             return false;
         }
         int per = all / k;
+        //排序是必须的，同上
         Arrays.sort(nums);
         int n = nums.length;
         if (nums[n - 1] > per) {
@@ -107,23 +113,23 @@ public class Quiz698_reviewed {
         int[] curSum = new int[statusCount];
 
         //todo: 遍历所有状态，每一轮遍历，都会基于当前状态，计算后续所有可达状态，将结果更新到dp[]和curSum[]，所以在遍历时只需要遍历所有基于之前状态的可达状态即可，不可达状态看都不用看
-        for (int singleStatus = 0; singleStatus < statusCount; singleStatus++) {
+        for (int i = 0; i < statusCount; i++) {
             //singleStatus作为下标就代表状态本身，如果该状态基于之前的状态不可达，直接continue下一个状态
-            if (!dp[singleStatus]) {
+            if (!dp[i]) {
                 continue;
             }
             //在单个可达状态下遍历nums的每一个数与当前状态组合的下一个状态是否可达
             for (int j = 0; j < n; j++) {
                 //所考察的单边长
-                int oops = curSum[singleStatus] + nums[j];
+                int oops = curSum[i] + nums[j];
                 //如果当前状态加上nums[j]之后比单边长度要大，说明没戏，后面的nums元素不用看了，因为之前排序了，直接break看下一个状态
                 if (oops > per) {
                     break;
                 }
                 //确认一下该状态下nums的第j个数没有被使用过
-                if (((singleStatus >> j) & 1) == 0) {
-                    //nums[j]没有被使用，那么算出基于当前 singleStatus 状态加上nums[j]之后，也就是使用了nums[j]之后，下一个状态是多少
-                    int nextStatusIndex = singleStatus | (1 << j);
+                if (((i >> j) & 1) == 0) {
+                    //nums[j]没有被使用，那么算出基于当前 i 状态加上nums[j]之后，也就是使用了nums[j]之后，下一个状态是多少
+                    int nextStatusIndex = i | (1 << j);
                     //如果下一个状态本来就是true（可达），那不用做任何事情。当下一个状态的结果为false时，将其更新为可达，且更新curSum在下一个状态的值
                     if (!dp[nextStatusIndex]) {
                         curSum[nextStatusIndex] = oops % per;
@@ -134,74 +140,6 @@ public class Quiz698_reviewed {
         }
         return dp[statusCount - 1];
     }
-
-
-    //todo : 非记忆化回溯，超时=====================================================================================================
-    public boolean canPartitionKSubsets(int[] nums, int k) {
-        //登记簿
-        Map<Integer, Integer> numCountMap = new HashMap<>();
-        int sum = 0;
-        //算出总和，顺便把所有数都登记一下
-        for (int num : nums) {
-            sum += num;
-            if (numCountMap.containsKey(num)) {
-                numCountMap.put(num, numCountMap.get(num) + 1);
-            } else {
-                numCountMap.put(num, 1);
-            }
-        }
-        //如果总和不能被k整除，返回false
-        if (sum % k != 0) {
-            return false;
-        }
-
-        return canPartitionKSubsetsInternal(0, numCountMap, sum / k);
-
-    }
-
-    private boolean canPartitionKSubsetsInternal(int thisSideSoFar, Map<Integer, Integer> countMap, int singleSideNeeded) {
-        if (countMap.size() == 0) {
-            //如果最终登记簿没有数了
-            if (thisSideSoFar == 0) {
-                return true;
-            } else {
-                return false;
-            }
-        }
-
-        for (Map.Entry<Integer, Integer> singleEntry : countMap.entrySet()) {
-            if (thisSideSoFar + singleEntry.getKey() == singleSideNeeded) {
-                //如果本边长加到此处等于所需要的边长，往下从0递归起新的边长
-                Map<Integer, Integer> newMap = new HashMap<>(countMap);
-                deductOneNum(newMap, singleEntry.getKey());
-                boolean res = canPartitionKSubsetsInternal(0, newMap, singleSideNeeded);
-                if (res) {
-                    return true;
-                }
-            } else if (thisSideSoFar + singleEntry.getKey() < singleSideNeeded) {
-                //如果本边长加上此数仍然小于所需边长，继续往下递归
-                Map<Integer, Integer> newMap = new HashMap<>(countMap);
-                deductOneNum(newMap, singleEntry.getKey());
-                boolean res = canPartitionKSubsetsInternal(thisSideSoFar + singleEntry.getKey(), newMap, singleSideNeeded);
-                if (res) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    private void deductOneNum(Map<Integer, Integer> countMap, int num) {
-        if (!countMap.containsKey(num)) {
-            return;
-        }
-
-        if (countMap.get(num) == 1) {
-            countMap.remove(num);
-        } else {
-            countMap.put(num, countMap.get(num) - 1);
-        }
-    }
+    
 
 }
