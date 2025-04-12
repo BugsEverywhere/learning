@@ -4,10 +4,10 @@ package indi.simon.learning.复习.排列相关;
  * @author chenzhuo(zhiyue)
  */
 
-public class Quiz377_组合总和4_与零钱兑换2类似但有区别 {
+public class Quiz377_求排列数_与零钱兑换2类似但有区别 {
 
     public static void main(String[] args) {
-        Quiz377_组合总和4_与零钱兑换2类似但有区别 quiz377Notfinish = new Quiz377_组合总和4_与零钱兑换2类似但有区别();
+        Quiz377_求排列数_与零钱兑换2类似但有区别 quiz377Notfinish = new Quiz377_求排列数_与零钱兑换2类似但有区别();
         int[] nums = new int[]{1, 2, 3};
         int res = quiz377Notfinish.combinationSum4(nums, 4);
         System.out.println(res);

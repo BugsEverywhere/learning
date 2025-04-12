@@ -52,6 +52,7 @@ public class Quiz39无重复元素_元素可重复使用_求组合 {
         for (int j = i; j < candidates.length; j++) {
             //todo: path加元素，结束了扫尾，注意不要加错了！是加j不是i
             path.add(candidates[j]);
+            //todo: 因为元素可无限重复，所以这里dfs的时候也仍然是以j往下递归，而不是j+1
             dfs(soFar + candidates[j], j);
             path.remove(path.size() - 1);
         }

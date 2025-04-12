@@ -4,10 +4,10 @@ package indi.simon.learning.复习.组合相关;
  * @author chenzhuo(zhiyue)
  */
 //todo: 区分排列与组合的DP
-public class Quiz518_零钱兑换2 {
+public class Quiz518_求组合数_零钱兑换2 {
 
     public static void main(String[] args) {
-        Quiz518_零钱兑换2 quiz518NeedReview = new Quiz518_零钱兑换2();
+        Quiz518_求组合数_零钱兑换2 quiz518NeedReview = new Quiz518_求组合数_零钱兑换2();
         int res = quiz518NeedReview.change(5, new int[]{1, 2, 5});
         System.out.println(res);
     }
