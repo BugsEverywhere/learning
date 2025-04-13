@@ -1,20 +1,43 @@
-package indi.simon.learning.leetcode.gogo20220425;
+package indi.simon.learning.复习.字符串;
 
 import java.util.*;
 
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz139_reviewed {
+public class Quiz139_动态规划_记忆化回溯 {
 
     public static void main(String[] args) {
-        Quiz139_reviewed quiz139 = new Quiz139_reviewed();
+        Quiz139_动态规划_记忆化回溯 quiz139 = new Quiz139_动态规划_记忆化回溯();
         String[] arr = new String[]{"leet", "code"};
         List<String> wordDict = Arrays.asList(arr);
         boolean res = quiz139.wordBreak("leetcode", wordDict);
         System.out.println(res);
     }
 
+
+    //todo：自己的动态规划做法
+    public boolean wordBreakDp(String s, List<String> wordDict) {
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+
+        Set<String> set = new HashSet<>(wordDict);
+
+        for (int i = 1; i < s.length() + 1; i++) {
+            for (int j = i - 1; j >= 0; j--) {
+                if (set.contains(s.substring(j, i))) {
+                    dp[i] = dp[j] || dp[i];
+                }
+            }
+        }
+
+        return dp[s.length()];
+
+    }
+
+
+
+    //todo：记忆化回溯
     private Boolean[] mem;
 
     public boolean wordBreak(String s, List<String> wordDict) {
