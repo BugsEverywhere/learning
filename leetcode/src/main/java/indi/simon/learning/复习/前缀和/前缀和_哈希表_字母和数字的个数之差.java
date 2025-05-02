@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.前缀和;
+package indi.simon.learning.复习.前缀和;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,11 +6,11 @@ import java.util.Map;
 /**
  * @author chenzhuo(zhiyue)
  */
-public class 前缀和_哈希表 {
+public class 前缀和_哈希表_字母和数字的个数之差 {
 
     public static void main(String[] args) {
-        前缀和_哈希表 前缀和_哈希表 = new 前缀和_哈希表();
-        String[] res = 前缀和_哈希表.findLongestSubarray(new String[]{"A", "A"});
+        前缀和_哈希表_字母和数字的个数之差 前缀和_哈希表_字母和数字的个数之差 = new 前缀和_哈希表_字母和数字的个数之差();
+        String[] res = 前缀和_哈希表_字母和数字的个数之差.findLongestSubarray(new String[]{"A", "A"});
         System.out.println(res);
     }
 
