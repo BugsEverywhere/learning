@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.动态规划;
+package indi.simon.learning.复习.动态规划;
 
 /**
  * Created by Chen Zhuo on 2024/2/3.
