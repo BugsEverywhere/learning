@@ -168,11 +168,13 @@ public class TicTacToe {
                 // 否则选择Q值最大的动作
                 int maxIndex = Integer.MAX_VALUE;
                 int maxQval = Integer.MIN_VALUE;
+                //如果Q值最大的动作有多个，则选择第一个
                 for (int i = 0; i < 9; i++) {
                     if (!game.isAvailable(i / BOARD_SIZE, i % BOARD_SIZE)) {
                         continue;
                     }
                     if (qValues[i] > maxQval) {
+                        maxQval = (int) qValues[i];
                         maxIndex = i; // 更新最大Q值索引
                     }
                 }
@@ -217,7 +219,17 @@ public class TicTacToe {
                 // 如果游戏结束，计算奖励并更新Q表
                 if (game.isGameOver()) {
                     char winner = game.getWinner();
-                    double reward = (winner == PLAYER_X) ? 1.0 : (winner == PLAYER_O) ? -1.0 : 0.5;
+                    double reward;
+                    if(winner == currentAgent.player){
+                        //胜利则奖励1
+                        reward = 1;
+                    } else if(winner == EMPTY){
+                        //平局则奖励0.5
+                        reward = 0.5;
+                    } else {
+                        //输了则奖励-1
+                        reward = -1;
+                    }
                     currentAgent.updateQTable(state, action, reward, nextState);
                 } else {
                     // 如果游戏未结束，更新Q表但奖励为0
