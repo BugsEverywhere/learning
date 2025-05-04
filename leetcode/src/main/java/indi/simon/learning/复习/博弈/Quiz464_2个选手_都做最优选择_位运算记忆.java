@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.博弈;
+package indi.simon.learning.复习.博弈;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -6,49 +6,17 @@ import java.util.Map;
 /**
  * @author chenzhuo(zhiyue)
  */
-//todo: 用过的数可以使用位运算的方式来记录，这样就可以使用备忘录了，妙哉妙哉，自己搞的时候用的是一个Set<Integer>，这玩意儿没法记忆化。。。
-public class Quiz464_hinted {
+//todo: 选手都会做出对自己最有利的选择 == 只要有一种可能赢就会选这种
+public class Quiz464_2个选手_都做最优选择_位运算记忆 {
 
     public static void main(String[] args) {
-        Quiz464_hinted quiz464Notfinish = new Quiz464_hinted();
+        Quiz464_2个选手_都做最优选择_位运算记忆 quiz464Notfinish = new Quiz464_2个选手_都做最优选择_位运算记忆();
         boolean res = quiz464Notfinish.canIWin(10, 10);
         System.out.println(res);
     }
 
-
-    //=============================================================================dp解法
-
-
-    public boolean canIWinDp(int maxChoosableInteger, int desiredTotal) {
-        int sum = 0;
-        for (int i = 1; i <= maxChoosableInteger; i++) {
-            sum += i;
-        }
-        if (sum < desiredTotal) {
-            return false;
-        }
-
-        //dp[i][j]代表用过的数组合成数字i，并且当前累计和为j的情况下，当前选手是否能获胜，是为true，否为false
-        int length = (1 << maxChoosableInteger) + 1;
-        boolean[][] dp = new boolean[length][desiredTotal + 1];
-
-//        for (int i = 1; i <= maxChoosableInteger; i++) {
-//            dp[i << 1][desiredTotal] = true;
-//        }
-//
-//        for () {
-//
-//        }
-
-
-        return false;
-    }
-
-    //============================================================================回溯解法
     //todo:另外，这题博弈的考点就是，每一轮里面，选手都会做出对自己最有利的选择，那么什么才是最有利的选择，如果有十个选择，那么能让自己赢的选择都是最有利的选择，因此只需要这十个选择
     // 中有一个选择最终都是自己赢（也就是下一轮的结果是对手输），那么当然最有利的选择就是这一个，那么就应该认为他会理所当然选择这一个，并且在这一轮里面获胜
-
-
     private Map<Integer, Boolean> mem;
 
     public boolean canIWin(int maxChoosableInteger, int desiredTotal) {
@@ -70,6 +38,8 @@ public class Quiz464_hinted {
      * @param sum
      * @return 当前选手（有可能是甲，也有可能是乙）是否能赢，能则为true，否则为false
      */
+    //todo: 位运算的usedNum放入递归入参，不要定义为private，不好驾驭
+    // private的仅仅只有备忘录哈希表
     private boolean pick(int maxChoosableInteger, int desiredTotal, int usedNum, int sum) {
         if (mem.containsKey(usedNum)) {
             return mem.get(usedNum);
