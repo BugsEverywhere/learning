@@ -15,7 +15,7 @@ public class Quiz53_最大子数组和 {
     }
 
     //dp解法
-    public int maxSubArrayDp(int[] nums) {
+    public static int maxSubArray(int[] nums) {
         int n = nums.length;
         //记录到当前元素为止，最大的连续子数组之和，其实就是dp[i]，dp[0]=nums[0]
         int preAcc = nums[0];
@@ -32,32 +32,4 @@ public class Quiz53_最大子数组和 {
         return res;
     }
 
-
-    //递归解法
-    private static int maxSum = Integer.MIN_VALUE;
-
-    public static int maxSubArray(int[] nums) {
-        maxSubArrayInternal(nums, 0, 0);
-        return maxSum;
-    }
-
-    private static void maxSubArrayInternal(int[] nums, int sumSoFar, int i) {
-        sumSoFar = sumSoFar + nums[i];
-        if (sumSoFar > maxSum) {
-            maxSum = sumSoFar;
-        }
-        if (i >= nums.length - 1) {
-            return;
-        }
-        if (sumSoFar <= 0) {
-            //i之前的和小于零，那么之前的和就没有意义，往下递归的时候就无视之前的和即可
-            maxSubArrayInternal(nums, 0, i + 1);
-        } else {
-            //i之前的和大于零才有意义，才需要往下递归
-            maxSubArrayInternal(nums, sumSoFar, i + 1);
-        }
-    }
-
 }
-
-//todo: 思路：递归回溯！

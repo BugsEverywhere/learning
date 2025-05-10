@@ -13,13 +13,14 @@ public class Quiz15_三数之和 {
     public static void main(String[] args) {
 
 //        int[] test = {-4, -2, -2, -2, 0, 1, 2, 2, 2, 3, 3, 4, 4, 6, 6};
-        int[] test = {-4, -1, -1, 0, 1, 2};
+        int[] test = {-4, 0, 1, 4, 4, 4};
         List<List<Integer>> result = threeSum(test);
         System.out.println(result);
 
     }
 
     private static List<List<Integer>> threeSum(int[] nums) {
+        //todo: 排序排序！
         Arrays.sort(nums);
         List<List<Integer>> res = new ArrayList<>();
 
@@ -29,13 +30,15 @@ public class Quiz15_三数之和 {
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
-            int m = nums.length - 1;
+            int k = nums.length - 1;
             int j = i + 1;
-            while (j < m) {
+            while (j < k) {
+                //如果最小数都大于0了，那没必要倒腾j和k了
                 if (nums[i] > 0) {
                     break;
                 }
-                if (nums[i] + nums[j] + nums[m] < 0) {
+                //加起来比0小，则右移j
+                if (nums[i] + nums[j] + nums[k] < 0) {
                     j++;
                     continue;
                 }
@@ -44,16 +47,17 @@ public class Quiz15_三数之和 {
                     j++;
                     continue;
                 }
-                if (nums[i] + nums[j] + nums[m] == 0) {
+                if (nums[i] + nums[j] + nums[k] == 0) {
                     List<Integer> singleList = new ArrayList<>();
                     singleList.add(nums[i]);
                     singleList.add(nums[j]);
-                    singleList.add(nums[m]);
+                    singleList.add(nums[k]);
                     res.add(singleList);
+                    //找一个符合条件的组合后，j前移，这样，只需要对i和j保证不重复即可，k移动时无需判断是否重复
                     j++;
                 } else {
-                    //todo: 第3个注意的点，m指针左移之后，j原地不动
-                    m--;
+                    //todo: 第3个注意的点，k指针左移之后，j原地不动
+                    k--;
                 }
             }
         }

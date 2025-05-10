@@ -45,7 +45,7 @@ public class Quiz652寻找重复子树 {
     Map<String, Integer> cntMap = new HashMap<>();
     List<TreeNode> ans = new ArrayList<>();
 
-    public List<TreeNode> findDuplicateSubtreesRight(TreeNode root) {
+    public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
         dfs(root);
         return ans;
     }
@@ -63,60 +63,6 @@ public class Quiz652寻找重复子树 {
             ans.add(root);
         }
         return key;
-    }
-
-    //===================================================我的傻逼做法，超时
-
-    private Map<Integer, List<TreeNode>> map;
-    private List<TreeNode> res;
-
-    public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
-        map = new HashMap<>();
-        res = new ArrayList<>();
-        findDuplicateSubtreesInternal(root);
-        return res;
-    }
-
-    private void findDuplicateSubtreesInternal(TreeNode node) {
-        if (node == null) {
-            return;
-        }
-        if (map.containsKey(node.val)) {
-            //之前有过这个数的节点，挨个儿把他们拿出来跟本节点比较一下
-            boolean addedIntoMap = false;
-            int i = 0;
-            for (; i < map.get(node.val).size(); i++) {
-                TreeNode originNode = map.get(node.val).get(i);
-                if (isSame(originNode, node)) {
-                    addedIntoMap = true;
-                    if (res.contains(originNode)) {
-                        continue;
-                    }
-                    res.add(originNode);
-                }
-            }
-
-            if (!addedIntoMap) {
-                //是一个全新的结构，需要把它加到之前的map里去
-                map.get(node.val).add(node);
-            }
-        } else {
-            //之前没有该值的节点，记录之后继续遍历
-            List<TreeNode> nodeList = new ArrayList<>();
-            nodeList.add(node);
-            map.put(node.val, nodeList);
-        }
-        findDuplicateSubtreesInternal(node.left);
-        findDuplicateSubtreesInternal(node.right);
-    }
-
-    private boolean isSame(TreeNode node1, TreeNode node2) {
-        if (node1 == null && node2 == null) {
-            return true;
-        } else if ((node1 == null && node2 != null) || (node2 == null && node1 != null)) {
-            return false;
-        }
-        return node1.val == node2.val && isSame(node1.left, node2.left) && isSame(node1.right, node2.right);
     }
 
 }
