@@ -26,6 +26,7 @@
         <module>my-flink-connector</module>
         <module>calcite-learn</module>
         <module>reinforcement-learning</module>
+        <module>something</module>
     </modules>
 
     <properties>
