@@ -5,11 +5,11 @@ import java.util.*;
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz207 {
+public class Quiz207_课程表 {
 
     public static void main(String[] args) {
-        Quiz207 quiz207 = new Quiz207();
-        boolean res = quiz207.canFinish(2, new int[][]{{1, 0}, {0, 1}});
+        Quiz207_课程表 quiz207课程表 = new Quiz207_课程表();
+        boolean res = quiz207课程表.canFinish(2, new int[][]{{1, 0}, {0, 1}});
         System.out.println(res);
     }
 
