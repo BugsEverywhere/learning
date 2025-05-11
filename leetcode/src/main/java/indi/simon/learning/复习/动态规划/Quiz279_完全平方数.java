@@ -9,7 +9,7 @@ public class Quiz279_完全平方数 {
 
     public static void main(String[] args) {
         Quiz279_完全平方数 quiz279完全平方数 = new Quiz279_完全平方数();
-        int res = quiz279完全平方数.numSquaresDp(43);
+        int res = quiz279完全平方数.numSquares(43);
         System.out.println(res);
     }
 
