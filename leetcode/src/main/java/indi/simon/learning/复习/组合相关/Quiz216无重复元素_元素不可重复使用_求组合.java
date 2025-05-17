@@ -28,6 +28,7 @@ public class Quiz216无重复元素_元素不可重复使用_求组合 {
 
     private void dfs(int i, int soFar, int k) {
         if (soFar == target && path.size() == k) {
+            //todo: 同理，因为题意是k个数的组合，因此这里加入最终结果集之后，直接return即可，也不用考虑是否遍历到底了，跟78不一样
             res.add(new ArrayList<>(path));
             return;
         }
