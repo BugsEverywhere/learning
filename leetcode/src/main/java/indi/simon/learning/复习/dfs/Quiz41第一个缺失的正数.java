@@ -1,12 +1,12 @@
-package indi.simon.learning.leetcode.gogo20220404;
+package indi.simon.learning.复习.dfs;
 
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz41 {
+public class Quiz41第一个缺失的正数 {
 
     public static void main(String[] args) {
-        Quiz41 quiz41 = new Quiz41();
+        Quiz41第一个缺失的正数 quiz41 = new Quiz41第一个缺失的正数();
         int[] nums = new int[]{2, 1};
         int res = quiz41.firstMissingPositive(nums);
         System.out.println(res);
