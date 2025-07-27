@@ -1,7 +1,4 @@
-package indi.simon.learning.leetcode.脑筋急转弯;
-
-import java.util.Arrays;
-import java.util.Comparator;
+package indi.simon.learning.复习.差分数组;
 
 /**
  * 假设你有一个长度为 n 的数组，初始情况下所有的数字均为 0，你将会被给出 k 个更新的操作。
