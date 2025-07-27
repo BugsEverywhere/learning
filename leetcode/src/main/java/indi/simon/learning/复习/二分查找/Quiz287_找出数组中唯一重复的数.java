@@ -48,27 +48,43 @@ public class Quiz287_找出数组中唯一重复的数 {
     // 只需要找到这个target，当x<target时，cnt(x)<=x；当x>=target时，cnt(x)>x。
     // 由于二分查找本身时间复杂度为O(logn)，这种方式每一轮需要计算cnt(mid)，耗时为O(n)，因此整体时间复杂度为O(nlogn)
     public int findDuplicate(int[] nums) {
-        int n = nums.length;
-        int l = 1, r = n - 1, ans = -1;
+        int n = nums.length - 1;
+        //todo: 此处l,r,mid都是数组值，不是下标。之所以知道r就是n是因为题目限定了数组中数的范围是[1,n]，此处n不是题目中的
+        int l = 1, r = n, ans = -1;
         while (l <= r) {
             int mid = (l + r) >> 1;
-            int cnt = 0;
-            //对于mid，计算cnt(mid)，此处耗时O(n)
-            for (int num : nums) {
-                if (num <= mid) {
-                    cnt++;
-                }
-            }
-            if (cnt <= mid) {
+            boolean checkMid = check(nums, mid);
+            boolean checkMidMinus = check(nums, mid - 1);
+            if (checkMid) {
                 //说明mid<target
                 l = mid + 1;
+            } else if (!checkMid && checkMidMinus) {
+                //找到了该mid
+                return mid;
             } else {
-                //说明mid==target或者mid>target，ans顺便赋个值总归不会错
+                //说明mid>target
                 r = mid - 1;
-                ans = mid;
             }
         }
         return ans;
+    }
+
+    /**
+     * 校验数组中小于等于mid的数的个数是否小于等于mid本身
+     *
+     * @param nums
+     * @param mid
+     * @return
+     */
+    private boolean check(int[] nums, int mid) {
+        int cnt = 0;
+        //对于mid，计算cnt(mid)，此处耗时O(n)
+        for (int num : nums) {
+            if (num <= mid) {
+                cnt++;
+            }
+        }
+        return cnt <= mid;
     }
 
 }
