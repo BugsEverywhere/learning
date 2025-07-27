@@ -33,35 +33,43 @@ public class Quiz15_三数之和 {
             int k = nums.length - 1;
             int j = i + 1;
             while (j < k) {
+                //todo: 加速trick
                 //如果最小数都大于0了，那没必要倒腾j和k了
                 if (nums[i] > 0) {
                     break;
                 }
-                //加起来比0小，则右移j
-                if (nums[i] + nums[j] + nums[k] < 0) {
-                    j++;
-                    continue;
-                }
-                //todo: 第2个注意的点，j指针要跳过重复的
-                if (j > i + 1 && nums[j] == nums[j - 1]) {
-                    j++;
-                    continue;
-                }
-                if (nums[i] + nums[j] + nums[k] == 0) {
+
+                int sum = nums[i] + nums[j] + nums[k];
+                //更新答案
+                if (sum == 0) {
                     List<Integer> singleList = new ArrayList<>();
                     singleList.add(nums[i]);
                     singleList.add(nums[j]);
                     singleList.add(nums[k]);
                     res.add(singleList);
-                    //找一个符合条件的组合后，j前移，这样，只需要对i和j保证不重复即可，k移动时无需判断是否重复
-                    j++;
+                }
+
+                //todo: 注意本题可能有多个目标组合，因此这里迭代条件要覆盖sum==0，sum==0时迭代j或者k都行
+                if (sum <= 0) {
+                    //较小（或相等），右移j
+                    //加起来比0小，则右移j
+                    // todo: j移动时要跳过重复的
+                    int j0 = j + 1;
+                    while (j0 < k && nums[j0] == nums[j]) {
+                        ++j0;
+                    }
+                    j = j0;
                 } else {
-                    //todo: 第3个注意的点，k指针左移之后，j原地不动
-                    k--;
+                    //较大，左移k
+                    //todo: k移动时也要跳过重复的
+                    int k0 = k - 1;
+                    while (j < k0 && nums[k0] == nums[k]) {
+                        --k0;
+                    }
+                    k = k0;
                 }
             }
         }
-
         return res;
     }
 }
