@@ -32,7 +32,7 @@ package indi.simon.learning.复习.贪心;
  *
  * Created by Chen Zhuo on 2024/4/14.
  */
-public class Quiz2789合并后数组中的最大元素 {
+public class Quiz2789_合并后数组中的最大元素 {
 
     public static void main(String[] args) {
 
