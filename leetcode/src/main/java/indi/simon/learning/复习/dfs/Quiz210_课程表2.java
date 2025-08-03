@@ -1,4 +1,4 @@
-package indi.simon.learning.复习.拓扑排序;
+package indi.simon.learning.复习.dfs;
 
 
 import java.util.*;
@@ -43,64 +43,69 @@ public class Quiz210_课程表2 {
         System.out.println(Arrays.toString(res));
     }
 
-    // 存储有向图
-    List<List<Integer>> edges;
-    // 标记每个节点的状态：0=未搜索，1=搜索中，2=已完成
-    int[] visited;
-    // 用数组来模拟栈，下标 n-1 为栈底，0 为栈顶
-    int[] result;
-    // 判断有向图中是否有环
-    boolean valid = true;
-    // 栈下标
-    int index;
+    // 存储有向图，即每一个课程的所有后置课程
+    private List<List<Integer>> after;
+    // 用于保存合法课程的栈，最终的结果就是栈里的元素
+    private Stack<Integer> stack;
 
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        edges = new ArrayList<List<Integer>>();
+        //先把图初始化一下，一共numCourses个节点
+        after = new ArrayList<>();
         for (int i = 0; i < numCourses; ++i) {
-            edges.add(new ArrayList<Integer>());
+            after.add(new ArrayList<>());
         }
-        visited = new int[numCourses];
-        result = new int[numCourses];
-        index = numCourses - 1;
+        //存储结果的栈初始化
+        stack = new Stack<>();
+        //绘制有向图
         for (int[] info : prerequisites) {
-            edges.get(info[1]).add(info[0]);
+            //todo: 注意，有向图是从前置课程指向后置课程
+            after.get(info[1]).add(info[0]);
         }
-        // 每次挑选一个「未搜索」的节点，开始进行深度优先搜索
-        for (int i = 0; i < numCourses && valid; ++i) {
-            if (visited[i] == 0) {
-                dfs(i);
+        for (int i = 0; i < numCourses; ++i) {
+            // 如果课程i已经搜索过，则跳过
+            if (stack.contains(i)) {
+                continue;
+            }
+            List<Integer> path = new ArrayList<>();
+            path.add(i);
+            boolean courseRes = dfs(i, path);
+            path.remove(path.size() - 1);
+            if (!courseRes) {
+                return new int[0];
             }
         }
-        if (!valid) {
-            return new int[0];
+        // todo: 此处注意for循环遍历java栈时，是从栈底遍历，因此填充数组要反过来
+        int[] resArr = new int[numCourses];
+        for (int i = 0; i < stack.size(); i++) {
+            resArr[i] = stack.get(stack.size() - 1 - i);
         }
-        // 如果没有环，那么就有拓扑排序
-        return result;
+        return resArr;
     }
 
-    public void dfs(int u) {
-        // 将节点标记为「搜索中」
-        visited[u] = 1;
-        // 搜索其相邻节点
+    /**
+     * 递归搜索每一个课程指向的后置课程
+     */
+    public boolean dfs(int u, List<Integer> path) {
         // 只要发现有环，立刻停止搜索
-        for (int v: edges.get(u)) {
-            // 如果「未搜索」那么搜索相邻节点
-            if (visited[v] == 0) {
-                dfs(v);
-                if (!valid) {
-                    return;
-                }
+        for (int v : after.get(u)) {
+            //如果该后置课程出现在本次搜索路径中，说明也是本课程的前置课程，说明有环，走不通
+            if (path.contains(v)) {
+                return false;
             }
-            // 如果「搜索中」说明找到了环
-            else if (visited[v] == 1) {
-                valid = false;
-                return;
+            //如果该后置课程已经入栈过（是之前某个课程的后置课程），则无需考虑，直接跳过，相当于剪枝
+            if (stack.contains(v)) {
+                continue;
+            }
+            path.add(u);
+            boolean courseRes = dfs(v, path);
+            path.remove(path.size() - 1);
+            if (!courseRes) {
+                return false;
             }
         }
-        // 将节点标记为「已完成」
-        visited[u] = 2;
-        // 将节点入栈
-        result[index--] = u;
+        // 将课程入栈
+        stack.push(u);
+        return true;
     }
 
 }
