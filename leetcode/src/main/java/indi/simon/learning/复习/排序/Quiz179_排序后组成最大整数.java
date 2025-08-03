@@ -26,7 +26,7 @@ public class Quiz179_排序后组成最大整数 {
 
     public static void main(String[] args) {
         Quiz179_排序后组成最大整数 quiz179 = new Quiz179_排序后组成最大整数();
-        int[] nums = new int[]{1000000000, 1000000000};
+        int[] nums = new int[]{700000000,500000000};
         String res = quiz179.largestNumber(nums);
         System.out.println(res);
     }
@@ -49,11 +49,11 @@ public class Quiz179_排序后组成最大整数 {
             while (sy <= y) {
                 sy *= 10;
             }
-            //todo: yFirst表示y前x后，xFirst表示x前y后，这样算即使溢出了，最终相减出来的结果（正负）也是正确的
+            //todo: yFirst表示y前x后，xFirst表示x前y后。直接比较yFirst和xFirst大小即可
             // 如果使用字符串拼接之后，使用Long.parseLong来得到yFirst、xFirst，则会有数字太大时的异常
             long yFirst = sx * y + x;
             long xFirst = sy * x + y;
-            return (int) (yFirst - xFirst);
+            return Long.compare(yFirst, xFirst);
         });
 
         if (numsArr[0] == 0) {
