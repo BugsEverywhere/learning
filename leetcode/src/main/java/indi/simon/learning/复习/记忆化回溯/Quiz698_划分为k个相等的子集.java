@@ -4,6 +4,24 @@ import java.util.Arrays;
 
 /**
  * @author chenzhuo(zhiyue)
+ *
+ * 给定一个整数数组 nums 和一个正整数 k，找出是否有可能把这个数组分成 k 个非空子集，其总和都相等。
+ *
+ * 示例 1：
+ *
+ * 输入： nums = [4, 3, 2, 3, 5, 2, 1], k = 4
+ * 输出： True
+ * 说明： 有可能将其分成 4 个子集（5），（1,4），（2,3），（2,3）等于总和。
+ * 示例 2:
+ *
+ * 输入: nums = [1,2,3,4], k = 3
+ * 输出: false
+ * 提示：
+ *
+ * 1 <= k <= len(nums) <= 16
+ * 0 < nums[i] < 10000
+ * 每个元素的频率在 [1,4] 范围内
+ *
  */
 //todo: 
 // 技巧：
@@ -11,17 +29,15 @@ import java.util.Arrays;
 // 1. 本题可用数组的长度为n，状态压缩时，那么就存在2的n次方种状态，从0到Math.pow(2,n)-1，也就是(1<<n)-1，对应从所有数都使用完，到所有数都未使用中间的所有状态
 // 2. 之所以本题可以使用1维mem数组来作为备忘录，是因为，一旦dfs到某个状态，那么所用到的nums中的哪些数肯定是唯一确定的，而这些数的和对边长取余（sideSoFar）也是唯一的，所以用到了这些数的情况下，所有状态都是唯一的，不存在额外的维度
 // 3. 使用累计长度对单边长取余来记录当前长度累计是否符合要求，无论是记忆化回溯和DP中都是这么使用，这样很省事儿，不管是递归还是状态转移，都自动帮我做了更新边长的事情了，所有多阶段可行性dfs都可以参考这种做法
-public class Quiz698划分为k个相等的子集 {
+public class Quiz698_划分为k个相等的子集 {
 
     public static void main(String[] args) {
         int[] nums = {4, 3, 2, 3, 5, 2, 1};
-        Quiz698划分为k个相等的子集 quiz698NeedReview = new Quiz698划分为k个相等的子集();
+        Quiz698_划分为k个相等的子集 quiz698NeedReview = new Quiz698_划分为k个相等的子集();
         boolean res = quiz698NeedReview.canPartitionKSubsetsStatusCompress(nums, 4);
         System.out.println(res);
     }
 
-    //todo:利用位运算状态压缩
-    // =============================================================================================================
     int[] nums;
     int per, n;
     boolean[] mem;
@@ -86,60 +102,5 @@ public class Quiz698划分为k个相等的子集 {
         }
         return false;
     }
-
-    //todo: 动态规划+状态压缩，这他妈太难了
-    // ===============================================================================================================
-
-    public boolean canPartitionKSubsetsDp(int[] nums, int k) {
-        int all = Arrays.stream(nums).sum();
-        if (all % k != 0) {
-            return false;
-        }
-        int per = all / k;
-        //排序是必须的，同上
-        Arrays.sort(nums);
-        int n = nums.length;
-        if (nums[n - 1] > per) {
-            return false;
-        }
-        //状态总数
-        int statusCount = 1 << n;
-        //状态转移数组，dp[i]为true代表状态i可达，初始化nums所有数都不选的状态为可达，即true，所以目标是考察最后dp[statusCount-1]是否可达，也就是所有数字都用上的这个状态是否可达
-        boolean[] dp = new boolean[statusCount];
-        dp[0] = true;
-        //todo: 记录每一个状态下的累计长度对单边长取余的结果，这个数组很关键，因为对于任意一个特定的状态i，curSum[i]的值是唯一且固定的，
-        // 这在状态转移的时候可以用来作为之前状态的一个记录，所以这种动态规划的状态转移，状态数组相当于有两个，dp和curSum
-        // curSum中只有部分状态会有值，这些状态，假设状态数字是t，无一例外，都是curSum[t]<=per。curSum中不会记录
-        int[] curSum = new int[statusCount];
-
-        //todo: 遍历所有状态，每一轮遍历，都会基于当前状态，计算后续所有可达状态，将结果更新到dp[]和curSum[]，所以在遍历时只需要遍历所有基于之前状态的可达状态即可，不可达状态看都不用看
-        for (int i = 0; i < statusCount; i++) {
-            //singleStatus作为下标就代表状态本身，如果该状态基于之前的状态不可达，直接continue下一个状态
-            if (!dp[i]) {
-                continue;
-            }
-            //在单个可达状态下遍历nums的每一个数与当前状态组合的下一个状态是否可达
-            for (int j = 0; j < n; j++) {
-                //所考察的单边长
-                int oops = curSum[i] + nums[j];
-                //如果当前状态加上nums[j]之后比单边长度要大，说明没戏，后面的nums元素不用看了，因为之前排序了，直接break看下一个状态
-                if (oops > per) {
-                    break;
-                }
-                //确认一下该状态下nums的第j个数没有被使用过
-                if (((i >> j) & 1) == 0) {
-                    //nums[j]没有被使用，那么算出基于当前 i 状态加上nums[j]之后，也就是使用了nums[j]之后，下一个状态是多少
-                    int nextStatusIndex = i | (1 << j);
-                    //如果下一个状态本来就是true（可达），那不用做任何事情。当下一个状态的结果为false时，将其更新为可达，且更新curSum在下一个状态的值
-                    if (!dp[nextStatusIndex]) {
-                        curSum[nextStatusIndex] = oops % per;
-                        dp[nextStatusIndex] = true;
-                    }
-                }
-            }
-        }
-        return dp[statusCount - 1];
-    }
-    
 
 }
