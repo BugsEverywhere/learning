@@ -1,4 +1,4 @@
-package indi.simon.learning.复习.贪心;
+package indi.simon.learning.复习.区间;
 
 import java.util.Arrays;
 import java.util.Comparator;

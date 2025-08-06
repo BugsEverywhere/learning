@@ -1,4 +1,4 @@
-package indi.simon.learning.复习.双指针;
+package indi.simon.learning.复习.双指针_滑动窗口;
 
 import java.util.Arrays;
 

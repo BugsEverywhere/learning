@@ -1,14 +1,14 @@
-package indi.simon.learning.复习.排序;
+package indi.simon.learning.复习.哈希表;
 
 import java.util.Arrays;
 
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz128_最长连续序列 {
+public class Quiz128_最长连续序列_needReview {
 
     public static void main(String[] args) {
-        Quiz128_最长连续序列 quiz128最长连续序列 = new Quiz128_最长连续序列();
+        Quiz128_最长连续序列_needReview quiz128最长连续序列 = new Quiz128_最长连续序列_needReview();
         int[] arr = new int[]{0,3,7,2,5,8,4,6,0,1};
         int res = quiz128最长连续序列.longestConsecutive(arr);
         System.out.println(res);
