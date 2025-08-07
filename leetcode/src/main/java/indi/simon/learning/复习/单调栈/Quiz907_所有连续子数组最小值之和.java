@@ -26,10 +26,10 @@ import java.util.Deque;
  * 1 <= arr.length <= 3 * 104
  * 1 <= arr[i] <= 3 * 104
  */
-public class Quiz907所有连续子数组最小值之和_needReview {
+public class Quiz907_所有连续子数组最小值之和 {
 
     public static void main(String[] args) {
-        Quiz907所有连续子数组最小值之和_needReview quiz907NeedReview = new Quiz907所有连续子数组最小值之和_needReview();
+        Quiz907_所有连续子数组最小值之和 quiz907NeedReview = new Quiz907_所有连续子数组最小值之和();
         int res = quiz907NeedReview.sumSubarrayMins(new int[]{11, 81, 94, 43, 3});
         System.out.println(res);
     }
@@ -47,8 +47,10 @@ public class Quiz907所有连续子数组最小值之和_needReview {
     //  技巧2：在数组中（或者某区间内）以某个元素为中心，以它为右边界的包含它的连续子数组个数假设为L，以它为左边界的包含它的连续子数组个数假设为R，
     //        则在该区间内所有包含它的连续子数组的个数为 L * R
     //  技巧3：左右两次遍历，求出每一个元素左右两边最近floor或者ceiling
-    public int sumSubarrayMinsOfficial(int[] arr) {
+    //  技巧4：双端队列实现栈，方便左右两次遍历
+    public int sumSubarrayMins(int[] arr) {
         int n = arr.length;
+        //单调递减栈
         Deque<Integer> monoStack = new ArrayDeque<>();
         //用于记录arr中每个元素左边最近的满足严格小于arr[i]的元素下标与i的距离数组
         int[] left = new int[n];
@@ -81,23 +83,6 @@ public class Quiz907所有连续子数组最小值之和_needReview {
             ans = (ans + (long) left[i] * right[i] * arr[i]) % MOD;
         }
         return (int) ans;
-    }
-
-    //todo: 穷举，超时
-    public int sumSubarrayMins(int[] arr) {
-        int i = 0;
-        int sum = 0;
-        while (i < arr.length) {
-            int minThisRound = Integer.MAX_VALUE;
-            for (int j = i; j < arr.length; j++) {
-                minThisRound = Math.min(arr[j], minThisRound);
-                sum += minThisRound;
-                sum = (int) (sum % (Math.pow(10, 9) + 7));
-            }
-            i++;
-        }
-
-        return sum;
     }
 
 }
