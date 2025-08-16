@@ -28,10 +28,10 @@ package indi.simon.learning.复习.数学;
  * 1 <= n <= 109
  */
 //todo: 也是采用的循环来实现，但是考虑了等差数列
-public class Quiz390_消除游戏 {
+public class Quiz390_消除游戏_等差数列 {
 
     public static void main(String[] args) {
-        Quiz390_消除游戏 quiz390_消除游戏 = new Quiz390_消除游戏();
+        Quiz390_消除游戏_等差数列 quiz390_消除游戏 = new Quiz390_消除游戏_等差数列();
         int res = quiz390_消除游戏.lastRemaining(6);
         System.out.println(res);
     }
