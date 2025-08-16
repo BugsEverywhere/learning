@@ -96,7 +96,7 @@ public class Quiz210_课程表2 {
             if (stack.contains(v)) {
                 continue;
             }
-            path.add(u);
+            path.add(v);
             boolean courseRes = dfs(v, path);
             path.remove(path.size() - 1);
             if (!courseRes) {
