@@ -33,16 +33,18 @@ public class Quiz201_数字范围按位与 {
         System.out.println(res);
     }
 
-    public int rangeBitwiseAnd(int m, int n) {
+    public int rangeBitwiseAnd(int left, int right) {
 
         int shift = 0;
         // 找到公共前缀
-        while (m < n) {
-            m >>= 1;
-            n >>= 1;
+        //todo: 通过将left和right共同缩小（右移所有位），直至二者相等，此时留下的就是公共前缀，记住右移的次数shift
+        while (left < right) {
+            left >>= 1;
+            right >>= 1;
             ++shift;
         }
-        return m << shift;
+        //todo: 将相等后的公共前缀左移shift，得到区间内所有数按位与的结果
+        return right << shift;
     }
 
 }
