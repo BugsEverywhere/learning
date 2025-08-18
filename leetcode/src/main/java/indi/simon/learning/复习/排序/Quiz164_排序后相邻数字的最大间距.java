@@ -57,14 +57,15 @@ public class Quiz164_排序后相邻数字的最大间距 {
             }
             //用于保存排序后的数组，长度等于nums的长度n
             int[] buf = new int[n];
-            //开始遍历nums
+            //开始遍历nums，注意，必须是从后往前，结合buf[cnt[digit] - 1] = nums[i];的做法，
+            // 保证排序算法稳定，即每一位排完之后，各个数在该位上相对的位置在后续不会变
             for (int i = n - 1; i >= 0; i--) {
                 //得到当前数num在当前数位上的值digit
                 int digit = (nums[i] / (int) exp) % 10;
                 //将num放入buf的对应位置，依据是nums当前数位上小于等于digit的数有cnt[digit]个，那么就把num放到排序后数组的cnt[digit]-1的位置
                 buf[cnt[digit] - 1] = nums[i];
                 //同时，nums中未排序的数在当前数位上小于等于digit的数就减一（因为刚刚排了一个），
-                // 这意味着如果后续还有num1在当前数位上也是digit，那么它将排到刚刚num前面一位
+                // 这意味着如果后续还有num1在当前数位上也是digit，那么它将排到刚刚num前面一位，排序算法稳定的关键
                 cnt[digit]--;
             }
             //一趟下来，在当前数位上，nums就排好序了，将排好序的结果复制到原数组中
