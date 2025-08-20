@@ -28,10 +28,10 @@ import java.util.*;
  * 0 <= nums.length <= 105
  * -109 <= nums[i] <= 109
  */
-public class Quiz128_最长连续序列_needReview {
+public class Quiz128_最长连续序列 {
 
     public static void main(String[] args) {
-        Quiz128_最长连续序列_needReview quiz128最长连续序列 = new Quiz128_最长连续序列_needReview();
+        Quiz128_最长连续序列 quiz128最长连续序列 = new Quiz128_最长连续序列();
         int[] arr = new int[]{0, 3, 7, 2, 5, 8, 4, 6, 0, 1};
         int res = quiz128最长连续序列.longestConsecutive(arr);
         System.out.println(res);
@@ -44,9 +44,11 @@ public class Quiz128_最长连续序列_needReview {
         }
         int longestStreak = 0;
         for (int num : num_set) {
+            //探底，如果是一个底，那就从这里向上冒泡
             if (!num_set.contains(num - 1)) {
                 int currentNum = num;
                 int currentStreak = 1;
+                //冒泡的同时更新最大深度
                 while (num_set.contains(currentNum + 1)) {
                     currentNum += 1;
                     currentStreak += 1;

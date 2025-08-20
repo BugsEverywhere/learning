@@ -1,5 +1,9 @@
 package indi.simon.learning.复习.排序;
 
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Random;
+
 /**
  * @author chenzhuo(zhiyue)
  * <p>
@@ -31,58 +35,54 @@ public class Quiz215_数组中第k个最大的元素 {
         System.out.println(res);
     }
 
+    private final static Random RANDOM = new Random(System.currentTimeMillis());
+
     public int findKthLargest(int[] nums, int k) {
         int n = nums.length;
-        return quickselect(nums, 0, n - 1, n - k);
+        int left = 0;
+        int right = n - 1;
+        int target = n - k;
+        while (true) {
+            int j = partition(nums, left, right);
+            if (j == target) {
+                return nums[j];
+            } else if (j < target) {
+                left = j + 1;
+            } else {
+                right = j - 1;
+            }
+        }
     }
 
-    //todo: 基于快排的快速查找。
-    // 要找倒数第k个最大的元素，就是要找第n-k大的元素，令 n-k == index
-    // 接下来就是用快排的思想来找到找到第index大的元素
-    // 复习一下快排，就是随机挑一个元素（此处是nums[l]），比他大的放右边，比他小的放左边，然后以该元素为分界点，左右边递归继续
-    // 此处while循环就是完成一次排序，排完之后（此时必须使用j作为分界点，这样才保证[l,j]都是小于等于x的，[j+1,r]都是大于等于x的），
-    // 最终会收敛到l, r, index都是同一个数，返回即可
-    int quickselect(int[] nums, int l, int r, int index) {
-        int x = nums[l];
-        int i = l - 1;
-        int j = r + 1;
-
-        while (i < j) {
-            do {
-                i++;
-            } while (nums[i] < x);
-            do {
-                j--;
-            } while (nums[j] > x);
-
-            if (i < j) {
-                int tmp = nums[i];
-                nums[i] = nums[j];
-                nums[j] = tmp;
+    private int partition(int[] nums, int left, int right) {
+        int randomIndex = left + RANDOM.nextInt(right - left + 1);
+        swap(nums, left, randomIndex);
+        // nums[left + 1..le) <= pivot，nums(ge..right] >= pivot;
+        int pivot = nums[left];
+        int le = left + 1;
+        int ge = right;
+        while (true) {
+            while (le <= ge && nums[le] < pivot) {
+                le++;
             }
+            while (le <= ge && nums[ge] > pivot) {
+                ge--;
+            }
+            if (le >= ge) {
+                break;
+            }
+            swap(nums, le, ge);
+            le++;
+            ge--;
         }
+        swap(nums, left, ge);
+        return ge;
+    }
 
-        if(i == j){
-            //此时i和j指向的就是x
-            if (index < j) {
-                //要找的第index个数比j小，继续递归j左侧
-                return quickselect(nums, l, j - 1, index);
-            } else if(index > j) {
-                //要找的第index个数比j大，继续递归j右侧
-                return quickselect(nums, j + 1, r, index);
-            } else {
-                //index就是j，直接返回
-                return nums[j];
-            }
-        } else if (i > j){
-            //此时i指向第一个大于x的数，j指向最后一个小于x的数
-            if (index <= j) {
-                return quickselect(nums, l, j, index);
-            } else if(index >= i) {
-                return quickselect(nums, i, r, index);
-            }
-        }
-        return -1;
+    private void swap(int[] nums, int index1, int index2) {
+        int temp = nums[index1];
+        nums[index1] = nums[index2];
+        nums[index2] = temp;
     }
 
 }
