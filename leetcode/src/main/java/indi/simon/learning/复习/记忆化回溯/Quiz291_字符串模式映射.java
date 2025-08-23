@@ -34,10 +34,10 @@ import java.util.Set;
  * 1 <= pattern.length, s.length <= 20
  * pattern 和 s 由小写英文字母组成
  */
-public class Quiz291 {
+public class Quiz291_字符串模式映射 {
 
     public static void main(String[] args) {
-        Quiz291 quiz291 = new Quiz291();
+        Quiz291_字符串模式映射 quiz291 = new Quiz291_字符串模式映射();
         boolean res = quiz291.wordPatternMatch("abab", "redblueredblue");
         System.out.println(res);
     }
