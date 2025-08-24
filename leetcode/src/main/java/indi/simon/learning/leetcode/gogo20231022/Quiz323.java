@@ -4,8 +4,39 @@ import java.util.*;
 
 /**
  * Created by Chen Zhuo on 2023/10/22.
+ *
+ * 你有一个包含 n 个节点的图。给定一个整数 n 和一个数组 edges ，其中 edges[i] = [ai, bi] 表示图中 ai 和 bi 之间有一条边。
+ *
+ * 返回 图中已连接分量的数目 。
+ *
+ *
+ *
+ * 示例 1:
+ *
+ *
+ *
+ * 输入: n = 5, edges = [[0, 1], [1, 2], [3, 4]]
+ * 输出: 2
+ * 示例 2:
+ *
+ *
+ *
+ * 输入: n = 5, edges = [[0,1], [1,2], [2,3], [3,4]]
+ * 输出:  1
+ *
+ *
+ * 提示：
+ *
+ * 1 <= n <= 2000
+ * 1 <= edges.length <= 5000
+ * edges[i].length == 2
+ * 0 <= ai <= bi < n
+ * ai != bi
+ * edges 中不会出现重复的边
  */
-//todo: 使用数组来记录root的方式
+//todo: 我愿称之为root坍缩法：使用数组来记录父节点，parents[i]代表i的父亲，
+// 遍历每一条边，上溯parent找边的2个节点的各自root，2个root需要只保留一个，需要合并（即坍缩），
+// 然后n自减（因为一开始可以认为有n个root），最终遍历完，剩下几个root就是有几个连通图
 public class Quiz323 {
 
     public static void main(String[] args) {
