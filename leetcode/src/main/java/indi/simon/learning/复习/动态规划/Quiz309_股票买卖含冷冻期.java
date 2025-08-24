@@ -1,12 +1,12 @@
-package indi.simon.learning.leetcode.gogo20221226;
+package indi.simon.learning.复习.动态规划;
 
 /**
  * @author chenzhuo(zhiyue)
  */
-public class Quiz309 {
+public class Quiz309_股票买卖含冷冻期 {
 
     public static void main(String[] args) {
-        Quiz309 quiz309 = new Quiz309();
+        Quiz309_股票买卖含冷冻期 quiz309 = new Quiz309_股票买卖含冷冻期();
         int res = quiz309.maxProfit(new int[]{1});
         System.out.println(res);
     }
