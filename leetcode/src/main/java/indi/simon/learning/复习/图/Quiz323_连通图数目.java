@@ -1,4 +1,4 @@
-package indi.simon.learning.leetcode.gogo20231022;
+package indi.simon.learning.复习.图;
 
 import java.util.*;
 
@@ -37,10 +37,10 @@ import java.util.*;
 //todo: 我愿称之为root坍缩法：使用数组来记录父节点，parents[i]代表i的父亲，
 // 遍历每一条边，上溯parent找边的2个节点的各自root，2个root需要只保留一个，需要合并（即坍缩），
 // 然后n自减（因为一开始可以认为有n个root），最终遍历完，剩下几个root就是有几个连通图
-public class Quiz323 {
+public class Quiz323_连通图数目 {
 
     public static void main(String[] args) {
-        Quiz323 quiz323 = new Quiz323();
+        Quiz323_连通图数目 quiz323 = new Quiz323_连通图数目();
         int res = quiz323.countComponents(10, new int[][]{{5, 6}, {0, 2}, {1, 7}, {5, 9}, {1, 8}, {3, 4}, {0, 6}, {0, 7}, {0, 3}, {8, 9}});
         System.out.println(res);
     }
