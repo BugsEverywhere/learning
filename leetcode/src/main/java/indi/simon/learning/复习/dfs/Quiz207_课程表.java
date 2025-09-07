@@ -40,19 +40,17 @@ public class Quiz207_课程表 {
     }
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-
+        //构建邻接表
+        //key：课程
+        //val：该课程的所有前置条件
         Map<Integer, List<Integer>> preCourseMap = new HashMap<>();
-
         for (int[] pair : prerequisites) {
-            if (preCourseMap.containsKey(pair[0])) {
-                preCourseMap.get(pair[0]).add(pair[1]);
-            } else {
-                List<Integer> preCourseList = new ArrayList<>();
-                preCourseList.add(pair[1]);
-                preCourseMap.put(pair[0], preCourseList);
-            }
+            List<Integer> preCourseList = preCourseMap.getOrDefault(pair[0], new ArrayList<>());
+            preCourseList.add(pair[1]);
+            preCourseMap.put(pair[0], preCourseList);
         }
 
+        //遍历所有课程，递归前置课程，看看是否有环
         for (int i = 0; i < numCourses; i++) {
             if (!preCourseMap.containsKey(i)) {
                 continue;
@@ -67,6 +65,7 @@ public class Quiz207_课程表 {
 
     private boolean dfs(Map<Integer, List<Integer>> preCourseMap, Set<Integer> path, int i) {
         if (path.contains(i)) {
+            //有环
             return false;
         }
         path.add(i);
@@ -74,6 +73,7 @@ public class Quiz207_课程表 {
         if (pre == null) {
             return true;
         }
+        //将i加入到path之后，就可以在邻接表中删除i，因为后续无需再考虑i，相当于剪枝
         preCourseMap.remove(i);
         for (Integer j : pre) {
             if (!dfs(preCourseMap, new HashSet<>(path), j)) {
