@@ -1,4 +1,4 @@
-package indi.simon.learning.复习.bfs;
+package indi.simon.learning.复习.图;
 
 import java.util.*;
 
@@ -83,7 +83,7 @@ public class Quiz261_以图判树 {
             }
         }
 
-        //最终要记得判断parent的size，防止孤岛节点
+        //最终要记得判断parent的size，每个节点都应该有父节点，防止孤岛节点
         return parent.size() == n;
     }
 

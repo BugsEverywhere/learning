@@ -40,7 +40,7 @@ public class Quiz207_课程表 {
     }
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        //构建邻接表
+        //构建有向图
         //key：课程
         //val：该课程的所有前置条件
         Map<Integer, List<Integer>> preCourseMap = new HashMap<>();

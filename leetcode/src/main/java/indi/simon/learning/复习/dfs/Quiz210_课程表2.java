@@ -49,7 +49,7 @@ public class Quiz210_课程表2 {
     private Stack<Integer> stack;
 
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        //邻接表
+        //构建有向图
         //key：课程
         //val：该课程的所有后置课程
         after = new HashMap<>();
