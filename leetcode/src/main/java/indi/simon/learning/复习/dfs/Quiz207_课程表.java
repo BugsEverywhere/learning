@@ -42,20 +42,20 @@ public class Quiz207_课程表 {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
         //构建有向图
         //key：课程
-        //val：该课程的所有前置条件
-        Map<Integer, List<Integer>> preCourseMap = new HashMap<>();
+        //val：该课程的所有后续课程
+        Map<Integer, List<Integer>> afterCourseMap = new HashMap<>();
         for (int[] pair : prerequisites) {
-            List<Integer> preCourseList = preCourseMap.getOrDefault(pair[0], new ArrayList<>());
-            preCourseList.add(pair[1]);
-            preCourseMap.put(pair[0], preCourseList);
+            List<Integer> afterCourseList = afterCourseMap.getOrDefault(pair[1], new ArrayList<>());
+            afterCourseList.add(pair[0]);
+            afterCourseMap.put(pair[1], afterCourseList);
         }
 
-        //遍历所有课程，递归前置课程，看看是否有环
+        //遍历所有课程，递归后置课程，看看是否有环
         for (int i = 0; i < numCourses; i++) {
-            if (!preCourseMap.containsKey(i)) {
+            if (!afterCourseMap.containsKey(i)) {
                 continue;
             }
-            if (!dfs(preCourseMap, new HashSet<>(), i)) {
+            if (!dfs(afterCourseMap, new HashSet<>(), i)) {
                 return false;
             }
         }
@@ -63,20 +63,21 @@ public class Quiz207_课程表 {
         return true;
     }
 
-    private boolean dfs(Map<Integer, List<Integer>> preCourseMap, Set<Integer> path, int i) {
+    private boolean dfs(Map<Integer, List<Integer>> afterCourseMap, Set<Integer> path, int i) {
         if (path.contains(i)) {
             //有环
             return false;
         }
         path.add(i);
-        List<Integer> pre = preCourseMap.get(i);
-        if (pre == null) {
+        List<Integer> afterCourses = afterCourseMap.get(i);
+        if (afterCourses == null) {
             return true;
         }
-        //将i加入到path之后，就可以在邻接表中删除i，因为后续无需再考虑i，相当于剪枝
-        preCourseMap.remove(i);
-        for (Integer j : pre) {
-            if (!dfs(preCourseMap, new HashSet<>(path), j)) {
+        //将i加入到path之后，就可以在有向图中删除i，因为i在这一次递归能成就代表以后再递归到它都能成，
+        // 后续无需再考虑i，相当于剪枝
+        afterCourseMap.remove(i);
+        for (Integer j : afterCourses) {
+            if (!dfs(afterCourseMap, new HashSet<>(path), j)) {
                 return false;
             }
         }

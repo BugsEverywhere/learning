@@ -2,6 +2,7 @@ package indi.simon.learning.复习.单调栈;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Stack;
 
 /**
  * @author chenzhuo(zhiyue)
@@ -51,7 +52,7 @@ public class Quiz907_所有连续子数组最小值之和 {
     public int sumSubarrayMins(int[] arr) {
         int n = arr.length;
         //单调递减栈
-        Deque<Integer> monoStack = new ArrayDeque<>();
+        Stack<Integer> stack = new Stack<>();
         //用于记录arr中每个元素左边最近的满足严格小于arr[i]的元素下标与i的距离数组
         int[] left = new int[n];
         //用于记录arr中每个元素右边最近的满足小于等于arr[i]的元素下标与i的距离数组
@@ -61,21 +62,21 @@ public class Quiz907_所有连续子数组最小值之和 {
         // ，都不影响arr[i+1]，如果arr[i]小于arr[i+1]，则left[i+1]=1，如果arr[i]大于arr[i+1]，则把i pop出来之后，
         // 下一个就是最近的比arr[i]更小的数，跳过了中间比arr[i]更大的数，这样更方便找到最近比arr[i+1]小的数
         for (int i = 0; i < n; i++) {
-            while (!monoStack.isEmpty() && arr[i] <= arr[monoStack.peek()]) {
-                monoStack.pop();
+            while (!stack.isEmpty() && arr[i] <= arr[stack.peek()]) {
+                stack.pop();
             }
             //如果栈为空，即左侧没有严格小于arr[i]的元素，则0~i一共i+1个连续子数组都是符合条件的子数组
-            left[i] = i - (monoStack.isEmpty() ? -1 : monoStack.peek());
-            monoStack.push(i);
+            left[i] = i - (stack.isEmpty() ? -1 : stack.peek());
+            stack.push(i);
         }
-        monoStack.clear();
+        stack.clear();
         //同理，从右向左遍历，求出每一个right[i]
         for (int i = n - 1; i >= 0; i--) {
-            while (!monoStack.isEmpty() && arr[i] < arr[monoStack.peek()]) {
-                monoStack.pop();
+            while (!stack.isEmpty() && arr[i] < arr[stack.peek()]) {
+                stack.pop();
             }
-            right[i] = (monoStack.isEmpty() ? n : monoStack.peek()) - i;
-            monoStack.push(i);
+            right[i] = (stack.isEmpty() ? n : stack.peek()) - i;
+            stack.push(i);
         }
         long ans = 0;
         final int MOD = 1000000007;
