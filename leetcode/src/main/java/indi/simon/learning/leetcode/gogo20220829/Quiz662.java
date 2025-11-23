@@ -1,7 +1,7 @@
 package indi.simon.learning.leetcode.gogo20220829;
 
+import cn.hutool.core.lang.Pair;
 import indi.simon.learning.leetcode.commonmodel.TreeNode;
-import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -27,6 +27,7 @@
         <module>calcite-learn</module>
         <module>reinforcement-learning</module>
         <module>something</module>
+        <module>hbase-learn</module>
     </modules>
 
     <properties>
