@@ -8,9 +8,5 @@ import java.util.ServiceLoader;
 public class App {
     public static void main(String[] args) {
         ServiceLoader<MyInterface> myInterface = ServiceLoader.load(MyInterface.class);
-
-
-
-        System.out.println("Hello World!".toCha);
     }
 }
