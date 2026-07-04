@@ -17,6 +17,8 @@ public class Quiz516_最长回文子序列长度 {
 
     public int longestPalindromeSubseq(String s) {
         int n = s.length();
+
+        //dp[i][j]表示[i,j]子串中，最长的回文子序列长度
         int[][] dp = new int[n][n];
 
         for(int i = 0; i < n;i++){
