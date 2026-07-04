@@ -8,7 +8,7 @@ package indi.simon.learning.复习.动态规划;
 public class Quiz152_乘积最大子数组 {
 
     public static void main(String[] args) {
-        int[] nums = new int[]{-2, 0, -1};
+        int[] nums = new int[]{-4,-3,-2};
         Quiz152_乘积最大子数组 quiz152_乘积最大子数组 = new Quiz152_乘积最大子数组();
         int res = quiz152_乘积最大子数组.maxProduct(nums);
         System.out.println(res);
@@ -16,19 +16,25 @@ public class Quiz152_乘积最大子数组 {
     }
 
     public int maxProduct(int[] nums) {
-
+        //代表到第i个数为止，当前最大的乘积
         int maxI = 1;
+        //代表到第i个数为止，当前最小的乘积（为了考虑负数的情况）
         int minI = 1;
 
-        int maxMultipleSoFar = Integer.MIN_VALUE;
+        int res = Integer.MIN_VALUE;
         for (int num : nums) {
-            int thisMax = Math.max(Math.max(num, num * maxI), num * minI);
-            int thisMin = Math.min(Math.min(num, num * maxI), num * minI);
-            maxI = thisMax;
-            minI = thisMin;
-            maxMultipleSoFar = Math.max(maxMultipleSoFar, maxI);
+            //自身、自身与maxI相乘、自身与minI相乘，三个状态取最大
+            int maxTmp = Math.max(Math.max(num, num * maxI), num * minI);
+            //自身、自身与maxI相乘、自身与minI相乘，三个状态取最小
+            int minTmp = Math.min(Math.min(num, num * maxI), num * minI);
+
+            //务必注意，maxI和minI参与了计算maxTmp和minTmp，因此务必要在此之后才更新他们
+            maxI = maxTmp;
+            minI = minTmp;
+
+            res = Math.max(res, maxI);
         }
 
-        return maxMultipleSoFar;
+        return res;
     }
 }
