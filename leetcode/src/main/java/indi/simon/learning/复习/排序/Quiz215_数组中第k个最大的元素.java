@@ -1,8 +1,6 @@
 package indi.simon.learning.复习.排序;
 
-import java.util.Comparator;
 import java.util.PriorityQueue;
-import java.util.Random;
 
 /**
  * @author chenzhuo(zhiyue)
@@ -44,9 +42,8 @@ public class Quiz215_数组中第k个最大的元素 {
         }
         int n = nums.length;
         for (int i = k; i < n; i++) {
-            // 只要当前遍历的元素比堆顶元素大，堆顶弹出，遍历的元素进去
+            // 当前元素比堆顶元素大，堆顶弹出，当前元素入堆
             if (nums[i] > minHeap.peek()) {
-                // Java 没有 replace()，所以得先 poll() 出来，然后再放回去
                 minHeap.poll();
                 minHeap.offer(nums[i]);
             }

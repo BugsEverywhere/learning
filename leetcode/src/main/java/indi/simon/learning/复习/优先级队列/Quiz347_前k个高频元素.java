@@ -47,7 +47,8 @@ public class Quiz347_前k个高频元素 {
     }
 
     public int[] topKFrequent(int[] nums, int k) {
-        Map<Integer, Integer> occurrences = new HashMap<Integer, Integer>();
+        //key为数字本身，val为该数出现次数
+        Map<Integer, Integer> occurrences = new HashMap<>();
         for (int num : nums) {
             occurrences.put(num, occurrences.getOrDefault(num, 0) + 1);
         }
