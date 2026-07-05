@@ -33,56 +33,25 @@ public class Quiz215_数组中第k个最大的元素 {
         Quiz215_数组中第k个最大的元素 quiz215_数组中第k个最大的元素 = new Quiz215_数组中第k个最大的元素();
         int res = quiz215_数组中第k个最大的元素.findKthLargest(nums, 2);
         System.out.println(res);
-    }
 
-    private final static Random RANDOM = new Random(System.currentTimeMillis());
+    }
 
     public int findKthLargest(int[] nums, int k) {
+        // 使用一个含有 k 个元素的最小堆，PriorityQueue 底层是动态数组，为了防止数组扩容产生消耗，可以先指定数组的长度
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>(k);
+        for (int i = 0; i < k; i++) {
+            minHeap.offer(nums[i]);
+        }
         int n = nums.length;
-        int left = 0;
-        int right = n - 1;
-        int target = n - k;
-        while (true) {
-            int j = partition(nums, left, right);
-            if (j == target) {
-                return nums[j];
-            } else if (j < target) {
-                left = j + 1;
-            } else {
-                right = j - 1;
+        for (int i = k; i < n; i++) {
+            // 只要当前遍历的元素比堆顶元素大，堆顶弹出，遍历的元素进去
+            if (nums[i] > minHeap.peek()) {
+                // Java 没有 replace()，所以得先 poll() 出来，然后再放回去
+                minHeap.poll();
+                minHeap.offer(nums[i]);
             }
         }
-    }
-
-    private int partition(int[] nums, int left, int right) {
-        int randomIndex = left + RANDOM.nextInt(right - left + 1);
-        swap(nums, left, randomIndex);
-        // nums[left + 1..le) <= pivot，nums(ge..right] >= pivot;
-        int pivot = nums[left];
-        int le = left + 1;
-        int ge = right;
-        while (true) {
-            while (le <= ge && nums[le] < pivot) {
-                le++;
-            }
-            while (le <= ge && nums[ge] > pivot) {
-                ge--;
-            }
-            if (le >= ge) {
-                break;
-            }
-            swap(nums, le, ge);
-            le++;
-            ge--;
-        }
-        swap(nums, left, ge);
-        return ge;
-    }
-
-    private void swap(int[] nums, int index1, int index2) {
-        int temp = nums[index1];
-        nums[index1] = nums[index2];
-        nums[index2] = temp;
+        return minHeap.peek();
     }
 
 }
