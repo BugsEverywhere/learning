@@ -46,15 +46,18 @@ public class Quiz416_分割等和子集 {
         }
 
         //dp[i][j]表示到第i个数为止，组成j的可能性，可以组成j则为true，否则为false
-        //第0列没用
+        //由于所有数是正整数，因此第0列没用，不会存在dp[i][0]的状态
         boolean[][] dp = new boolean[nums.length][sum + 1];
         dp[0][nums[0]] = true;
 
         for (int i = 1; i < nums.length; i++) {
             for (int j = 1; j < dp[0].length; j++) {
                 if (j >= nums[i]) {
+                    //情况1：前i-1个数已经能组成数字j了，那前i个数肯定也能组成数字j
+                    //情况2：前i-1个数可以组成数字j-nums[i]，那到了第i个数，加上nums[i]就能组成数字j
                     dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i]];
                 } else {
+                    //j如果本身比nums[i]更小，那直接继承前i-1个数的状态即可
                     dp[i][j] = dp[i - 1][j];
                 }
             }
