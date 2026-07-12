@@ -1,4 +1,4 @@
-package indi.simon.learning.复习.优先级队列;
+package indi.simon.learning.复习.排序;
 
 import java.util.Arrays;
 

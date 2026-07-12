@@ -1,4 +1,4 @@
-package indi.simon.learning.复习.动态规划;
+package indi.simon.learning.复习.动态规划.股票;
 
 /**
  * @author chenzhuo(zhiyue)
