@@ -43,10 +43,10 @@ public class Quiz5_最长回文子串 {
         for (int i = n - 1; i >= 0; i--) {
             for (int j = i + 1; j < n; j++) {
                 if (s.charAt(i) == s.charAt(j) && i + 1 <= j - 1 && dp[i + 1][j - 1]) {
-                    //状态继承
+                    //i和j不紧邻，那么他们构成一个回文串的前提是i+1与j-1也是回文串且i和j相等
                     dp[i][j] = true;
                 } else if (i + 1 == j) {
-                    //状态转移
+                    //i和j紧邻，那么他们相等的话就构成一个长度为2的回文串
                     dp[i][j] = (s.charAt(i) == s.charAt(j));
                 }
 
