@@ -21,15 +21,15 @@ public class Quiz516_最长回文子序列长度 {
         //dp[i][j]表示[i,j]子串中，最长的回文子序列长度
         int[][] dp = new int[n][n];
 
-        for(int i = 0; i < n;i++){
+        for (int i = 0; i < n; i++) {
             dp[i][i] = 1;
         }
 
-        for(int i = n-1;i >= 0;i--){
-            for(int j = i + 1; j < n;j++){
-                if(s.charAt(i) == s.charAt(j)){
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i + 1; j < n; j++) {
+                if (s.charAt(i) == s.charAt(j)) {
                     //如果i和j字符相同，需要转移
-                    dp[i][j] = dp[i+1][j-1] + 2;
+                    dp[i][j] = dp[i + 1][j - 1] + 2;
                 } else {
                     //如果i和j字符不相同，则直接继承之前的大者
                     dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
@@ -37,7 +37,7 @@ public class Quiz516_最长回文子序列长度 {
             }
 
         }
-        return dp[0][n-1];
+        return dp[0][n - 1];
     }
 
 }
