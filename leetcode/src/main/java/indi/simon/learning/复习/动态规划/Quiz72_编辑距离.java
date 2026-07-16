@@ -4,10 +4,10 @@ package indi.simon.learning.复习.动态规划;
  * Created by Chen Zhuo on 2024/2/3.
  */
 //todo: 动态规划得转移很精妙，还有初始化时的哨兵
-public class Quiz72_字符串word1变到word2 {
+public class Quiz72_编辑距离 {
 
     public static void main(String[] args) {
-        Quiz72_字符串word1变到word2 quiz72Hinted = new Quiz72_字符串word1变到word2();
+        Quiz72_编辑距离 quiz72Hinted = new Quiz72_编辑距离();
         int res = quiz72Hinted.minDistance("", "a");
         System.out.println(res);
     }
