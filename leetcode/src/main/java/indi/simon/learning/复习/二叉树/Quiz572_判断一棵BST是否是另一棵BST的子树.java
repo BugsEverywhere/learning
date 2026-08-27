@@ -28,7 +28,7 @@ import indi.simon.learning.leetcode.commonmodel.TreeNode;
  * -104 <= root.val <= 104
  * -104 <= subRoot.val <= 104
  */
-public class Quiz572 {
+public class Quiz572_判断一棵BST是否是另一棵BST的子树 {
 
     public static void main(String[] args) {
         TreeNode three = new TreeNode(3);
