@@ -40,22 +40,21 @@ public class Quiz207_课程表 {
     }
 
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        //构建有向图
-        //key：课程
-        //val：该课程的所有后续课程
-        Map<Integer, List<Integer>> afterCourseMap = new HashMap<>();
-        for (int[] pair : prerequisites) {
-            List<Integer> afterCourseList = afterCourseMap.getOrDefault(pair[1], new ArrayList<>());
-            afterCourseList.add(pair[0]);
-            afterCourseMap.put(pair[1], afterCourseList);
+
+        //val为key课程的后续课程
+        Map<Integer, List<Integer>> afterMap = new HashMap<>();
+
+        for (int[] prerequisite : prerequisites) {
+            int first = prerequisite[1];
+            int after = prerequisite[0];
+
+            List<Integer> afterList = afterMap.getOrDefault(first, new ArrayList<>());
+            afterList.add(after);
+            afterMap.put(first, afterList);
         }
 
-        //遍历所有课程，递归后置课程，看看是否有环
-        for (int i = 0; i < numCourses; i++) {
-            if (!afterCourseMap.containsKey(i)) {
-                continue;
-            }
-            if (!dfs(afterCourseMap, new HashSet<>(), i)) {
+        for (int i = 1; i <= numCourses; i++) {
+            if (!dfs(afterMap, new HashSet<>(), i)) {
                 return false;
             }
         }
@@ -63,25 +62,32 @@ public class Quiz207_课程表 {
         return true;
     }
 
-    private boolean dfs(Map<Integer, List<Integer>> afterCourseMap, Set<Integer> path, int i) {
+    private boolean dfs(Map<Integer, List<Integer>> afterMap, Set<Integer> path, int i) {
+        //有环
         if (path.contains(i)) {
-            //有环
             return false;
         }
-        path.add(i);
-        List<Integer> afterCourses = afterCourseMap.get(i);
-        if (afterCourses == null) {
+
+        //已经不存在i的后续课程，说明之前遍历过i，或者本来i就没有后继课程，直接返回
+        if (!afterMap.containsKey(i)) {
             return true;
         }
-        //将i加入到path之后，就可以在有向图中删除i，因为i在这一次递归能成就代表以后再递归到它都能成，
-        // 后续无需再考虑i，相当于剪枝
-        afterCourseMap.remove(i);
-        for (Integer j : afterCourses) {
-            if (!dfs(afterCourseMap, new HashSet<>(path), j)) {
+
+        //取出i的所有后继课程
+        List<Integer> afterList = afterMap.get(i);
+
+        //剪枝，可以将i的后继课程都去除了，因为本次递归如果没问题，后面再到i也不会出问题
+        afterMap.remove(i);
+
+        for (Integer after : afterList) {
+            Set<Integer> newPath = new HashSet<>(path);
+            newPath.add(i);
+            if (!dfs(afterMap, newPath, after)) {
                 return false;
             }
         }
         return true;
+
     }
 
 
